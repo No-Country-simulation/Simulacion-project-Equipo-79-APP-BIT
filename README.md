@@ -4,4 +4,4 @@ asdasdasd
 Anthony Anthony
 Milena
 Antonio Del Hierro
-Fernando- se olvidaron de mi, se pasan parceritos 
+Fernando- se olvidaron de mi, se pasan parceritos :c no sean malos colombianos 
