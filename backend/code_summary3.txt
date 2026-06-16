@@ -1,0 +1,93 @@
+--- FILE: src/main/java/com/appbit/backend/BackendApplication.java ---
+package com.appbit.backend;
+
+
+@SpringBootApplication
+public class BackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BackendApplication.class, args);
+	}
+
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/dto/AnonymousCandidateResponse.java ---
+package com.appbit.backend.modules.agent.dto;
+
+public class AnonymousCandidateResponse {
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/dto/JobMatchRequest.java ---
+package com.appbit.backend.modules.agent.dto;
+
+
+public record JobMatchRequest(
+        Long jobId,
+        String title,
+        String description,
+        List<String> requiredSkills,
+        String experienceLevel
+) {}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/dto/MatchResultResponse.java ---
+package com.appbit.backend.modules.agent.dto;
+
+
+public record MatchResultResponse(
+        Long candidateId,
+        int compatibilityScore,     // Puntuación de 0 a 100
+        List<String> matchingSkills, // Tecnologías en común encontradas
+        String inclusionReason,     // Justificación técnica del agente
+        String diversityBadge       // Distintivo si cumple con cuota regional/inclusión
+) {}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/service/MatchingAgentService.java ---
+package com.appbit.backend.modules.agent.service;
+
+
+
+@Service
+public class MatchingAgentService {
+
+    /**
+     * Ejecuta el proceso de evaluación y emparejamiento usando los DTOs oficiales.
+     */
+    public List<MatchResultResponse> executeMatching(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
+
+        // Simulación de latencia mínima del LLM
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // Mock oficial alineado a la estructura de la Semana 1
+        return List.of(
+                new MatchResultResponse(
+                        101L,
+                        92,
+                        List.of("Java", "Spring Boot", "SQL"),
+                        "El candidato cubre el núcleo del stack requerido y cuenta con sólida experiencia en desarrollo backend.",
+                        "DIVERSITY_LEADER"
+                ),
+                new MatchResultResponse(
+                        102L,
+                        75,
+                        List.of("Java", "Hibernate"),
+                        "Posee las bases de persistencia solicitadas, pero requiere reforzar conocimientos en sistemas distribuidos.",
+                        ""
+                )
+        );
+    }
+}
+
+
+
