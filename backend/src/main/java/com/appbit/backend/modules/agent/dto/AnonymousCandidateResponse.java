@@ -1,4 +1,12 @@
 package com.appbit.backend.modules.agent.dto;
 
-public class AnonymousCandidateResponse {
-}
+import java.util.List;
+
+public record AnonymousCandidateResponse(
+        Long candidateId,
+        List<String> skills,
+        String experienceLevel,
+        String region,
+        double latitude,
+        double longitude
+) {}
