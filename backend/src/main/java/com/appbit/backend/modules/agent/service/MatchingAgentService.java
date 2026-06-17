@@ -1,7 +1,7 @@
 package com.appbit.backend.modules.agent.service;
 
-import com.appbit.backend.modules.agent.dto.AnonymousCandidateResponse;
-import com.appbit.backend.modules.agent.dto.JobMatchRequest;
+import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
+import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.agent.dto.MatchResultResponse;
 import org.springframework.stereotype.Service;
 

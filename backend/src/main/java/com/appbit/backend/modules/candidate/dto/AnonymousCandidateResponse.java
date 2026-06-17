@@ -1,4 +1,4 @@
-package com.appbit.backend.modules.agent.dto;
+package com.appbit.backend.modules.candidate.dto;
 
 import java.util.List;
 
