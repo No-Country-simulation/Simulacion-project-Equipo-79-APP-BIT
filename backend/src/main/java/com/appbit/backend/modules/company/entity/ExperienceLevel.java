@@ -1,4 +1,4 @@
-package com.appbit.backend.entity;
+package com.appbit.backend.modules.company.entity;
 
 public enum ExperienceLevel {
     JUNIOR,

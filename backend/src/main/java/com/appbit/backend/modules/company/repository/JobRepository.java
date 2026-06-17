@@ -1,6 +1,6 @@
-package com.appbit.backend.repository;
+package com.appbit.backend.modules.company.repository;
 
-import com.appbit.backend.entity.Job;
+import com.appbit.backend.modules.company.entity.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

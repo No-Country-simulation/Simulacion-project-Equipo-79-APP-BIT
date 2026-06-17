@@ -1,7 +1,7 @@
-package com.appbit.backend.service;
+package com.appbit.backend.modules.company.service;
 
-import com.appbit.backend.entity.Company;
-import com.appbit.backend.repository.CompanyRepository;
+import com.appbit.backend.modules.company.entity.Company;
+import com.appbit.backend.modules.company.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
