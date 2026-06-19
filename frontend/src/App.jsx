@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-      <h1>App.jsx</h1>
+      <h1></h1>
     </>
   )
 }
