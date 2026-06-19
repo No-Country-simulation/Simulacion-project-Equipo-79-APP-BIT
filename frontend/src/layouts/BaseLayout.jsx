@@ -11,7 +11,7 @@ import HamburgerMenuIcon from "../components/icons/HamburgerMenuIcon"
 import SearchIcon from '../components/icons/SearchIcon'
 // ? react deps
 import { useState } from "react"
-import { useLocation, useSearchParams } from "react-router"
+import { useLocation, useSearchParams, Link } from "react-router"
 
 const routeConfig = {
   '/': {
@@ -61,16 +61,16 @@ const Layout = ({ children }) => {
           </div>
           {/* //* nav */}
           <ul className="[&_a]:inline-flex [&_a]:gap-2.5 [&_a]:items-center [&_a]:mx-4 [&_li]:my-2.5 [&_li]:py-2 mt-8 [&>li]:hover:bg-[#6DF5E1] [&>.activebtn]:bg-[#6DF5E1] *:rounded-lg *:cursor-pointer *:hover:text-black *:hover:transition-colors">
-            <li className="activebtn"><a href="#"><DashboardIcon />Dashboard</a></li>
-            <li><a href="#"><JobsIcon />Jobs</a></li>
-            <li><a href="#"><InsightsIcon />Insights</a></li>
-            <li><a href="#"><SettingsIcon />Settings</a></li>
+            <li className={pathname === '/' ? 'activebtn' : ''}><Link to="/"><DashboardIcon />Dashboard</Link></li>
+            <li className={pathname === '/job' ? 'activebtn' : ''}><Link to="/job"><JobsIcon />Jobs</Link></li>
+            <li className={pathname === '/insights' ? 'activebtn' : ''}><Link to="/insights"><InsightsIcon />Insights</Link></li>
+            <li className={pathname === '/settings' ? 'activebtn' : ''}><Link to="/settings"><SettingsIcon />Settings</Link></li>
           </ul>
           {/* //* footer */}
           <div id="aside-footer" className="flex flex-col gap-5 [&_a]:hover:text-black *:hover:transition-colors [&_a]:mx-4">
-            <button className="bg-[#006B5F] text-[#FFFFFF] rounded-xl px-4 py-2 cursor-pointer hover:brightness-95 transition-colors">Post New Job</button>
-            <a href="#" className="inline-flex gap-4 items-center"><SupportIcon />Support</a>
-            <a href="#" className="inline-flex gap-4 items-center"><SignOutIcon />Sign Out</a>
+            <Link to="/create-job" className="bg-[#006B5F] text-[#FFFFFF] rounded-xl px-4 py-2 cursor-pointer hover:brightness-95 transition-colors text-center">Post New Job</Link>
+            <Link to="/support" className="inline-flex gap-4 items-center"><SupportIcon />Support</Link>
+            <Link to="/settings" className="inline-flex gap-4 items-center"><SignOutIcon />Sign Out</Link>
           </div>
         </aside>
         {/* // ? header */}

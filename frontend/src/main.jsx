@@ -7,7 +7,11 @@ import BaseLayout from './layouts/BaseLayout.jsx'
 import './index.css'
 import App from './App.jsx'
 import RegisterCompany from './pages/RegisterCompany.jsx';
-import CreateJobOffer from './pages/CreateJobOffer.jsx'
+import CreateJobOffer from './pages/CreateJobOffer.jsx';
+import Jobs from './pages/Jobs.jsx';
+import Insights from './pages/Insights.jsx';
+import Settings from './pages/Settings.jsx';
+import Support from './pages/Support.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +21,10 @@ createRoot(document.getElementById('root')).render(
           <Route path='/' element={<App />} />
           <Route path='/register-company' element={<RegisterCompany />} />
           <Route path='/create-job' element={<CreateJobOffer />} />
+          <Route path='/job' element={<Jobs />} />
+          <Route path='/insights' element={<Insights />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/support' element={<Support />} />
         </Routes>
       </BaseLayout>
     </BrowserRouter>
