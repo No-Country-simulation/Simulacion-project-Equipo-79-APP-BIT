@@ -11,14 +11,14 @@ import CreateJobOffer from './pages/CreateJobOffer.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BaseLayout>
-      <BrowserRouter>
+    <BrowserRouter>
+      <BaseLayout>
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='/register-company' element={<RegisterCompany />} />
           <Route path='/create-job' element={<CreateJobOffer />} />
         </Routes>
-      </BrowserRouter>
-    </BaseLayout>
+      </BaseLayout>
+    </BrowserRouter>
   </StrictMode>,
 )
