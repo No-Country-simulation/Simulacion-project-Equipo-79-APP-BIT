@@ -1,10 +1,288 @@
+import { useState, useMemo } from 'react';
+import { useParams, Link } from 'react-router';
+
+const ChevronIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+);
+
+const JobsIconSm = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+  </svg>
+);
+
+const jobs = [
+  { id: 1, title: 'Senior ESG Data Analyst', department: 'Strategy & Growth', region: 'Bogotá', experienceLevel: 'SENIOR', description: 'Analyze ESG metrics and drive sustainability strategy across the organization.' },
+  { id: 2, title: 'Full Stack Developer', department: 'Engineering', region: 'São Paulo', experienceLevel: 'MID', description: 'Build and maintain web applications for the ESG matching platform.' },
+  { id: 3, title: 'Sustainability Coordinator', department: 'ESG', region: 'Buenos Aires', experienceLevel: 'JUNIOR', description: 'Coordinate sustainability initiatives and track ESG compliance.' },
+  { id: 4, title: 'Backend Engineer (Java)', department: 'Engineering', region: 'Ciudad de México', experienceLevel: 'SENIOR', description: 'Design and implement scalable backend services.' },
+  { id: 5, title: 'Data Engineer', department: 'Data', region: 'Lima', experienceLevel: 'MID', description: 'Build data pipelines for diversity and inclusion analytics.' },
+];
+
+const mockCandidates = [
+  {
+    candidateId: 101, compatibilityScore: 92,
+    matchingSkills: ['Java', 'Spring Boot', 'SQL'],
+    inclusionReason: 'El candidato cubre el núcleo del stack requerido y cuenta con sólida experiencia en desarrollo backend.',
+    diversityBadge: 'DIVERSITY_LEADER',
+    skills: ['Java', 'Spring Boot', 'SQL', 'Docker', 'Kubernetes', 'Microservices'],
+    experienceLevel: 'SENIOR', region: 'Bogotá',
+  },
+  {
+    candidateId: 102, compatibilityScore: 75,
+    matchingSkills: ['Java', 'Hibernate'],
+    inclusionReason: 'Posee las bases de persistencia solicitadas, pero requiere reforzar conocimientos en sistemas distribuidos.',
+    diversityBadge: '',
+    skills: ['Java', 'Hibernate', 'PostgreSQL', 'REST API'],
+    experienceLevel: 'MID', region: 'São Paulo',
+  },
+  {
+    candidateId: 103, compatibilityScore: 88,
+    matchingSkills: ['Python', 'SQL', 'Machine Learning'],
+    inclusionReason: 'Fuerte experiencia en análisis de datos y modelos predictivos alineados con métricas ESG.',
+    diversityBadge: 'INCLUSION_CHAMPION',
+    skills: ['Python', 'SQL', 'Machine Learning', 'TensorFlow', 'Pandas', 'Power BI'],
+    experienceLevel: 'SENIOR', region: 'Buenos Aires',
+  },
+  {
+    candidateId: 104, compatibilityScore: 65,
+    matchingSkills: ['JavaScript', 'React'],
+    inclusionReason: 'Maneja tecnologías frontend requeridas, con experiencia comprobable en proyectos colaborativos.',
+    diversityBadge: '',
+    skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
+    experienceLevel: 'JUNIOR', region: 'Ciudad de México',
+  },
+  {
+    candidateId: 105, compatibilityScore: 95,
+    matchingSkills: ['Java', 'Spring Boot', 'SQL', 'Cloud', 'Microservices'],
+    inclusionReason: 'Perfil completo con experiencia en arquitecturas cloud-native y escalabilidad. Supera todos los requisitos técnicos.',
+    diversityBadge: 'DIVERSITY_LEADER',
+    skills: ['Java', 'Spring Boot', 'SQL', 'AWS', 'Microservices', 'Kubernetes', 'Terraform'],
+    experienceLevel: 'SENIOR', region: 'Lima',
+  },
+  {
+    candidateId: 106, compatibilityScore: 82,
+    matchingSkills: ['Python', 'ETL', 'SQL'],
+    inclusionReason: 'Experiencia sólida en pipelines de datos y transformación ETL para reporting ESG.',
+    diversityBadge: 'INCLUSION_CHAMPION',
+    skills: ['Python', 'ETL', 'SQL', 'Airflow', 'Spark', 'Tableau'],
+    experienceLevel: 'MID', region: 'Bogotá',
+  },
+  {
+    candidateId: 107, compatibilityScore: 55,
+    matchingSkills: ['JavaScript'],
+    inclusionReason: 'Conocimientos básicos de frontend pero sin experiencia en frameworks modernos ni proyectos en equipo.',
+    diversityBadge: '',
+    skills: ['JavaScript', 'HTML', 'CSS', 'Photoshop'],
+    experienceLevel: 'JUNIOR', region: 'São Paulo',
+  },
+  {
+    candidateId: 108, compatibilityScore: 78,
+    matchingSkills: ['SQL', 'Data Analysis', 'Excel'],
+    inclusionReason: 'Perfil analítico con capacidad de interpretar datos de diversidad y generar reportes ESG.',
+    diversityBadge: 'DIVERSITY_LEADER',
+    skills: ['SQL', 'Data Analysis', 'Excel', 'Power BI', 'Communication'],
+    experienceLevel: 'MID', region: 'Buenos Aires',
+  },
+];
+
+const regions = [...new Set(mockCandidates.map(c => c.region))];
+const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
+
+const ScoreCircle = ({ score }) => {
+  const color = score >= 85 ? '#006B5F' : score >= 70 ? '#F59E0B' : '#EF4444';
+  return (
+    <div className="relative w-16 h-16 flex items-center justify-center">
+      <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#E5E7EB" strokeWidth="2.5" />
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="2.5"
+          strokeDasharray={`${(score / 100) * 97.4} 97.4`} strokeLinecap="round" />
+      </svg>
+      <span className="absolute text-sm font-bold" style={{ color }}>{score}%</span>
+    </div>
+  );
+};
+
+const BadgeTag = ({ badge }) => {
+  if (!badge) return null;
+  const colors = {
+    DIVERSITY_LEADER: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+    INCLUSION_CHAMPION: 'bg-blue-100 text-blue-800 border-blue-200',
+  };
+  return (
+    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${colors[badge] || 'bg-gray-100 text-gray-700 border-gray-200'}`}>
+      {badge.replace(/_/g, ' ')}
+    </span>
+  );
+};
+
+const SkillTag = ({ skill, matched }) => (
+  <span className={`text-xs px-2.5 py-1 rounded-md font-medium ${matched ? 'bg-[#006B5F]/10 text-[#006B5F] border border-[#006B5F]/20' : 'bg-gray-100 text-gray-500 border border-gray-200'}`}>
+    {skill}{matched && ' ✓'}
+  </span>
+);
 
 const CandidatesList = () => {
-  return (
-    <div>
-      <h2>Candidates List Page</h2>
-    </div>
-  )
-}
+  const { jobId } = useParams();
+  const job = jobs.find(j => j.id === Number(jobId));
 
-export default CandidatesList
+  const [regionFilter, setRegionFilter] = useState('');
+  const [levelFilter, setLevelFilter] = useState('');
+  const [selectedCandidates, setSelectedCandidates] = useState(new Set());
+
+  const filteredCandidates = useMemo(() => {
+    if (!job) return [];
+    return mockCandidates.filter(c => {
+      if (regionFilter && c.region !== regionFilter) return false;
+      if (levelFilter && c.experienceLevel !== levelFilter) return false;
+      return true;
+    }).sort((a, b) => b.compatibilityScore - a.compatibilityScore);
+  }, [job, regionFilter, levelFilter]);
+
+  const toggleCandidate = (id) => {
+    setSelectedCandidates(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const handleContact = () => {
+    alert(`Contacto iniciado con ${selectedCandidates.size} candidato(s) seleccionado(s).`);
+  };
+
+  const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2B6952]/20 focus:border-[#2B6952] bg-white transition-all';
+
+  if (!job) {
+    return (
+      <div className="p-8 max-w-4xl mx-auto">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-16 text-center">
+          <p className="text-gray-400 text-lg">Job not found.</p>
+          <Link to="/job" className="text-[#006B5F] hover:underline text-sm mt-2 inline-block">Back to Jobs</Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-8 max-w-6xl mx-auto">
+      <div className="mb-8">
+        <Link to="/job" className="text-xs text-gray-400 hover:text-[#006B5F] transition-colors inline-flex items-center gap-1 mb-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Jobs
+        </Link>
+        <h1 className="text-2xl font-bold text-gray-800">{job.title}</h1>
+        <p className="text-sm text-gray-500 mt-1">
+          {job.department} · {job.region} · {job.experienceLevel.charAt(0) + job.experienceLevel.slice(1).toLowerCase()}
+        </p>
+        <p className="text-xs text-gray-400 mt-1">{job.description}</p>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex flex-col">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">Region</label>
+            <div className="relative">
+              <select value={regionFilter} onChange={e => setRegionFilter(e.target.value)} className={`${inputClass} appearance-none pr-9 cursor-pointer`}>
+                <option value="">All Regions</option>
+                {regions.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">Experience Level</label>
+            <div className="relative">
+              <select value={levelFilter} onChange={e => setLevelFilter(e.target.value)} className={`${inputClass} appearance-none pr-9 cursor-pointer`}>
+                <option value="">All Levels</option>
+                {experienceLevels.map(l => <option key={l} value={l}>{l.charAt(0) + l.slice(1).toLowerCase()}</option>)}
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
+            </div>
+          </div>
+          <div className="flex items-end">
+            <button onClick={() => setSelectedCandidates(new Set())}
+              className="w-full border border-gray-300 text-gray-600 hover:bg-gray-50 text-sm font-semibold px-6 py-2.5 rounded-lg transition-all cursor-pointer">
+              Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex gap-4 text-sm text-gray-500">
+          <span className="font-semibold text-gray-700">{filteredCandidates.length} candidates found</span>
+          <span className="hidden sm:inline">|</span>
+          <span>Avg Score: {filteredCandidates.length > 0 ? Math.round(filteredCandidates.reduce((a, c) => a + c.compatibilityScore, 0) / filteredCandidates.length) : 0}%</span>
+          <span className="hidden sm:inline">|</span>
+          <span>Diversity: {filteredCandidates.filter(c => c.diversityBadge).length}/{filteredCandidates.length}</span>
+        </div>
+        {selectedCandidates.size > 0 && (
+          <button onClick={handleContact}
+            className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all shadow-sm cursor-pointer flex items-center gap-2">
+            <JobsIconSm />
+            Contact Selected ({selectedCandidates.size})
+          </button>
+        )}
+      </div>
+
+      {filteredCandidates.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 text-center">
+          <p className="text-gray-400 text-lg">No candidates match the selected filters.</p>
+          <p className="text-gray-400 text-sm mt-1">Try adjusting the region or experience level criteria.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {filteredCandidates.map(candidate => (
+            <div key={candidate.candidateId}
+              className={`bg-white rounded-2xl border shadow-sm p-5 transition-all hover:shadow-md ${selectedCandidates.has(candidate.candidateId) ? 'border-[#006B5F] ring-2 ring-[#006B5F]/20' : 'border-gray-200'}`}>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 pt-1">
+                  <ScoreCircle score={candidate.compatibilityScore} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-sm font-bold text-gray-800">Candidate #{candidate.candidateId}</h3>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {candidate.region} · {candidate.experienceLevel.charAt(0) + candidate.experienceLevel.slice(1).toLowerCase()}
+                      </p>
+                    </div>
+                    <BadgeTag badge={candidate.diversityBadge} />
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {candidate.skills.map(skill => (
+                      <SkillTag key={skill} skill={skill} matched={candidate.matchingSkills.includes(skill)} />
+                    ))}
+                  </div>
+
+                  <p className="text-xs text-gray-500 mt-3 leading-relaxed border-t border-gray-100 pt-3">
+                    {candidate.inclusionReason}
+                  </p>
+
+                  <div className="mt-3 flex items-center gap-3">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" checked={selectedCandidates.has(candidate.candidateId)}
+                        onChange={() => toggleCandidate(candidate.candidateId)}
+                        className="w-4 h-4 rounded border-gray-300 text-[#006B5F] focus:ring-[#006B5F] cursor-pointer accent-[#006B5F]" />
+                      <span className="text-xs font-medium text-gray-600 group-hover:text-gray-800 select-none">
+                        {selectedCandidates.has(candidate.candidateId) ? 'Selected' : 'Select to contact'}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CandidatesList;
