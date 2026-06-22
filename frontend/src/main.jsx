@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 // ? deps
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Toaster } from 'sileo';
 // ? components
 import BaseLayout from './layouts/BaseLayout.jsx'
 import './index.css'
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <BaseLayout>
+        <Toaster position="top-center" />
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='/register-company' element={<RegisterCompany />} />
