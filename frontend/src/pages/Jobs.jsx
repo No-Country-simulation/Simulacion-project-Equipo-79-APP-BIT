@@ -1,19 +1,6 @@
 import { Link } from 'react-router';
-
-const PinIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-    <circle cx="12" cy="10" r="3"/>
-  </svg>
-);
-
-const jobs = [
-  { id: 1, title: 'Senior ESG Data Analyst', department: 'Strategy & Growth', region: 'Bogotá', experienceLevel: 'SENIOR', description: 'Analyze ESG metrics and drive sustainability strategy across the organization.' },
-  { id: 2, title: 'Full Stack Developer', department: 'Engineering', region: 'São Paulo', experienceLevel: 'MID', description: 'Build and maintain web applications for the ESG matching platform.' },
-  { id: 3, title: 'Sustainability Coordinator', department: 'ESG', region: 'Buenos Aires', experienceLevel: 'JUNIOR', description: 'Coordinate sustainability initiatives and track ESG compliance.' },
-  { id: 4, title: 'Backend Engineer (Java)', department: 'Engineering', region: 'Ciudad de México', experienceLevel: 'SENIOR', description: 'Design and implement scalable backend services.' },
-  { id: 5, title: 'Data Engineer', department: 'Data', region: 'Lima', experienceLevel: 'MID', description: 'Build data pipelines for diversity and inclusion analytics.' },
-];
+import { jobs } from '../data/jobs.js';
+import PinIcon from '../components/icons/PinIcon';
 
 const levelColors = {
   JUNIOR: 'bg-blue-100 text-blue-700',
