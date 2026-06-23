@@ -26,10 +26,7 @@ public class CompanyService {
         if (company.name() == null || company.name().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de la empresa es obligatorio.");
         }
-        // Validar si ya existe una empresa con ese nombre
-        boolean exists = companyRepository.findAll().stream()
-                .anyMatch(c -> c.getName().equalsIgnoreCase(company.name()));
-        if (exists) {
+        if (companyRepository.existsByNameIgnoreCase(company.name())) {
             throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
         }
 
