@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router';
+import { jobs } from '../data/jobs.js';
+import { mockCandidates } from '../data/candidates.js';
 
 const ChevronIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -13,81 +15,6 @@ const JobsIconSm = () => (
     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
   </svg>
 );
-
-const jobs = [
-  { id: 1, title: 'Senior ESG Data Analyst', department: 'Strategy & Growth', region: 'Bogotá', experienceLevel: 'SENIOR', description: 'Analyze ESG metrics and drive sustainability strategy across the organization.' },
-  { id: 2, title: 'Full Stack Developer', department: 'Engineering', region: 'São Paulo', experienceLevel: 'MID', description: 'Build and maintain web applications for the ESG matching platform.' },
-  { id: 3, title: 'Sustainability Coordinator', department: 'ESG', region: 'Buenos Aires', experienceLevel: 'JUNIOR', description: 'Coordinate sustainability initiatives and track ESG compliance.' },
-  { id: 4, title: 'Backend Engineer (Java)', department: 'Engineering', region: 'Ciudad de México', experienceLevel: 'SENIOR', description: 'Design and implement scalable backend services.' },
-  { id: 5, title: 'Data Engineer', department: 'Data', region: 'Lima', experienceLevel: 'MID', description: 'Build data pipelines for diversity and inclusion analytics.' },
-];
-
-const mockCandidates = [
-  {
-    candidateId: 101, compatibilityScore: 92,
-    matchingSkills: ['Java', 'Spring Boot', 'SQL'],
-    inclusionReason: 'El candidato cubre el núcleo del stack requerido y cuenta con sólida experiencia en desarrollo backend.',
-    diversityBadge: 'DIVERSITY_LEADER',
-    skills: ['Java', 'Spring Boot', 'SQL', 'Docker', 'Kubernetes', 'Microservices'],
-    experienceLevel: 'SENIOR', region: 'Bogotá',
-  },
-  {
-    candidateId: 102, compatibilityScore: 75,
-    matchingSkills: ['Java', 'Hibernate'],
-    inclusionReason: 'Posee las bases de persistencia solicitadas, pero requiere reforzar conocimientos en sistemas distribuidos.',
-    diversityBadge: '',
-    skills: ['Java', 'Hibernate', 'PostgreSQL', 'REST API'],
-    experienceLevel: 'MID', region: 'São Paulo',
-  },
-  {
-    candidateId: 103, compatibilityScore: 88,
-    matchingSkills: ['Python', 'SQL', 'Machine Learning'],
-    inclusionReason: 'Fuerte experiencia en análisis de datos y modelos predictivos alineados con métricas ESG.',
-    diversityBadge: 'INCLUSION_CHAMPION',
-    skills: ['Python', 'SQL', 'Machine Learning', 'TensorFlow', 'Pandas', 'Power BI'],
-    experienceLevel: 'SENIOR', region: 'Buenos Aires',
-  },
-  {
-    candidateId: 104, compatibilityScore: 65,
-    matchingSkills: ['JavaScript', 'React'],
-    inclusionReason: 'Maneja tecnologías frontend requeridas, con experiencia comprobable en proyectos colaborativos.',
-    diversityBadge: '',
-    skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
-    experienceLevel: 'JUNIOR', region: 'Ciudad de México',
-  },
-  {
-    candidateId: 105, compatibilityScore: 95,
-    matchingSkills: ['Java', 'Spring Boot', 'SQL', 'Cloud', 'Microservices'],
-    inclusionReason: 'Perfil completo con experiencia en arquitecturas cloud-native y escalabilidad. Supera todos los requisitos técnicos.',
-    diversityBadge: 'DIVERSITY_LEADER',
-    skills: ['Java', 'Spring Boot', 'SQL', 'AWS', 'Microservices', 'Kubernetes', 'Terraform'],
-    experienceLevel: 'SENIOR', region: 'Lima',
-  },
-  {
-    candidateId: 106, compatibilityScore: 82,
-    matchingSkills: ['Python', 'ETL', 'SQL'],
-    inclusionReason: 'Experiencia sólida en pipelines de datos y transformación ETL para reporting ESG.',
-    diversityBadge: 'INCLUSION_CHAMPION',
-    skills: ['Python', 'ETL', 'SQL', 'Airflow', 'Spark', 'Tableau'],
-    experienceLevel: 'MID', region: 'Bogotá',
-  },
-  {
-    candidateId: 107, compatibilityScore: 55,
-    matchingSkills: ['JavaScript'],
-    inclusionReason: 'Conocimientos básicos de frontend pero sin experiencia en frameworks modernos ni proyectos en equipo.',
-    diversityBadge: '',
-    skills: ['JavaScript', 'HTML', 'CSS', 'Photoshop'],
-    experienceLevel: 'JUNIOR', region: 'São Paulo',
-  },
-  {
-    candidateId: 108, compatibilityScore: 78,
-    matchingSkills: ['SQL', 'Data Analysis', 'Excel'],
-    inclusionReason: 'Perfil analítico con capacidad de interpretar datos de diversidad y generar reportes ESG.',
-    diversityBadge: 'DIVERSITY_LEADER',
-    skills: ['SQL', 'Data Analysis', 'Excel', 'Power BI', 'Communication'],
-    experienceLevel: 'MID', region: 'Buenos Aires',
-  },
-];
 
 const regions = [...new Set(mockCandidates.map(c => c.region))];
 const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
