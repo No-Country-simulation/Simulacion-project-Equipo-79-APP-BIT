@@ -2,12 +2,7 @@ import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router';
 import { jobs } from '../data/jobs.js';
 import { mockCandidates } from '../data/candidates.js';
-
-const ChevronIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="6 9 12 15 18 9"/>
-  </svg>
-);
+import ChevronIcon from '../components/icons/ChevronIcon';
 
 const JobsIconSm = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
