@@ -1,0 +1,28 @@
+name: Deploy Backend to Hugging Face
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Hugging Face
+        run: |
+          # Entramos a la carpeta backend
+          cd backend
+          # Inicializamos un git temporal solo para el envío
+          git init
+          git remote add hf https://tonyy1:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/tonyy1/bit
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add .
+          git commit -m "Deploy from GitHub Actions"
+          git push --force hf master:main
