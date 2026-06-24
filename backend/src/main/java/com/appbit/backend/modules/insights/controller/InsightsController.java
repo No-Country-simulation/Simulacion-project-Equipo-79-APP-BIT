@@ -1,6 +1,7 @@
 package com.appbit.backend.modules.insights.controller;
 
 import com.appbit.backend.modules.insights.dto.RegionInsightResponse;
+import com.appbit.backend.modules.insights.service.InsightsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +30,11 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/insights")
+@RequiredArgsConstructor
 @Tag(name = "Insights", description = "API para la consulta de análisis de regiones (densidad de candidatos, cobertura de red, perfiles disponibles)")
 public class InsightsController {
 
+    private final InsightsService insightsService;
     /**
      * Obtiene la lista de insights de regiones.
      * <p>
@@ -43,10 +47,9 @@ public class InsightsController {
      * @return lista de {@link RegionInsightResponse} con los datos de cada región.
      *         Código HTTP 200 (OK).
      */
-    @GetMapping
     @Operation(
             summary = "Obtener insights de regiones",
-            description = "Recupera datos agregados de análisis geográfico para la región LATAM. " +
+            description = "Recupera datos agregados de análisis geográfico para las diferentes regiones. " +
                     "Cada elemento incluye: nombre de la región, densidad de candidatos, " +
                     "calidad de cobertura de red (GOOD, MEDIUM, POOR), cantidad de perfiles disponibles, " +
                     "y coordenadas geográficas (latitud y longitud) para visualización en mapas. " +
@@ -67,16 +70,8 @@ public class InsightsController {
                     )
             }
     )
-    public ResponseEntity<List<RegionInsightResponse>> getInsights() {
-        // Datos mock de consistencia geográfica para LATAM según requerimientos de BE2
-        List<RegionInsightResponse> mockInsights = List.of(
-                new RegionInsightResponse("Bogotá", 15, RegionInsightResponse.NetworkCoverage.GOOD, 12, -4.5981, -74.0758),
-                new RegionInsightResponse("São Paulo", 20, RegionInsightResponse.NetworkCoverage.GOOD, 18, -23.5505, -46.6333),
-                new RegionInsightResponse("Buenos Aires", 10, RegionInsightResponse.NetworkCoverage.MEDIUM, 8, -34.6037, -58.3816),
-                new RegionInsightResponse("Lima", 3, RegionInsightResponse.NetworkCoverage.POOR, 1, -12.0464, -77.0428),
-                new RegionInsightResponse("Ciudad de México", 12, RegionInsightResponse.NetworkCoverage.GOOD, 10, 19.4326, -99.1332)
-        );
-
-        return ResponseEntity.ok(mockInsights);
+    @GetMapping
+    public List<RegionInsightResponse> getRegionInsights() {
+        return insightsService.getRegionInsights();
     }
 }

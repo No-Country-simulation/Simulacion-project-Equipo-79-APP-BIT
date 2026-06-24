@@ -60,7 +60,7 @@ public record JobRequest (
                 example = "SENIOR",
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 implementation = ExperienceLevel.class,
-                allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"}
+                allowableValues = {"JUNIOR", "MID", "SENIOR"}
         )
         ExperienceLevel experienceLevel,
 

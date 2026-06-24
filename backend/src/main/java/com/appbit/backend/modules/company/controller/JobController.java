@@ -2,6 +2,8 @@ package com.appbit.backend.modules.company.controller;
 
 import com.appbit.backend.modules.agent.dto.MatchResultResponse;
 import com.appbit.backend.modules.agent.service.MatchingAgentService;
+import com.appbit.backend.modules.candidate.Service.CandidateService;
+import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.company.dto.JobRequest;
 import com.appbit.backend.modules.company.entity.Job;
@@ -9,11 +11,13 @@ import com.appbit.backend.modules.company.service.JobService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,16 +39,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/jobs")
 @Tag(name = "Jobs", description = "API para la gestión de ofertas de trabajo publicadas por las empresas")
+@RequiredArgsConstructor
 public class JobController {
 
     private final JobService jobService;
     private final MatchingAgentService matchingAgentService;
+    private final CandidateService candidateService;
 
-    @Autowired
-    public JobController(JobService jobService, MatchingAgentService matchingAgentService) {
-        this.jobService = jobService;
-        this.matchingAgentService = matchingAgentService;
-    }
 
     /**
      * Crea una nueva oferta de trabajo en el sistema.
@@ -55,7 +56,7 @@ public class JobController {
      * con su identificador generado y la fecha de publicación.
      * </p>
      *
-     * @param jobRequest objeto {@link JobRequest} con los datos de la oferta a crear.
+     * @param JobRequest objeto {@link JobRequest} con los datos de la oferta a crear.
      *                   Debe contener:
      *                   <ul>
      *                   <li><b>title</b>: Título del puesto (obligatorio)</li>
@@ -218,7 +219,19 @@ public class JobController {
                     required = true,
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = JobMatchRequest.class)
+                            schema = @Schema(implementation = JobMatchRequest.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Ejemplo de Vacante Backend",
+                                            description = "Ejemplo de JSON válido para buscar un Desarrollador Backend MID en Florianopolis",
+                                            value = "{\n" +
+                                                    "  \"title\": \"Desarrollador Backend\",\n" +
+                                                    "  \"skills\": [\"Java\", \"Spring Boot\"],\n" +
+                                                    "  \"experienceLevel\": \"MID\",\n" +
+                                                    "  \"region\": \"Florianopolis\"\n" +
+                                                    "}"
+                                    )
+                            }
                     )
             )
     )
@@ -244,7 +257,14 @@ public class JobController {
     })
     public ResponseEntity<List<MatchResultResponse>> findMatches(
             @Valid @RequestBody JobMatchRequest request) {
-        List<MatchResultResponse> results = matchingAgentService.match(request);
+
+        List<AnonymousCandidateResponse> candidates = candidateService.getCandidatesForMatching(
+                request.region(),
+                request.experienceLevel()
+        );
+
+        List<MatchResultResponse> results = matchingAgentService.executeMatching(request, candidates);
+
         return ResponseEntity.ok(results);
     }
 }

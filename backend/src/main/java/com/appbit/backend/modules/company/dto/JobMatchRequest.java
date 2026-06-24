@@ -34,6 +34,8 @@ public record JobMatchRequest(
         )
         String title,
 
+        String description,
+
         @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
         @Schema(
                 description = "Lista de habilidades técnicas requeridas para el puesto",
