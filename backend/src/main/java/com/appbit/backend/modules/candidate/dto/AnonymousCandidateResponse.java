@@ -18,7 +18,8 @@ package com.appbit.backend.modules.candidate.dto;
 // Este archivo vive en:
 //   backend/src/main/java/com/appbit/backend/modules/candidate/dto/
 //
-// La carpeta "dto" contiene objetos que definen QUÉ datos enviamos al frontend.
+// La carpeta "dto" contiene objetos que defin
+// en QUÉ datos enviamos al frontend.
 // La carpeta "entity" contiene objetos que representan las tablas de la base de datos.
 // =============================================================================
 
