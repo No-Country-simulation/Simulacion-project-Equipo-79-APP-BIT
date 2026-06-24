@@ -38,8 +38,12 @@ public record JobMatchRequest(
         // Si la empresa no especifica habilidades, el matching no tiene sentido.
         // List<String> = lista de textos. Ejemplo: ["Java", "Spring Boot", "SQL"]
         @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
+        @Schema(
+                description = "Lista de habilidades técnicas requeridas para la vacante",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
-        List<String> skills,
+        List<@NotBlank String> skills,
 
         // ── CAMPO 3: Nivel de experiencia requerido ───────────────────────────
         // Se recibe como String porque el frontend puede enviar "JUNIOR", "MID" o "SENIOR".
