@@ -1,5 +1,8 @@
 package com.appbit.backend.modules.company.controller;
 
+import com.appbit.backend.modules.agent.dto.MatchResultResponse;
+import com.appbit.backend.modules.agent.service.MatchingAgentService;
+import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.company.dto.JobRequest;
 import com.appbit.backend.modules.company.entity.Job;
 import com.appbit.backend.modules.company.service.JobService;
@@ -10,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +38,12 @@ import java.util.List;
 public class JobController {
 
     private final JobService jobService;
+    private final MatchingAgentService matchingAgentService;
 
     @Autowired
-    public JobController(JobService jobService) {
+    public JobController(JobService jobService, MatchingAgentService matchingAgentService) {
         this.jobService = jobService;
+        this.matchingAgentService = matchingAgentService;
     }
 
     /**
@@ -192,5 +198,53 @@ public class JobController {
             @PathVariable Long id) {
         Job job = jobService.findById(id);
         return ResponseEntity.ok(job);
+    }
+
+    /**
+     * Busca candidatos compatibles con una oferta de trabajo usando el motor de matching con IA.
+     *
+     * @param request datos de la vacante (título, habilidades, nivel de experiencia y región).
+     *                Todos los campos son obligatorios y son validados con {@code @Valid}.
+     * @return lista de resultados de compatibilidad con código HTTP 200 (OK).
+     */
+    @PostMapping("/matches")
+    @Operation(
+            summary = "Buscar candidatos compatibles con una oferta",
+            description = "Ejecuta el motor de matching con inteligencia artificial para encontrar " +
+                    "candidatos compatibles con la vacante especificada. " +
+                    "Los datos de la vacante se validan antes de ser procesados.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la vacante para el matching",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobMatchRequest.class)
+                    )
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de candidatos compatibles obtenida exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MatchResultResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Solicitud inválida: campos obligatorios faltantes o vacíos",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<List<MatchResultResponse>> findMatches(
+            @Valid @RequestBody JobMatchRequest request) {
+        List<MatchResultResponse> results = matchingAgentService.match(request);
+        return ResponseEntity.ok(results);
     }
 }

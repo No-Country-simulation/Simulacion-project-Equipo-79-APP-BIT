@@ -10,7 +10,7 @@ package com.appbit.backend.modules.company.dto;
 // Este record define exactamente qué campos acepta ese JSON.
 //
 // Flujo:
-//   Empresa (frontend) ──POST /jobs/match──> JobMatchRequest ──> MatchingAgentService ──> candidatos rankeados
+//   Empresa (frontend) ──POST /jobs/matches──> JobMatchRequest ──> MatchingAgentService ──> candidatos rankeados
 //
 // La diferencia con JobRequest.java:
 //   - JobRequest.java  → sirve para CREAR una vacante en la BD
@@ -30,6 +30,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
+/**
+ * DTO (Data Transfer Object) para la solicitud de búsqueda de coincidencias (matching) de candidatos.
+ * <p>
+ * Contiene los datos de una oferta de trabajo para la cual se desea encontrar
+ * candidatos compatibles mediante el motor de matching con IA.
+ * Las anotaciones de validación de Jakarta impiden procesar datos incompletos o basura.
+ * </p>
+ *
+ * @see com.appbit.backend.modules.agent.service.MatchingAgentService
+ */
 @Schema(
         name = "JobMatchRequest",
         description = "Datos de la vacante que se envían al agente de IA para encontrar candidatos compatibles. " +
@@ -45,7 +55,8 @@ public record JobMatchRequest(
         @Schema(
                 description = "Título del puesto de trabajo",
                 example = "Desarrollador Backend Senior",
-                requiredMode = Schema.RequiredMode.REQUIRED
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 255
         )
         String title,
 
@@ -54,6 +65,11 @@ public record JobMatchRequest(
         // Si la empresa no especifica habilidades, el matching no tiene sentido.
         // List<String> = lista de textos. Ejemplo: ["Java", "Spring Boot", "SQL"]
         @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
+        @Schema(
+                description = "Lista de habilidades técnicas requeridas para el puesto",
+                example = "[\"Java\", \"Spring Boot\", \"Microservicios\", \"PostgreSQL\", \"Docker\"]",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
         List<String> skills,
 
@@ -65,7 +81,7 @@ public record JobMatchRequest(
         @Schema(
                 description = "Nivel de experiencia requerido para la vacante",
                 example = "SENIOR",
-                allowableValues = {"JUNIOR", "MID", "SENIOR"},
+                allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"},
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
         String experienceLevel,
@@ -73,12 +89,13 @@ public record JobMatchRequest(
         // ── CAMPO 4: Región o municipio destino ──────────────────────────────
         // Define la zona geográfica donde se buscan candidatos.
         // Se usa para filtrar por proximidad y cobertura de red (módulo Insights).
-        // Ejemplos: "Florianópolis", "São José", "Palhoça"
+        // Ejemplos: "Florianópolis", "São José", "Palhoça", "Bogotá"
         @NotBlank(message = "El municipio destino es obligatorio")
         @Schema(
                 description = "Municipio o región donde se necesita el candidato",
                 example = "Florianópolis",
-                requiredMode = Schema.RequiredMode.REQUIRED
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 100
         )
         String region
 
