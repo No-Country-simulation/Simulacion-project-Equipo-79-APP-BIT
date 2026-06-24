@@ -1,26 +1,10 @@
 package com.appbit.backend.modules.company.dto;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ¿QUÉ HACE ESTE ARCHIVO?
-// ─────────────────────────────────────────────────────────────────────────────
-// Este es el DTO de REQUEST para el proceso de matching con IA.
-//
-// Cuando una empresa quiere encontrar candidatos para una vacante,
-// el frontend envía un JSON con los datos de esa vacante.
-// Este record define exactamente qué campos acepta ese JSON.
-//
-// Flujo:
-//   Empresa (frontend) ──POST /jobs/match──> JobMatchRequest ──> MatchingAgentService ──> candidatos rankeados
-//
-// La diferencia con JobRequest.java:
-//   - JobRequest.java  → sirve para CREAR una vacante en la BD
-//   - JobMatchRequest  → sirve para BUSCAR candidatos compatibles con una vacante
-// ─────────────────────────────────────────────────────────────────────────────
-
-// Jakarta Validation: anotaciones que validan los datos ANTES de procesarlos.
-// Sin esto, alguien podría enviar un JSON vacío o con basura y rompería el sistema.
-// @NotBlank  = el campo no puede ser null, vacío ("") ni solo espacios ("   ")
-// @NotEmpty  = la lista no puede ser null ni estar vacía ([])
+/**
+ * DTO (Data Transfer Object) de request para solicitar matching de candidatos mediante IA.
+ *
+ * @see com.appbit.backend.modules.agent.service.MatchingAgentService
+ */
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
