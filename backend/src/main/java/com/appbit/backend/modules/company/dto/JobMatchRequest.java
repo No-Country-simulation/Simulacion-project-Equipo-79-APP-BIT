@@ -1,62 +1,85 @@
 package com.appbit.backend.modules.company.dto;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ¿QUÉ HACE ESTE ARCHIVO?
+// ─────────────────────────────────────────────────────────────────────────────
+// Este es el DTO de REQUEST para el proceso de matching con IA.
+//
+// Cuando una empresa quiere encontrar candidatos para una vacante,
+// el frontend envía un JSON con los datos de esa vacante.
+// Este record define exactamente qué campos acepta ese JSON.
+//
+// Flujo:
+//   Empresa (frontend) ──POST /jobs/match──> JobMatchRequest ──> MatchingAgentService ──> candidatos rankeados
+//
+// La diferencia con JobRequest.java:
+//   - JobRequest.java  → sirve para CREAR una vacante en la BD
+//   - JobMatchRequest  → sirve para BUSCAR candidatos compatibles con una vacante
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Jakarta Validation: anotaciones que validan los datos ANTES de procesarlos.
+// Sin esto, alguien podría enviar un JSON vacío o con basura y rompería el sistema.
+// @NotBlank  = el campo no puede ser null, vacío ("") ni solo espacios ("   ")
+// @NotEmpty  = la lista no puede ser null ni estar vacía ([])
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
+// Swagger: para documentar la API automáticamente
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
-/**
- * DTO (Data Transfer Object) para la solicitud de búsqueda de coincidencias (matching) de candidatos.
- * <p>
- * Contiene los datos de una oferta de trabajo para la cual se desea encontrar
- * candidatos compatibles mediante el motor de matching con IA.
- * </p>
- *
- * @see com.appbit.backend.modules.agent.service.MatchingAgentService
- */
 @Schema(
         name = "JobMatchRequest",
-        description = "Objeto que representa la solicitud de búsqueda de candidatos compatibles para una oferta de trabajo. " +
-                "Se utiliza como entrada para el motor de matching con inteligencia artificial."
+        description = "Datos de la vacante que se envían al agente de IA para encontrar candidatos compatibles. " +
+                "Todos los campos son obligatorios para garantizar un matching preciso."
 )
 public record JobMatchRequest(
-        @Schema(
-                description = "Identificador único de la oferta de trabajo (job) para la cual se buscan candidatos",
-                example = "1",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                minimum = "1"
-        )
-        Long jobId,
 
+        // ── CAMPO 1: Título de la vacante ─────────────────────────────────────
+        // @NotBlank rechaza: null, "", "   " (solo espacios)
+        // Si llega vacío, Spring devuelve 400 Bad Request automáticamente
+        // con el mensaje definido en "message".
+        @NotBlank(message = "El título de la vacante es obligatorio")
         @Schema(
                 description = "Título del puesto de trabajo",
                 example = "Desarrollador Backend Senior",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                maxLength = 255
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String title,
 
-        @Schema(
-                description = "Descripción detallada del puesto, responsabilidades y requisitos",
-                example = "Buscamos un desarrollador backend con experiencia en Java Spring Boot y microservicios para liderar la arquitectura de nuestra plataforma.",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                maxLength = 2000
-        )
-        String description,
-
-        @Schema(
-                description = "Lista de habilidades técnicas requeridas para el puesto",
-                example = "[\"Java\", \"Spring Boot\", \"Microservicios\", \"PostgreSQL\", \"Docker\"]",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED
-        )
+        // ── CAMPO 2: Lista de habilidades requeridas ──────────────────────────
+        // @NotEmpty rechaza: null y listas vacías []
+        // Si la empresa no especifica habilidades, el matching no tiene sentido.
+        // List<String> = lista de textos. Ejemplo: ["Java", "Spring Boot", "SQL"]
+        @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
-        List<String> requiredSkills,
+        List<String> skills,
 
+        // ── CAMPO 3: Nivel de experiencia requerido ───────────────────────────
+        // Se recibe como String porque el frontend puede enviar "JUNIOR", "MID" o "SENIOR".
+        // @NotBlank garantiza que no llegue vacío.
+        // Nota: el agente de IA lo interpreta semánticamente, no como enum.
+        @NotBlank(message = "El nivel de experiencia es obligatorio")
         @Schema(
-                description = "Nivel de experiencia requerido para el puesto",
+                description = "Nivel de experiencia requerido para la vacante",
                 example = "SENIOR",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"}
+                allowableValues = {"JUNIOR", "MID", "SENIOR"},
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
-        String experienceLevel
+        String experienceLevel,
+
+        // ── CAMPO 4: Región o municipio destino ──────────────────────────────
+        // Define la zona geográfica donde se buscan candidatos.
+        // Se usa para filtrar por proximidad y cobertura de red (módulo Insights).
+        // Ejemplos: "Florianópolis", "São José", "Palhoça"
+        @NotBlank(message = "El municipio destino es obligatorio")
+        @Schema(
+                description = "Municipio o región donde se necesita el candidato",
+                example = "Florianópolis",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
+        String region
+
 ) {}
