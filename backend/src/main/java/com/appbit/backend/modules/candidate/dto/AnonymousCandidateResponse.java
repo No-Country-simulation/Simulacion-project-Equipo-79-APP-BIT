@@ -1,125 +1,194 @@
 package com.appbit.backend.modules.candidate.dto;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+// =============================================================================
+// CONTEXTO DEL PROYECTO — léelo antes de tocar este archivo
+// =============================================================================
+// Este proyecto es una plataforma de matching (emparejamiento) entre empresas
+// y candidatos de LATAM. El backend está hecho en Spring Boot (Java).
+//
+// Spring Boot es un framework que nos permite crear APIs REST fácilmente.
+// Una API REST es un servicio web: el frontend le hace preguntas (requests)
+// y el backend le responde con datos (responses).
+//
+// El flujo general es:
+//
+//   Frontend (React)  ──request──>  Backend (Spring Boot)  ──consulta──>  Base de datos
+//                     <──response──                         <──resultado──
+//
+// Este archivo vive en:
+//   backend/src/main/java/com/appbit/backend/modules/candidate/dto/
+//
+// La carpeta "dto" contiene objetos que definen QUÉ datos enviamos al frontend.
+// La carpeta "entity" contiene objetos que representan las tablas de la base de datos.
+// =============================================================================
 
 import com.appbit.backend.modules.candidate.entity.Candidate;
-
+import com.appbit.backend.modules.company.entity.ExperienceLevel;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-/**
- * DTO (Data Transfer Object) para la respuesta de un candidato anonimizado.
- * <p>
- * Representa la información de un candidato que se devuelve en las respuestas
- * de la API, protegiendo su identidad personal (no incluye nombre, email, etc.)
- * pero manteniendo los datos relevantes para el proceso de matching:
- * habilidades, experiencia, ubicación y distintivos de diversidad.
- * </p>
- *
- * @see com.appbit.backend.modules.candidate.entity.Candidate
- */
+import java.util.List;
+
+// =============================================================================
+// ¿QUÉ ES UN DTO?
+// =============================================================================
+// DTO = Data Transfer Object (Objeto de Transferencia de Datos).
+//
+// Tenemos dos tipos de objetos en el backend:
+//
+//   1. ENTIDAD (Candidate.java):
+//      Representa la tabla "candidate" en la base de datos.
+//      Tiene TODOS los campos del candidato, incluidos datos sensibles
+//      como nombre, email, género, etc.
+//
+//   2. DTO (este archivo):
+//      Es lo que el backend le envía al frontend.
+//      Solo incluye los campos que QUEREMOS mostrar. Es como un filtro.
+//
+// Ejemplo:
+//   Entidad Candidate (base de datos)     AnonymousCandidateResponse (frontend ve)
+//   ──────────────────────────────────    ────────────────────────────────────────
+//   id:              42            →      candidateId:      42
+//   nombre:          "Juan Pérez"  →      (NO incluido — dato personal)
+//   email:           "j@mail.com"  →      (NO incluido — dato personal)
+//   diversityBadge:  "LGBTQ+"      →      (NO incluido — puede causar sesgo)
+//   skills:          ["Java","SQL"] →      skills:    ["Java", "SQL"]
+//   experienceLevel: SENIOR         →      experienceLevel: SENIOR
+//   latitude:        -27.413        →      latitude:  -27.413
+//   longitude:       -48.475        →      longitude: -48.475
+//
+// ¿Por qué anonimizar? Por dos razones:
+//   - LGPD: Ley brasileña de protección de datos (similar al GDPR europeo).
+//     Prohíbe exponer datos personales innecesariamente.
+//   - Anti-sesgo: Las empresas deben evaluar candidatos por sus habilidades,
+//     no por su nombre, género o identidad.
+// =============================================================================
+
+// @Schema le dice a Swagger cómo describir este objeto en la documentación.
+// Swagger es una herramienta que genera documentación interactiva automáticamente.
+// La puedes ver en: http://localhost:8080/swagger-ui/index.html
 @Schema(
         name = "AnonymousCandidateResponse",
-        description = "Objeto que representa la respuesta de un candidato con datos anonimizados. " +
-                "Protege la identidad personal del candidato mientras mantiene la información relevante para el matching: " +
-                "habilidades, nivel de experiencia, ubicación geográfica y distintivos de diversidad."
+        description = "Candidato con datos anonimizados. Cumple con la LGPD y principios anti-sesgo. " +
+                "No expone nombre, email, género ni ningún dato personal identificable."
 )
+
+// =============================================================================
+// ¿QUÉ ES UN record EN JAVA?
+// =============================================================================
+// Un "record" es un tipo especial de clase (disponible desde Java 16) que
+// sirve para objetos que solo GUARDAN datos y no cambian después de crearse.
+//
+// Cuando escribes "record", Java genera automáticamente por ti:
+//   - El constructor (para crear el objeto con los datos)
+//   - Los getters (métodos para leer cada campo: candidateId(), skills(), etc.)
+//   - equals(), hashCode() y toString() (métodos estándar de Java)
+//
+// Sin "record", tendrías que escribir decenas de líneas manualmente.
+// Con "record", todo eso lo hace Java solo.
+//
+// Los campos del record se declaran entre los paréntesis, como parámetros.
+// =============================================================================
 public record AnonymousCandidateResponse(
-        @Schema(
-                description = "Identificador único del candidato en el sistema",
-                example = "1",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                minimum = "1"
-        )
+
+        // ── CAMPO 1: ID del candidato ──────────────────────────────────────────
+        // El ID que tiene en la base de datos. Solo se usa internamente para que
+        // el motor de matching identifique a cada candidato en los resultados.
+        // No revela información personal (un número no dice quién es la persona).
+        // Long = número entero grande en Java (puede ser negativo o muy grande).
+        @Schema(description = "Identificador del candidato en el sistema", example = "42")
         Long candidateId,
 
-        @Schema(
-                description = "Lista de habilidades técnicas y blandas del candidato",
-                example = "[\"Java\", \"Spring Boot\", \"Liderazgo\", \"Comunicación efectiva\"]",
-                requiredMode = Schema.RequiredMode.REQUIRED
-        )
+        // ── CAMPO 2: Habilidades técnicas ──────────────────────────────────────
+        // Lista de habilidades del candidato. Ejemplos: "Java", "Python", "React".
+        // List<String> = una lista de textos en Java.
+        // @ArraySchema le dice a Swagger que este campo es una lista de strings.
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
         List<String> skills,
 
+        // ── CAMPO 3: Nivel de experiencia ──────────────────────────────────────
+        // Usamos ExperienceLevel (un enum) en lugar de String.
+        //
+        // ¿Qué es un enum? Es una lista CERRADA de opciones fijas.
+        // ExperienceLevel solo acepta: JUNIOR, MID o SENIOR.
+        // Si usáramos String, alguien podría poner "EXPERTO", "GOD", etc.,
+        // y eso causaría errores. El enum lo previene.
+        //
+        // ExperienceLevel está definido en:
+        //   modules/company/entity/ExperienceLevel.java
         @Schema(
                 description = "Nivel de experiencia laboral del candidato",
                 example = "SENIOR",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"}
+                allowableValues = {"JUNIOR", "MID", "SENIOR"}
         )
-        String experienceLevel,
+        ExperienceLevel experienceLevel,
 
-        @Schema(
-                description = "Región o municipio de residencia del candidato",
-                example = "Bogotá",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 100
-        )
-        String region,
-
-        @Schema(
-                description = "Latitud de la ubicación del candidato (coordenada geográfica)",
-                example = "4.5981",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                minimum = "-90",
-                maximum = "90"
-        )
+        // ── CAMPOS 4 y 5: Coordenadas geográficas ──────────────────────────────
+        // Latitud y longitud del candidato. Se usan para:
+        //   - Mostrar candidatos en el mapa del frontend
+        //   - Calcular cobertura regional en el módulo de Insights
+        // double = número decimal en Java (ejemplo: -27.413)
+        @Schema(description = "Latitud geográfica del candidato", example = "-27.413")
         double latitude,
 
-        @Schema(
-                description = "Longitud de la ubicación del candidato (coordenada geográfica)",
-                example = "-74.0758",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                minimum = "-180",
-                maximum = "180"
-        )
+        @Schema(description = "Longitud geográfica del candidato", example = "-48.475")
         double longitude
+
 ) {
-         /**
-     * Método de fábrica estático que transforma una entidad {@link Candidate}
-     * en un DTO anonimizado.
-     * <p>
-     * Este mapper es **manual** (sin librerías como MapStruct) y garantiza que
-     * los datos sensibles (nombre, email, género, ID real) NO se expongan.
-     * El ID se anonimiza mediante un hash con sal para evitar trazabilidad directa.
-     * </p>
-     *
-     * @param candidate entidad JPA del candidato (no puede ser {@code null})
-     * @return DTO anonimizado listo para ser enviado al frontend o al módulo BE3
-     * @throws NullPointerException si {@code candidate} es {@code null}
-     */
+    // =========================================================================
+    // CONSTRUCTOR COMPACTO — validación defensiva
+    // =========================================================================
+    // En un record puedes escribir un "constructor compacto" para validar o
+    // limpiar datos ANTES de que el objeto se termine de crear.
+    //
+    // PROBLEMA: Si un candidato en la base de datos no tiene habilidades
+    // registradas, candidate.getSkills() puede devolver null (vacío total).
+    // Si más adelante intentamos recorrer esa lista null, Java lanza
+    // NullPointerException → el programa se rompe (crash).
+    //
+    // SOLUCIÓN: Si skills llega como null, lo reemplazamos con una lista vacía.
+    // List.of() crea una lista vacía e inmutable (no se puede modificar).
+    // Así nos garantizamos que skills NUNCA sea null en este objeto.
+    // =========================================================================
+    public AnonymousCandidateResponse {
+        if (skills == null) {
+            skills = List.of(); // Lista vacía en lugar de null → sin crashes
+        }
+    }
+
+    // =========================================================================
+    // MÉTODO DE FÁBRICA: from(Candidate candidate)
+    // =========================================================================
+    // Este método convierte una entidad Candidate (que viene de la BD)
+    // en este DTO (lo que enviaremos al frontend).
+    // Es el "traductor" entre la base de datos y la API.
+    //
+    // ¿Por qué "static"?
+    //   Un método static pertenece a la CLASE, no a un objeto en particular.
+    //   Se puede llamar sin crear primero un AnonymousCandidateResponse:
+    //     AnonymousCandidateResponse dto = AnonymousCandidateResponse.from(candidato);
+    //
+    // ¿Por qué se llama "from"?
+    //   Es una convención en Java para métodos que transforman un tipo en otro.
+    //   Otros ejemplos en Java: LocalDate.from(...), Instant.from(...).
+    //
+    // Flujo de uso en el proyecto:
+    //   1. CandidateController recibe un request del frontend
+    //   2. Consulta la BD → obtiene una entidad Candidate con todos sus datos
+    //   3. Llama a AnonymousCandidateResponse.from(candidate)
+    //   4. Este método "filtra" los datos y devuelve solo lo permitido
+    //   5. El controller envía ese DTO al frontend (sin datos personales)
+    // =========================================================================
     public static AnonymousCandidateResponse from(Candidate candidate) {
-        // 1. Anonimizar el ID: se usa un hash del ID real con una sal fija
-        Long anonymousId = Objects.hash(candidate.getId(), "salt-secreto-para-lgpd");
 
-        // 2. Extraer la lista de habilidades (suponiendo que Candidate tiene una lista de Skill)
-        // Si Candidate ya tiene List<String> skills, usa candidate.getSkills() directamente
-        List<String> skillNames = candidate.getSkills()
-                .stream()
-                .map(Skill::getName)   // Si Skill es una entidad con getName()
-                .collect(Collectors.toList());
-
-        // 3. Obtener el nivel de experiencia como String (si es un enum, usa .name())
-        String experience = candidate.getExperienceLevel().name();
-
-        // 4. Obtener la región (suponiendo que Candidate tiene un campo 'region')
-        // Si no existe, ajusta a candidate.getMunicipio() o candidate.getCity()
-        String region = candidate.getRegion();
-
-        // 5. Coordenadas geográficas
-        double lat = candidate.getLatitude();
-        double lng = candidate.getLongitude();
-
-        // 6. Construir y devolver el DTO con todos los campos
+        // Construimos el DTO mapeando campo a campo desde la entidad.
+        // Solo copiamos los datos técnicos — los personales se quedan en la entidad.
         return new AnonymousCandidateResponse(
-                anonymousId,
-                skillNames,
-                experience,
-                region,
-                lat,
-                lng
+                candidate.getId(),              // id de la BD  →  candidateId del DTO
+                candidate.getSkills(),          // List<String> ya es String, copia directa
+                candidate.getExperienceLevel(), // ExperienceLevel enum, copia directa
+                candidate.getLatitude(),        // double, copia directa
+                candidate.getLongitude()        // double, copia directa
         );
     }
 }
