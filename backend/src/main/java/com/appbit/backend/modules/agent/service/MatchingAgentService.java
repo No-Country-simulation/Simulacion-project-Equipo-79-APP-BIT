@@ -1,5 +1,6 @@
 package com.appbit.backend.modules.agent.service;
 
+import com.appbit.backend.modules.candidate.Service.CandidateService;
 import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.agent.dto.MatchResultResponse;
@@ -9,6 +10,23 @@ import java.util.List;
 
 @Service
 public class MatchingAgentService {
+
+    private final CandidateService candidateService;
+
+    public MatchingAgentService(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
+
+    /**
+     * Punto de entrada público para el matching. Obtiene candidatos filtrados por región
+     * y nivel de experiencia, luego ejecuta la evaluación del agente de IA.
+     */
+    public List<MatchResultResponse> match(JobMatchRequest request) {
+        List<AnonymousCandidateResponse> candidates = candidateService.getCandidatesForMatching(
+                request.region(), request.experienceLevel()
+        );
+        return executeMatching(request, candidates);
+    }
 
     /**
      * Ejecuta el proceso de evaluación y emparejamiento usando los DTOs oficiales.

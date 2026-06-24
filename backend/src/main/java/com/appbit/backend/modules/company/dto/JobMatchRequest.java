@@ -2,6 +2,8 @@ package com.appbit.backend.modules.company.dto;
 
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  * <p>
  * Contiene los datos de una oferta de trabajo para la cual se desea encontrar
  * candidatos compatibles mediante el motor de matching con IA.
+ * Las anotaciones de validación de Jakarta impiden procesar datos incompletos o basura.
  * </p>
  *
  * @see com.appbit.backend.modules.agent.service.MatchingAgentService
@@ -20,43 +23,41 @@ import java.util.List;
                 "Se utiliza como entrada para el motor de matching con inteligencia artificial."
 )
 public record JobMatchRequest(
-        @Schema(
-                description = "Identificador único de la oferta de trabajo (job) para la cual se buscan candidatos",
-                example = "1",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                minimum = "1"
-        )
-        Long jobId,
 
+        @NotBlank(message = "El título de la vacante es obligatorio")
         @Schema(
                 description = "Título del puesto de trabajo",
                 example = "Desarrollador Backend Senior",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                requiredMode = Schema.RequiredMode.REQUIRED,
                 maxLength = 255
         )
         String title,
 
-        @Schema(
-                description = "Descripción detallada del puesto, responsabilidades y requisitos",
-                example = "Buscamos un desarrollador backend con experiencia en Java Spring Boot y microservicios para liderar la arquitectura de nuestra plataforma.",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                maxLength = 2000
-        )
-        String description,
-
+        @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
         @Schema(
                 description = "Lista de habilidades técnicas requeridas para el puesto",
                 example = "[\"Java\", \"Spring Boot\", \"Microservicios\", \"PostgreSQL\", \"Docker\"]",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
-        List<String> requiredSkills,
+        List<String> skills,
 
+        @NotBlank(message = "El nivel de experiencia es obligatorio")
         @Schema(
                 description = "Nivel de experiencia requerido para el puesto",
                 example = "SENIOR",
-                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                requiredMode = Schema.RequiredMode.REQUIRED,
                 allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"}
         )
-        String experienceLevel
+        String experienceLevel,
+
+        @NotBlank(message = "El municipio destino es obligatorio")
+        @Schema(
+                description = "Municipio o región geográfica donde se ubica el puesto de trabajo",
+                example = "Bogotá",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 100
+        )
+        String region
+
 ) {}
