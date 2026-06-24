@@ -3,6 +3,7 @@ package com.appbit.backend.modules.candidate.Service;
 import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.candidate.entity.Candidate;
 import com.appbit.backend.modules.candidate.repository.CandidateRepository;
+import com.appbit.backend.modules.company.entity.ExperienceLevel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,15 +33,16 @@ public class CandidateService {
     public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio, String experienceLevel) {
         // 1. Obtener candidatos del repositorio según filtros
         List<Candidate> candidates;
-        if (municipio != null && experienceLevel != null) {
+        ExperienceLevel level = experienceLevel != null ? ExperienceLevel.valueOf(experienceLevel) : null;
+        if (municipio != null && level != null) {
             // Ambos filtros
-            candidates = candidateRepository.findByRegionAndExperienceLevel(municipio, experienceLevel);
+            candidates = candidateRepository.findByMunicipioAndExperienceLevel(municipio, level);
         } else if (municipio != null) {
             // Solo municipio
-            candidates = candidateRepository.findByRegion(municipio);
-        } else if (experienceLevel != null) {
+            candidates = candidateRepository.findByMunicipio(municipio);
+        } else if (level != null) {
             // Solo nivel de experiencia
-            candidates = candidateRepository.findByExperienceLevel(experienceLevel);
+            candidates = candidateRepository.findByExperienceLevel(level);
         } else {
             // Sin filtros (devuelve todos, pero cuidado con el rendimiento)
             candidates = candidateRepository.findAll();
