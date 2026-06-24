@@ -23,8 +23,8 @@ public record JobMatchRequest(
 
         // ── CAMPO 1: Título de la vacante ─────────────────────────────────────
         // @NotBlank rechaza: null, "", "   " (solo espacios)
-        // Si llega vacío, Spring devuelve 400 Bad Request automáticamente
-        // con el mensaje definido en "message".
+        // La validación se aplica solo si el request se bindea usando @Valid/@Validated.
+        // En ese caso, Spring devuelve 400 Bad Request con el mensaje definido en "message".
         @NotBlank(message = "El título de la vacante es obligatorio")
         @Schema(
                 description = "Título del puesto de trabajo",
