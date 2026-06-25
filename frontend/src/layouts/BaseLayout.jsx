@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex min-h-dvh bg-[#F8F9FF]">
         {/* // ? sidebar */}
         <aside className={`grid min-h-dvh bg-[#EFF4FF]/20 backdrop-blur-sm border border-[#EFF4FF]/20 shadow-lg grid-rows-[auto_1fr_auto] py-2 px-6 w-65 text-[#45464D] z-50 ${!sidebarOpen ? '-translate-x-65' : 'x-translate-0'} fixed md:static md:translate-x-0 transition-transform duration-300 ease-in-out `}>
           {/* //* logo */}
@@ -82,11 +82,11 @@ const Layout = ({ children }) => {
           </div>
         </aside>
         {/* // ? header */}
-        <div className="flex flex-col justify-between w-full">
-          <header className="flex justify-between items-center py-6 bg-[#F8F9FF] min-h-16">
+        <div className="flex w-full flex-col bg-[#F8F9FF]">
+          <header className="flex min-h-16 flex-shrink-0 items-center justify-between bg-[#F8F9FF] py-6">
             <div className="bg-[#E5EEFF] rounded-lg flex justify-between items-center gap-5 px-2 md:px-4 ml-3 md:ml-6 py-4">
               <SearchIcon />
-              <input type="search" name="searchbar" id="searchbar" placeholder={placeholder} value={query} onChange={handleSearchChange} className="text-[#6B7280] text-[12px] md:text-[14px] outline-none" />
+              <input type="search" name="searchbar" id="searchbar" placeholder={placeholder} value={query} onChange={handleSearchChange} className="bg-transparent text-[#6B7280] text-[12px] md:text-[14px] outline-none" />
             </div>
             {/* //* items dekstop */}
             <div className="hidden md:flex justify-between items-center gap-4 md:pr-6">
@@ -109,16 +109,18 @@ const Layout = ({ children }) => {
               {/* <button className="cursor-pointer" onClick={() => setSidebarOpen(!sidebarOpen)} type="button">
                 <NotificationIcon className="cursor-pointer" />
               </button> */}
-              <UserButton />
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
               {/* <img className="inline-block size-8 rounded-full md:hidden cursor-pointer hover:scale-105 transition-transform" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Avatar" /> */}
               <button className="cursor-pointer" onClick={() => setSidebarOpen(!sidebarOpen)} type="button">
                 <HamburgerMenuIcon />
               </button>
             </div>
           </header>
-          <div className="w-full h-fit px-7.25 bg-[#F8F9FF]">
+          <main className="w-full flex-1 px-7.25 bg-[#F8F9FF]">
             {children}
-          </div>
+          </main>
         </div>
       </div >
     </>

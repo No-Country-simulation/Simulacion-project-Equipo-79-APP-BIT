@@ -25,9 +25,12 @@ function RootLayout() {
 
   return (
     <ClerkProvider
+      publishableKey={import.meta.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
       signInUrl='/sign-in'
+      afterSignInUrl='/'
+      afterSignUpUrl='/register-company'
     >
       <BaseLayout>
         <Toaster position="top-center" />
