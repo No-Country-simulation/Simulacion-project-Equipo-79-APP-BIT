@@ -6,7 +6,6 @@ import JobsIcon from "../components/icons/JobsIcon"
 import InsightsIcon from "../components/icons/InsightsIcon"
 import SettingsIcon from "../components/icons/SettingsIcon"
 import NotificationIcon from "../components/icons/NotificationIcon"
-import QuestionIcon from "../components/icons/QuestionIcon"
 import HamburgerMenuIcon from "../components/icons/HamburgerMenuIcon"
 import SearchIcon from '../components/icons/SearchIcon'
 // ? react deps

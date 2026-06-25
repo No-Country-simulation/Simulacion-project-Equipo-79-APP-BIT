@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { sileo } from 'sileo';
+import { createJob } from '../api/jobs.js';
 import PinIcon from '../components/icons/PinIcon';
 import ChevronIcon from '../components/icons/ChevronIcon';
 
@@ -6,22 +8,53 @@ const CreateJobOffer = () => {
   const [formData, setFormData] = useState({
     title: '',
     experienceLevel: 'MID',
-    jobType: 'FULL_TIME',
-    salaryRange: '',
     region: '',
-    department: '',
+    requiredSkills: '',
+    companyId: 1,
     description: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // TODO: Connect with backend API POST /jobs
+
+    const payload = {
+      title: formData.title,
+      description: formData.description,
+      region: formData.region,
+      requiredSkills: formData.requiredSkills
+        .split(',')
+        .map(skill => skill.trim())
+        .filter(Boolean),
+      experienceLevel: formData.experienceLevel,
+      companyId: Number(formData.companyId),
+    };
+
+    try {
+      setIsSubmitting(true);
+      await createJob(payload);
+      sileo.success({ title: 'Job offer created successfully!' });
+      setFormData({
+        title: '',
+        experienceLevel: 'MID',
+        region: '',
+        requiredSkills: '',
+        companyId: 1,
+        description: '',
+      });
+    } catch (error) {
+      sileo.error({
+        title: 'Could not create job offer',
+        description: error instanceof Error ? error.message : 'Unexpected error',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const labelClass =
@@ -79,45 +112,7 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 2: Job Type + Salary Range ── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {/* Job Type */}
-            <div className="flex flex-col">
-              <label className={labelClass}>Job Type</label>
-              <div className="relative">
-                <select
-                  name="jobType"
-                  value={formData.jobType}
-                  onChange={handleChange}
-                  className={`${inputClass} appearance-none pr-9 cursor-pointer`}
-                >
-                  <option value="FULL_TIME">Full-time</option>
-                  <option value="PART_TIME">Part-time</option>
-                  <option value="CONTRACT">Contract</option>
-                  <option value="INTERN">Internship</option>
-                </select>
-                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <ChevronIcon />
-                </span>
-              </div>
-            </div>
-
-            {/* Salary Range */}
-            <div className="flex flex-col">
-              <label className={labelClass}>Salary Range (Optional)</label>
-              <input
-                type="text"
-                name="salaryRange"
-                value={formData.salaryRange}
-                onChange={handleChange}
-                placeholder="e.g. $80k - $120k"
-                className={inputClass}
-              />
-            </div>
-          </div>
-
-          {/* ── Row 3: Region / Location + Department ── */}
+          {/* ── Row 2: Region + Company ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             {/* Region / Location */}
@@ -139,19 +134,34 @@ const CreateJobOffer = () => {
               </div>
             </div>
 
-            {/* Department */}
+            {/* Company */}
             <div className="flex flex-col">
-              <label className={labelClass}>Department</label>
+              <label className={labelClass}>Company ID</label>
               <input
-                type="text"
-                name="department"
-                value={formData.department}
+                type="number"
+                name="companyId"
+                value={formData.companyId}
                 onChange={handleChange}
-                placeholder="Strategy & Growth"
+                min="1"
+                placeholder="1"
                 className={inputClass}
                 required
               />
             </div>
+          </div>
+
+          {/* ── Row 3: Required Skills ── */}
+          <div className="flex flex-col">
+            <label className={labelClass}>Required Skills</label>
+            <input
+              type="text"
+              name="requiredSkills"
+              value={formData.requiredSkills}
+              onChange={handleChange}
+              placeholder="Java, Spring Boot, Microservicios, PostgreSQL, Docker"
+              className={inputClass}
+              required
+            />
           </div>
 
           {/* ── Row 4: Description Summary ── */}
@@ -178,9 +188,10 @@ const CreateJobOffer = () => {
             </button>
             <button
               type="submit"
-              className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-8 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer"
+              disabled={isSubmitting}
+              className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 text-white text-sm font-semibold px-8 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer"
             >
-              Post Job Offer
+              {isSubmitting ? 'Posting...' : 'Post Job Offer'}
             </button>
           </div>
 
