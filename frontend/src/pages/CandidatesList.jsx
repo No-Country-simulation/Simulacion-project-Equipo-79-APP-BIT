@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import { jobs } from '../data/jobs.js';
-import { mockCandidates } from '../data/candidates.js';
+import { getJobById } from '../api/jobs.js';
+import { listCandidates } from '../api/candidates.js';
 import ChevronIcon from '../components/icons/ChevronIcon';
 
 const JobsIconSm = () => (
@@ -11,8 +11,61 @@ const JobsIconSm = () => (
   </svg>
 );
 
-const regions = [...new Set(mockCandidates.map(c => c.region))];
 const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
+
+const normalizeText = (value) => value?.trim().toLowerCase() ?? '';
+
+const getMatchingSkills = (candidateSkills = [], requiredSkills = []) => {
+  const requiredByName = new Map(
+    requiredSkills.map(skill => [normalizeText(skill), skill])
+  );
+
+  return candidateSkills.filter(skill => requiredByName.has(normalizeText(skill)));
+};
+
+const getCompatibilityScore = (candidate, job) => {
+  const requiredSkills = job?.requiredSkills ?? job?.skills ?? [];
+
+  if (requiredSkills.length === 0) {
+    return candidate.experienceLevel === job?.experienceLevel ? 100 : 0;
+  }
+
+  const skillScore = getMatchingSkills(candidate.skills, requiredSkills).length / requiredSkills.length;
+  const experienceBonus = candidate.experienceLevel === job?.experienceLevel ? 0.15 : 0;
+  const regionBonus = normalizeText(candidate.region) === normalizeText(job?.region) ? 0.1 : 0;
+
+  return Math.min(100, Math.round((skillScore + experienceBonus + regionBonus) * 100));
+};
+
+const getInclusionReason = (candidate, job, matchingSkills) => {
+  if (matchingSkills.length > 0) {
+    return `Coincide con ${matchingSkills.length} habilidad(es) requerida(s): ${matchingSkills.join(', ')}.`;
+  }
+
+  if (candidate.experienceLevel === job?.experienceLevel) {
+    return 'Coincide con el nivel de experiencia requerido para esta vacante.';
+  }
+
+  return 'Perfil disponible en la base de candidatos registrados.';
+};
+
+const mapCandidateForView = (candidate, job) => {
+  const viewCandidate = {
+    candidateId: candidate.candidateId ?? candidate.id,
+    skills: candidate.skills ?? [],
+    experienceLevel: candidate.experienceLevel ?? 'MID',
+    region: candidate.region ?? candidate.municipio ?? 'No region',
+    diversityBadge: candidate.diversityBadge ?? '',
+  };
+  const matchingSkills = getMatchingSkills(viewCandidate.skills, job?.requiredSkills ?? job?.skills ?? []);
+
+  return {
+    ...viewCandidate,
+    matchingSkills,
+    compatibilityScore: getCompatibilityScore(viewCandidate, job),
+    inclusionReason: getInclusionReason(viewCandidate, job, matchingSkills),
+  };
+};
 
 const ScoreCircle = ({ score }) => {
   const color = score >= 85 ? '#006B5F' : score >= 70 ? '#F59E0B' : '#EF4444';
@@ -49,20 +102,71 @@ const SkillTag = ({ skill, matched }) => (
 
 const CandidatesList = () => {
   const { jobId } = useParams();
-  const job = jobs.find(j => j.id === Number(jobId));
 
+  const [job, setJob] = useState(null);
+  const [candidates, setCandidates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [regionFilter, setRegionFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
   const [selectedCandidates, setSelectedCandidates] = useState(new Set());
 
+  useEffect(() => {
+    let ignore = false;
+
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        setError('');
+
+        const [jobData, candidatesData] = await Promise.all([
+          getJobById(jobId),
+          listCandidates(),
+        ]);
+
+        if (!ignore) {
+          setJob(jobData);
+          setCandidates(Array.isArray(candidatesData) ? candidatesData : []);
+        }
+      } catch (err) {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : 'Unexpected error');
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      ignore = true;
+    };
+  }, [jobId]);
+
+  const regions = useMemo(() => {
+    const regionNames = candidates
+      .map(candidate => candidate.region ?? candidate.municipio)
+      .filter(Boolean);
+
+    return [...new Set(regionNames)].sort((a, b) => a.localeCompare(b));
+  }, [candidates]);
+
+  const viewCandidates = useMemo(
+    () => candidates.map(candidate => mapCandidateForView(candidate, job)),
+    [candidates, job]
+  );
+
   const filteredCandidates = useMemo(() => {
     if (!job) return [];
-    return mockCandidates.filter(c => {
+    return viewCandidates.filter(c => {
       if (regionFilter && c.region !== regionFilter) return false;
       if (levelFilter && c.experienceLevel !== levelFilter) return false;
       return true;
     }).sort((a, b) => b.compatibilityScore - a.compatibilityScore);
-  }, [job, regionFilter, levelFilter]);
+  }, [job, regionFilter, levelFilter, viewCandidates]);
 
   const toggleCandidate = (id) => {
     setSelectedCandidates(prev => {
@@ -77,13 +181,29 @@ const CandidatesList = () => {
     alert(`Contacto iniciado con ${selectedCandidates.size} candidato(s) seleccionado(s).`);
   };
 
+  const clearFilters = () => {
+    setRegionFilter('');
+    setLevelFilter('');
+    setSelectedCandidates(new Set());
+  };
+
   const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2B6952]/20 focus:border-[#2B6952] bg-white transition-all';
 
-  if (!job) {
+  if (loading) {
+    return (
+      <div className="p-8 max-w-6xl mx-auto">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-sm text-gray-500">
+          Loading candidates...
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !job) {
     return (
       <div className="p-8 max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-16 text-center">
-          <p className="text-gray-400 text-lg">Job not found.</p>
+          <p className="text-gray-400 text-lg">{error || 'Job not found.'}</p>
           <Link to="/job" className="text-[#006B5F] hover:underline text-sm mt-2 inline-block">Back to Jobs</Link>
         </div>
       </div>
@@ -127,7 +247,7 @@ const CandidatesList = () => {
             </div>
           </div>
           <div className="flex items-end">
-            <button onClick={() => setSelectedCandidates(new Set())}
+            <button onClick={clearFilters}
               className="w-full border border-gray-300 text-gray-600 hover:bg-gray-50 text-sm font-semibold px-6 py-2.5 rounded-lg transition-all cursor-pointer">
               Clear Filters
             </button>
