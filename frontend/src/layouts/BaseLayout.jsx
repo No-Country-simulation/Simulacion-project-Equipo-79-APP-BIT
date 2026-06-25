@@ -84,7 +84,7 @@ const Layout = ({ children }) => {
         </aside>
         {/* // ? header */}
         <div className="flex flex-col justify-between w-full">
-          <header className="flex justify-between py-6 bg-[#F8F9FF] min-h-16">
+          <header className="flex justify-between items-center py-6 bg-[#F8F9FF] min-h-16">
             <div className="bg-[#E5EEFF] rounded-lg flex justify-between items-center gap-5 px-2 md:px-4 ml-3 md:ml-6 py-4">
               <SearchIcon />
               <input type="search" name="searchbar" id="searchbar" placeholder={placeholder} value={query} onChange={handleSearchChange} className="text-[#6B7280] text-[12px] md:text-[14px] outline-none" />
@@ -107,9 +107,9 @@ const Layout = ({ children }) => {
             </div>
             {/* //* items mobile */}
             <div className="px-2 md:px-6 py-2 flex items-center gap-6 md:gap-8 md:hidden mr-3 md:mr-6">
-              <button className="cursor-pointer" onClick={() => setSidebarOpen(!sidebarOpen)} type="button">
+              {/* <button className="cursor-pointer" onClick={() => setSidebarOpen(!sidebarOpen)} type="button">
                 <NotificationIcon className="cursor-pointer" />
-              </button>
+              </button> */}
               <UserButton />
               {/* <img className="inline-block size-8 rounded-full md:hidden cursor-pointer hover:scale-105 transition-transform" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Avatar" /> */}
               <button className="cursor-pointer" onClick={() => setSidebarOpen(!sidebarOpen)} type="button">
@@ -117,7 +117,7 @@ const Layout = ({ children }) => {
               </button>
             </div>
           </header>
-          <div className="w-full h-full px-7.25 bg-[#F8F9FF]">
+          <div className="w-full h-fit px-7.25 bg-[#F8F9FF]">
             {children}
           </div>
         </div>

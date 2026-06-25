@@ -8,7 +8,7 @@ const RequireAuth = ({ children }) => {
     return null;
   }
 
-  return isSignedIn ? <Outlet /> : <Navigate to="/sign-in" replace />
+  return isSignedIn ? <Outlet /> : <Navigate to="/" replace />
 }
 
 export default RequireAuth
