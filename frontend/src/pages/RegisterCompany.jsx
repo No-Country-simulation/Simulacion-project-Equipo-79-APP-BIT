@@ -1,6 +1,5 @@
 import { sileo } from 'sileo';
 import AddIcon from '../components/icons/AddIcon';
-import companiesData from '../data/companies.json' with { type: 'json' };
 import { useId } from 'react';
 import JobCreatedIcon from '../components/icons/JobCreatedIcon';
 

@@ -1,10 +1,11 @@
 package com.appbit.backend.modules.company.dto;
 
+import com.appbit.backend.modules.company.entity.ExperienceLevel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import javax.validation.constraints.NotNull;
 import java.util.List;
 @Schema(
         name = "JobMatchRequest",
@@ -22,6 +23,8 @@ public record JobMatchRequest(
         )
         String title,
 
+        String description,
+
         @NotEmpty(message = "La lista de habilidades técnicas no puede estar vacía")
         @Schema(
                 description = "Lista de habilidades técnicas requeridas para el puesto",
@@ -31,14 +34,14 @@ public record JobMatchRequest(
         @ArraySchema(schema = @Schema(type = "string", example = "Java"))
         List<String> skills,
 
-        @NotBlank(message = "El nivel de experiencia es obligatorio")
+        @NotNull(message = "El nivel de experiencia es obligatorio")
         @Schema(
                 description = "Nivel de experiencia requerido para la vacante",
                 example = "SENIOR",
-                allowableValues = {"JUNIOR", "MID", "SENIOR", "LEAD"},
+                allowableValues = {"JUNIOR", "MID", "SENIOR"},
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
-        String experienceLevel,
+        ExperienceLevel experienceLevel,
 
         @NotBlank(message = "El municipio destino es obligatorio")
         @Schema(

@@ -6,12 +6,12 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
+
 @Schema(
         name = "AnonymousCandidateResponse",
         description = "Candidato con datos anonimizados. Cumple con la LGPD y principios anti-sesgo. " +
                 "No expone nombre, email, género ni ningún dato personal identificable."
 )
-
 public record AnonymousCandidateResponse(
 
         @Schema(description = "Identificador del candidato en el sistema", example = "42")
@@ -34,6 +34,7 @@ public record AnonymousCandidateResponse(
         double longitude
 
 ) {
+
     public AnonymousCandidateResponse {
         if (skills == null) {
             skills = List.of();
