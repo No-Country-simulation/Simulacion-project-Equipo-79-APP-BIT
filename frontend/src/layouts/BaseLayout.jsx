@@ -62,10 +62,26 @@ const Layout = () => {
           {/* //* nav */}
           <ul className="[&_a]:inline-flex [&_a]:gap-2.5 [&_a]:items-center [&_a]:mx-4 [&_li]:my-2.5 [&_li]:py-2 mt-8 [&>li]:hover:bg-[#6DF5E1] [&>.activebtn]:bg-[#6DF5E1] *:rounded-lg *:cursor-pointer *:hover:text-black *:hover:transition-colors">
             <Show when="signed-in">
-              <li className={pathname === '/' ? 'activebtn' : ''}><Link to="/"><DashboardIcon />Dashboard</Link></li>
-              <li className={pathname.startsWith('/job') ? 'activebtn' : ''}><Link to="/job"><JobsIcon />Jobs</Link></li>
-              <li className={pathname === '/insights' ? 'activebtn' : ''}><Link to="/insights"><InsightsIcon />Insights</Link></li>
-              <li className={pathname === '/settings' ? 'activebtn' : ''}><Link to="/settings"><SettingsIcon />Settings</Link></li>
+              <li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/' ? 'activebtn' : ''}`}>
+  <Link to="/" className="w-full h-full flex items-center gap-2.5">
+    <DashboardIcon />Dashboard
+  </Link>
+</li>
+<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname.startsWith('/job') ? 'activebtn' : ''}`}>
+  <Link to="/job" className="w-full h-full flex items-center gap-2.5">
+    <JobsIcon />Jobs
+  </Link>
+</li>
+<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/insights' ? 'activebtn' : ''}`}>
+  <Link to="/insights" className="w-full h-full flex items-center gap-2.5">
+    <InsightsIcon />Insights
+  </Link>
+</li>
+<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/settings' ? 'activebtn' : ''}`}>
+  <Link to="/settings" className="w-full h-full flex items-center gap-2.5">
+    <SettingsIcon />Settings
+  </Link>
+</li>
             </Show>
           </ul>
           {/* //* footer */}
