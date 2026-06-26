@@ -32,11 +32,11 @@ function RootLayout() {
       afterSignInUrl='/'
       afterSignUpUrl='/register-company'
     >
-      <BaseLayout>
-        <Toaster position="top-center" />
-        <Routes>
-          <Route path='/sign-in' element={<SignInPage />} />
-          <Route path='/sign-up' element={<SignUpPage />} />
+      <Toaster position="top-center" />
+      <Routes>
+        <Route path='/sign-in' element={<SignInPage />} />
+        <Route path='/sign-up' element={<SignUpPage />} />
+        <Route element={<BaseLayout />}>
           <Route element={<RequireAuth />}>
             <Route path='/' element={<App />} />
             <Route path='/register-company' element={<RegisterCompany />} />
@@ -47,8 +47,8 @@ function RootLayout() {
             <Route path='/settings' element={<Settings />} />
             <Route path='/support' element={<Support />} />
           </Route>
-        </Routes>
-      </BaseLayout>
+        </Route>
+      </Routes>
     </ClerkProvider>
   )
 }

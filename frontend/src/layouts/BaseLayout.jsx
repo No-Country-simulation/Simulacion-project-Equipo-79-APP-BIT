@@ -10,7 +10,7 @@ import HamburgerMenuIcon from "../components/icons/HamburgerMenuIcon"
 import SearchIcon from '../components/icons/SearchIcon'
 // ? react deps
 import { useState } from "react"
-import { useLocation, useSearchParams, Link } from "react-router"
+import { useLocation, useSearchParams, Link, Outlet } from "react-router"
 import { Show, SignInButton, SignOutButton, SignUpButton, UserButton } from "@clerk/react"
 
 const routeConfig = {
@@ -25,7 +25,7 @@ const routeConfig = {
   }
 }
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -119,7 +119,7 @@ const Layout = ({ children }) => {
             </div>
           </header>
           <main className="w-full flex-1 px-7.25 bg-[#F8F9FF]">
-            {children}
+            <Outlet />
           </main>
         </div>
       </div >
