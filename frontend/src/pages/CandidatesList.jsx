@@ -2,7 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import { getJobById } from '../api/jobs.js';
 import { listCandidates } from '../api/candidates.js';
+import CandidateMap from '../components/CandidateMap';
 import ChevronIcon from '../components/icons/ChevronIcon';
+import PinIcon from '../components/icons/PinIcon';
+import 'leaflet/dist/leaflet.css';
 
 const JobsIconSm = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -56,6 +59,8 @@ const mapCandidateForView = (candidate, job) => {
     experienceLevel: candidate.experienceLevel ?? 'MID',
     region: candidate.region ?? candidate.municipio ?? 'No region',
     diversityBadge: candidate.diversityBadge ?? '',
+    latitude: candidate.latitude ?? candidate.lat,
+    longitude: candidate.longitude ?? candidate.lng,
   };
   const matchingSkills = getMatchingSkills(viewCandidate.skills, job?.requiredSkills ?? job?.skills ?? []);
 
@@ -110,6 +115,7 @@ const CandidatesList = () => {
   const [regionFilter, setRegionFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
   const [selectedCandidates, setSelectedCandidates] = useState(new Set());
+  const [viewMode, setViewMode] = useState('list');
 
   useEffect(() => {
     let ignore = false;
@@ -263,16 +269,35 @@ const CandidatesList = () => {
           <span className="hidden sm:inline">|</span>
           <span>Diversity: {filteredCandidates.filter(c => c.diversityBadge).length}/{filteredCandidates.length}</span>
         </div>
-        {selectedCandidates.size > 0 && (
-          <button onClick={handleContact}
-            className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all shadow-sm cursor-pointer flex items-center gap-2">
-            <JobsIconSm />
-            Contact Selected ({selectedCandidates.size})
-          </button>
-        )}
+        <div className="flex items-center gap-3">
+          <div className="bg-gray-100 rounded-lg p-0.5 flex">
+            <button onClick={() => setViewMode('list')}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-md transition-all cursor-pointer ${viewMode === 'list' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+              List
+            </button>
+            <button onClick={() => setViewMode('map')}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-md transition-all cursor-pointer flex items-center gap-1 ${viewMode === 'map' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+              <PinIcon />
+              Map
+            </button>
+          </div>
+          {selectedCandidates.size > 0 && (
+            <button onClick={handleContact}
+              className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all shadow-sm cursor-pointer flex items-center gap-2">
+              <JobsIconSm />
+              Contact Selected ({selectedCandidates.size})
+            </button>
+          )}
+        </div>
       </div>
 
-      {filteredCandidates.length === 0 ? (
+      {viewMode === 'map' && filteredCandidates.length > 0 && (
+        <div className="mb-6">
+          <CandidateMap candidates={filteredCandidates} height="500px" />
+        </div>
+      )}
+
+      {viewMode === 'list' && (filteredCandidates.length === 0 ? (
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 text-center">
           <p className="text-gray-400 text-lg">No candidates match the selected filters.</p>
           <p className="text-gray-400 text-sm mt-1">Try adjusting the region or experience level criteria.</p>
@@ -322,7 +347,7 @@ const CandidatesList = () => {
             </div>
           ))}
         </div>
-      )}
+      ))}
     </div>
   );
 };
