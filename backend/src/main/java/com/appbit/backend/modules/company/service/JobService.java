@@ -35,12 +35,12 @@ public class JobService {
             throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
         }
 
-        // Validar si la empresa asociada existe en la base de datos
-        companyRepository.findById(job.companyId())
-                .orElseThrow(() -> new IllegalArgumentException("La empresa asociada con ID " 
-                        + job.companyId() + " no existe."));
+        Company company = companyRepository.findById(job.companyId())
+                .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
 
-        return jobRepository.save(jobMapper.toEntity(job));
+        Job jobEntity = jobMapper.toEntity(job, company);
+
+        return jobRepository.save(jobEntity);
     }
 
     /**
