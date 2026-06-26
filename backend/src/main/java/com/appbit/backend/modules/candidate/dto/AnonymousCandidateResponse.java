@@ -37,17 +37,17 @@ public record AnonymousCandidateResponse(
 
     public AnonymousCandidateResponse {
         if (skills == null) {
-            skills = List.of(); // Lista vacía en lugar de null → sin crashes
+            skills = List.of();
         }
     }
 
     public static AnonymousCandidateResponse from(Candidate candidate) {
         return new AnonymousCandidateResponse(
-                candidate.getId(),              // id de la BD  →  candidateId del DTO
-                candidate.getSkills(),          // List<String> ya es String, copia directa
-                candidate.getExperienceLevel(), // ExperienceLevel enum, copia directa
-                candidate.getLatitude(),        // double, copia directa
-                candidate.getLongitude()        // double, copia directa
+                candidate.getId(),
+                candidate.getSkills(),
+                candidate.getExperienceLevel(),
+                candidate.getLatitude(),
+                candidate.getLongitude()
         );
     }
 }

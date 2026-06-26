@@ -7,17 +7,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-
-/**
- * DTO (Data Transfer Object) para la solicitud de búsqueda de coincidencias (matching) de candidatos.
- * <p>
- * Contiene los datos de una oferta de trabajo para la cual se desea encontrar
- * candidatos compatibles mediante el motor de matching con IA.
- * Las anotaciones de validación de Jakarta impiden procesar datos incompletos o basura.
- * </p>
- *
- * @see com.appbit.backend.modules.agent.service.MatchingAgentService
- */
 @Schema(
         name = "JobMatchRequest",
         description = "Datos de la vacante que se envían al agente de IA para encontrar candidatos compatibles. " +

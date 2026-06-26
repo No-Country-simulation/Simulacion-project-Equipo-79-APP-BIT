@@ -16,7 +16,6 @@ public class CandidateService {
 
     private final CandidateRepository candidateRepository;
 
-    // Inyección por constructor (recomendada)
     public CandidateService(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
     }
@@ -45,11 +44,8 @@ public class CandidateService {
             // Solo nivel de experiencia
             candidates = candidateRepository.findByExperienceLevel(experienceLevel);
         } else {
-            // Sin filtros (devuelve todos, pero cuidado con el rendimiento)
             candidates = candidateRepository.findAll();
         }
-
-        // 2. Convertir cada Candidate a AnonymousCandidateResponse usando el mapper manual
         return candidates.stream()
                 .map(AnonymousCandidateResponse::from)
                 .collect(Collectors.toList());
