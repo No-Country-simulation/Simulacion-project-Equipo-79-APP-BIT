@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -60,6 +61,6 @@ public class JobService {
             throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
         }
         return jobRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Puesto de trabajo no encontrado con el ID: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
     }
 }

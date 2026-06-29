@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -42,6 +44,6 @@ public class CompanyService {
             throw new IllegalArgumentException("El ID de la empresa no puede ser nulo.");
         }
         return companyRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Empresa no encontrada con el ID: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Empresa no encontrada con el ID: " + id));
     }
 }
