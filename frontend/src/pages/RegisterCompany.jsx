@@ -1,23 +1,17 @@
 import { sileo } from 'sileo';
 import AddIcon from '../components/icons/AddIcon';
 import { useId } from 'react';
+import { useNavigate } from 'react-router';
 import JobCreatedIcon from '../components/icons/JobCreatedIcon';
-
-// const companyData = [
-//   {
-//     name: 'TechInnovate LATAM',
-//     industrySector: 'Software Development',
-//     esgGoals: 'Reducción de huella de carbono digital y fomento de empleo en zonas rurales.'
-//   },
-// ];
-
+import { createCompany } from '../api/company.js';
 
 const RegisterCompany = () => {
+  const navigate = useNavigate();
   const companyNameId = useId();
   const industrySectorId = useId();
   const esGoalsId = useId();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const companyName = formData.get(companyNameId);
@@ -30,23 +24,32 @@ const RegisterCompany = () => {
     }
 
     const newCompany = {
-      companyName,
+      name: companyName,
       industrySector,
-      esGoals
+      esgGoals: esGoals,
     }
 
-    sileo.success({
-      title: "Company created succesfully!",
-      fill: "#171717",
-      icon: <JobCreatedIcon className="size-3.5" />,
-      description: (
-        <>
-          <p className="text-neutral-300/70! font-medium">Name: <b className='text-white'>{newCompany.companyName}</b></p>
-          <p className="text-neutral-300/70! font-medium">Industry sector: <b className='text-white'>{newCompany.industrySector}</b></p>
-          <p className="text-neutral-300/70! font-medium">ES goals: <b className='text-white'>{newCompany.esGoals}</b></p>
-        </>
-      ),
-    });
+    try {
+      await createCompany(newCompany);
+      sileo.success({
+        title: 'Company created successfully!',
+        fill: '#171717',
+        icon: <JobCreatedIcon className="size-3.5" />,
+        description: (
+          <>
+            <p className="text-neutral-300/70! font-medium">Name: <b className='text-white'>{companyName}</b></p>
+            <p className="text-neutral-300/70! font-medium">Industry sector: <b className='text-white'>{industrySector}</b></p>
+            <p className="text-neutral-300/70! font-medium">ES goals: <b className='text-white'>{esGoals}</b></p>
+          </>
+        ),
+      });
+      navigate('/');
+    } catch (error) {
+      sileo.error({
+        title: 'Could not create company',
+        description: error instanceof Error ? error.message : 'Unexpected error',
+      });
+    }
   }
 
   return (

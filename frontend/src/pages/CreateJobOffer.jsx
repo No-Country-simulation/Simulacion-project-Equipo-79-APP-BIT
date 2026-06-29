@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { sileo } from 'sileo';
+import { useNavigate } from 'react-router';
 import { createJob } from '../api/jobs.js';
 import PinIcon from '../components/icons/PinIcon';
 import ChevronIcon from '../components/icons/ChevronIcon';
 
 const CreateJobOffer = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     experienceLevel: 'MID',
@@ -39,14 +41,7 @@ const CreateJobOffer = () => {
       setIsSubmitting(true);
       await createJob(payload);
       sileo.success({ title: 'Job offer created successfully!' });
-      setFormData({
-        title: '',
-        experienceLevel: 'MID',
-        region: '',
-        requiredSkills: '',
-        companyId: 1,
-        description: '',
-      });
+      navigate('/job');
     } catch (error) {
       sileo.error({
         title: 'Could not create job offer',

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router';
+import { sileo } from 'sileo';
 import { getJobById, findMatches } from '../api/jobs.js';
 import { listCandidates } from '../api/candidates.js';
 import CandidateMap from '../components/CandidateMap';
@@ -161,7 +162,11 @@ const CandidatesList = () => {
   };
 
   const handleContact = () => {
-    alert(`Contacto iniciado con ${selectedCandidates.size} candidato(s) seleccionado(s).`);
+    sileo.success({
+      title: 'Contact initiated',
+      description: `Contacto iniciado con ${selectedCandidates.size} candidato(s) seleccionado(s).`,
+    });
+    setSelectedCandidates(new Set());
   };
 
   const clearFilters = () => {
