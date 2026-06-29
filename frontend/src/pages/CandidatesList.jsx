@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import { getJobById } from '../api/jobs.js';
+import { getJobById, findMatches } from '../api/jobs.js';
 import { listCandidates } from '../api/candidates.js';
 import CandidateMap from '../components/CandidateMap';
 import ChevronIcon from '../components/icons/ChevronIcon';
@@ -9,52 +9,18 @@ import 'leaflet/dist/leaflet.css';
 
 const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
 
-const normalizeText = (value) => value?.trim().toLowerCase() ?? '';
-
-const getMatchingSkills = (candidateSkills = [], requiredSkills = []) => {
-  const requiredByName = new Map(
-    requiredSkills.map(skill => [normalizeText(skill), skill])
-  );
-  return candidateSkills.filter(skill => requiredByName.has(normalizeText(skill)));
-};
-
-const getCompatibilityScore = (candidate, job) => {
-  const requiredSkills = job?.requiredSkills ?? job?.skills ?? [];
-  if (requiredSkills.length === 0) {
-    return candidate.experienceLevel === job?.experienceLevel ? 100 : 0;
-  }
-  const skillScore = getMatchingSkills(candidate.skills, requiredSkills).length / requiredSkills.length;
-  const experienceBonus = candidate.experienceLevel === job?.experienceLevel ? 0.15 : 0;
-  const regionBonus = normalizeText(candidate.region) === normalizeText(job?.region) ? 0.1 : 0;
-  return Math.min(100, Math.round((skillScore + experienceBonus + regionBonus) * 100));
-};
-
-const getInclusionReason = (candidate, job, matchingSkills) => {
-  if (matchingSkills.length > 0) {
-    return `Coincide con ${matchingSkills.length} habilidad(es) requerida(s): ${matchingSkills.join(', ')}.`;
-  }
-  if (candidate.experienceLevel === job?.experienceLevel) {
-    return 'Coincide con el nivel de experiencia requerido para esta vacante.';
-  }
-  return 'Perfil disponible en la base de candidatos registrados.';
-};
-
-const mapCandidateForView = (candidate, job) => {
-  const viewCandidate = {
+const mapCandidateForView = (candidate, matchResult) => {
+  return {
     candidateId: candidate.candidateId ?? candidate.id,
     skills: candidate.skills ?? [],
     experienceLevel: candidate.experienceLevel ?? 'MID',
     region: candidate.region ?? candidate.municipio ?? 'No region',
-    diversityBadge: candidate.diversityBadge ?? '',
+    diversityBadge: matchResult?.diversityBadge ?? '',
     latitude: candidate.latitude ?? candidate.lat,
     longitude: candidate.longitude ?? candidate.lng,
-  };
-  const matchingSkills = getMatchingSkills(viewCandidate.skills, job?.requiredSkills ?? job?.skills ?? []);
-  return {
-    ...viewCandidate,
-    matchingSkills,
-    compatibilityScore: getCompatibilityScore(viewCandidate, job),
-    inclusionReason: getInclusionReason(viewCandidate, job, matchingSkills),
+    matchingSkills: matchResult?.matchingSkills ?? [],
+    compatibilityScore: matchResult?.compatibilityScore ?? 0,
+    inclusionReason: matchResult?.inclusionReason ?? '',
   };
 };
 
@@ -101,6 +67,7 @@ const CandidatesList = () => {
 
   const [job, setJob] = useState(null);
   const [candidates, setCandidates] = useState([]);
+  const [matchResults, setMatchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [regionFilter, setRegionFilter] = useState('');
@@ -118,9 +85,21 @@ const CandidatesList = () => {
           getJobById(jobId),
           listCandidates(),
         ]);
+        if (ignore) return;
+
+        setJob(jobData);
+        setCandidates(Array.isArray(candidatesData) ? candidatesData : []);
+
+        const results = await findMatches({
+          title: jobData.title,
+          description: jobData.description ?? '',
+          skills: jobData.skills ?? [],
+          experienceLevel: jobData.experienceLevel,
+          region: jobData.region,
+        });
+
         if (!ignore) {
-          setJob(jobData);
-          setCandidates(Array.isArray(candidatesData) ? candidatesData : []);
+          setMatchResults(Array.isArray(results) ? results : []);
         }
       } catch (err) {
         if (!ignore) setError(err instanceof Error ? err.message : 'Unexpected error');
@@ -137,9 +116,18 @@ const CandidatesList = () => {
     return [...new Set(regionNames)].sort((a, b) => a.localeCompare(b));
   }, [candidates]);
 
+  const matchResultsMap = useMemo(() => {
+    const map = new Map();
+    matchResults.forEach(r => map.set(r.candidateId, r));
+    return map;
+  }, [matchResults]);
+
   const viewCandidates = useMemo(
-    () => candidates.map(c => mapCandidateForView(c, job)),
-    [candidates, job]
+    () => candidates.map(c => {
+      const matchResult = matchResultsMap.get(c.candidateId ?? c.id);
+      return mapCandidateForView(c, matchResult);
+    }),
+    [candidates, matchResultsMap]
   );
 
   const filteredCandidates = useMemo(() => {
