@@ -1,19 +1,19 @@
 package com.appbit.backend.modules.company.mapper;
 
 import com.appbit.backend.modules.company.dto.JobRequest;
+import com.appbit.backend.modules.company.dto.JobResponse;
 import com.appbit.backend.modules.company.entity.Company;
 import com.appbit.backend.modules.company.entity.Job;
-import com.appbit.backend.modules.company.repository.CompanyRepository;
-import com.appbit.backend.modules.company.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class JobMapper {
 
-
-    public Job toEntity (JobRequest dto, Company company){
+    public Job toEntity(JobRequest dto, Company company) {
         return Job.builder()
                 .title(dto.title())
                 .description(dto.description())
@@ -22,5 +22,23 @@ public class JobMapper {
                 .experienceLevel(dto.experienceLevel())
                 .company(company)
                 .build();
+    }
+
+    public JobResponse toResponse(Job job) {
+        Company c = job.getCompany();
+        return new JobResponse(
+                job.getId(),
+                job.getTitle(),
+                job.getDescription(),
+                job.getExperienceLevel(),
+                job.getRegion(),
+                job.getSkills(),
+                new JobResponse.CompanySummary(c.getId(), c.getName(), c.getIndustrySector(), c.getEsgGoals()),
+                job.getPublishedAt()
+        );
+    }
+
+    public List<JobResponse> toResponseList(List<Job> jobs) {
+        return jobs.stream().map(this::toResponse).toList();
     }
 }
