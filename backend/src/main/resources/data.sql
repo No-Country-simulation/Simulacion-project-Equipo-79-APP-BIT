@@ -1,2230 +1,2751 @@
--- 500 candidatos colombianos generados automáticamente
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (1, 'JUNIOR', 'Barranquilla', 'Caribe', 10.8879, -74.8324, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (1, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (1, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (2, 'JUNIOR', 'Tunja', 'Centro', 5.5228, -73.4425, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (2, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (2, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (3, 'JUNIOR', 'Popayán', 'Pacífico', 2.4319, -76.6228, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (4, 'SENIOR', 'Pasto', 'Pacífico', 1.1791, -77.3240, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (5, 'SENIOR', 'Montería', 'Caribe', 8.8126, -75.8690, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'Swift');
+-- 500 candidatos de la Regiao Metropolitana de Florianopolis
+-- Coordenadas reales de Santa Catarina, Brasil
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (1, 'JUNIOR', 'Biguacu', 'Continente', -27.4955, -48.6545, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (1, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (1, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (2, 'JUNIOR', 'Chapeco', 'Oeste', -27.0984, -52.6106, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (2, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (2, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (2, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (3, 'SENIOR', 'Florianopolis', 'Ilha', -27.6201, -48.554, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (3, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (4, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3168, -48.5531, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (4, 'Terraform');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (5, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.0061, -48.6446, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'Git');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (5, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (6, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1230, -75.4914, 'Black/Brown');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (6, 'MID', 'Chapeco', 'Oeste', -27.1024, -52.6272, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (6, 'Laravel');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (6, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (6, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (6, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (7, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1479, -75.4535, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (6, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (7, 'MID', 'Criciuma', 'Sul', -28.6871, -49.3773, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'Docker');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (8, 'MID', 'Montería', 'Caribe', 8.7338, -75.8584, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (8, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (8, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (9, 'MID', 'Cúcuta', 'Oriente', 7.8994, -72.5486, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (10, 'JUNIOR', 'Medellín', 'Centro', 6.2930, -75.5970, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (11, 'MID', 'Cartagena', 'Caribe', 10.3621, -75.5549, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (7, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (8, 'MID', 'Balneario Camboriu', 'Norte', -27.0034, -48.644, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (8, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (8, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (9, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3149, -48.5592, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (9, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (10, 'JUNIOR', 'Itapema', 'Norte', -27.0964, -48.6261, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (10, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (11, 'JUNIOR', 'Itapema', 'Norte', -27.09, -48.6277, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Spring Boot');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (12, 'SENIOR', 'Florencia', 'Amazonía', 1.6134, -75.5664, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (13, 'MID', 'Sincelejo', 'Caribe', 9.2858, -75.3184, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (14, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2838, -74.2246, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (15, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.1250, -75.5092, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (16, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.5052, -75.7602, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (17, 'SENIOR', 'Cali', 'Centro', 3.4887, -76.4814, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (18, 'MID', 'Cúcuta', 'Oriente', 7.8563, -72.4482, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (18, 'CSS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (11, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (12, 'SENIOR', 'Chapeco', 'Oeste', -27.1049, -52.6186, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (12, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (13, 'JUNIOR', 'Palhoca', 'Continente', -27.6431, -48.6632, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (13, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (14, 'SENIOR', 'Tubarao', 'Sul', -28.4836, -49.0023, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (14, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (15, 'MID', 'Laguna', 'Sul', -28.4891, -48.7891, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (15, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (16, 'SENIOR', 'Laguna', 'Sul', -28.4922, -48.7731, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (16, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (17, 'SENIOR', 'Florianopolis', 'Ilha', -27.6121, -48.5422, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (17, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (18, 'JUNIOR', 'Palhoca', 'Continente', -27.6497, -48.6614, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (18, 'Spring Boot');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (18, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (18, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (19, 'JUNIOR', 'Quibdó', 'Pacífico', 5.7586, -76.6607, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (20, 'MID', 'Tunja', 'Centro', 5.4905, -73.4359, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (21, 'MID', 'Cali', 'Centro', 3.4539, -76.5674, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (22, 'JUNIOR', 'Riohacha', 'Caribe', 11.5936, -72.9578, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (23, 'SENIOR', 'Barranquilla', 'Caribe', 10.8936, -74.7599, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (18, 'Power BI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (19, 'JUNIOR', 'Chapeco', 'Oeste', -27.1006, -52.6221, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (19, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (20, 'SENIOR', 'Tijucas', 'Norte', -27.238, -48.6434, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (20, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (21, 'JUNIOR', 'Criciuma', 'Sul', -28.6704, -49.3711, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (21, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (22, 'JUNIOR', 'Sao Jose', 'Continente', -27.6081, -48.6458, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (22, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (23, 'SENIOR', 'Tubarao', 'Sul', -28.4743, -49.0026, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'MongoDB');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (24, 'JUNIOR', 'Cartagena', 'Caribe', 10.3872, -75.5498, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (24, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (24, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (25, 'SENIOR', 'Barranquilla', 'Caribe', 10.8920, -74.7165, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (25, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (25, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (25, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (26, 'JUNIOR', 'Riohacha', 'Caribe', 11.4986, -72.9241, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (27, 'MID', 'Quibdó', 'Pacífico', 5.6603, -76.6214, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (28, 'JUNIOR', 'Tunja', 'Centro', 5.5730, -73.4375, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (29, 'SENIOR', 'Cúcuta', 'Oriente', 7.8249, -72.5769, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (23, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (24, 'SENIOR', 'Biguacu', 'Continente', -27.4971, -48.6582, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (24, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (24, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (25, 'JUNIOR', 'Biguacu', 'Continente', -27.5046, -48.666, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (25, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (25, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (26, 'SENIOR', 'Tijucas', 'Norte', -27.2328, -48.6337, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (26, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (27, 'SENIOR', 'Sao Jose', 'Continente', -27.6067, -48.6491, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (27, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (28, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.498, -49.0633, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (28, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (29, 'MID', 'Blumenau', 'Vale', -26.9239, -49.0746, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'Kubernetes');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (30, 'MID', 'Tunja', 'Centro', 5.5504, -73.3482, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (31, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2241, -74.1715, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (31, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (31, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (32, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.6131, -75.6039, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (33, 'MID', 'Montería', 'Caribe', 8.7226, -75.8955, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (34, 'JUNIOR', 'Barranquilla', 'Caribe', 11.0341, -74.8549, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'Linux');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (29, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (30, 'SENIOR', 'Lages', 'Serra', -27.8112, -50.3263, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (30, 'Power BI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (31, 'SENIOR', 'Joinville', 'Norte', -26.3011, -48.8502, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (31, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (31, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (31, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (32, 'MID', 'Criciuma', 'Sul', -28.6888, -49.3714, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (32, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (33, 'SENIOR', 'Navegantes', 'Norte', -26.9013, -48.6563, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (33, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (34, 'MID', 'Criciuma', 'Sul', -28.6726, -49.3729, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'Azure');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (35, 'MID', 'Bucaramanga', 'Oriente', 7.1602, -73.1655, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (34, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (35, 'SENIOR', 'Cacador', 'Oeste', -26.7715, -51.0143, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Spring Boot');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (36, 'JUNIOR', 'Santa Marta', 'Caribe', 11.1679, -74.2256, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (37, 'SENIOR', 'Popayán', 'Pacífico', 2.3663, -76.6827, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (38, 'JUNIOR', 'Tunja', 'Centro', 5.5437, -73.3785, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (38, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (38, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (39, 'MID', 'Pereira', 'Eje Cafetero', 4.8354, -75.7140, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (40, 'JUNIOR', 'Valledupar', 'Caribe', 10.3871, -73.2153, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (41, 'SENIOR', 'Medellín', 'Centro', 6.3016, -75.6256, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (42, 'SENIOR', 'Sincelejo', 'Caribe', 9.2772, -75.3395, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (35, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (36, 'MID', 'Balneario Camboriu', 'Norte', -26.9988, -48.6409, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (36, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (37, 'MID', 'Chapeco', 'Oeste', -27.0921, -52.6276, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (37, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (38, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6921, -48.7844, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (38, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (38, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (38, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (39, 'MID', 'Joinville', 'Norte', -26.3181, -48.8569, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (39, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (40, 'JUNIOR', 'Tubarao', 'Sul', -28.4767, -49.0026, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (40, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (41, 'SENIOR', 'Navegantes', 'Norte', -26.8922, -48.6689, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (41, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (42, 'SENIOR', 'Lages', 'Serra', -27.8186, -50.3208, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (43, 'JUNIOR', 'Bogotá', 'Centro', 4.5482, -74.0064, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (44, 'MID', 'Valledupar', 'Caribe', 10.4384, -73.2074, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (45, 'JUNIOR', 'Bucaramanga', 'Oriente', 7.0862, -73.0847, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (42, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (43, 'SENIOR', 'Criciuma', 'Sul', -28.6771, -49.3712, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (43, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (44, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3136, -48.5685, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (44, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (45, 'MID', 'Biguacu', 'Continente', -27.5072, -48.6544, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (46, 'JUNIOR', 'Pasto', 'Pacífico', 1.2343, -77.2524, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (47, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3363, -75.3891, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (48, 'JUNIOR', 'Popayán', 'Pacífico', 2.4982, -76.6461, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (49, 'MID', 'Riohacha', 'Caribe', 11.5914, -72.8347, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (49, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (49, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (50, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.5069, -75.6324, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (51, 'SENIOR', 'Medellín', 'Centro', 6.2034, -75.5852, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (45, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (46, 'MID', 'Tijucas', 'Norte', -27.2356, -48.6314, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (46, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (47, 'MID', 'Chapeco', 'Oeste', -27.0923, -52.6294, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (47, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (48, 'SENIOR', 'Biguacu', 'Continente', -27.4969, -48.6657, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (48, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (49, 'MID', 'Tijucas', 'Norte', -27.2442, -48.63, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (49, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (49, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (49, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (50, 'SENIOR', 'Itapema', 'Norte', -27.0933, -48.6125, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (50, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (51, 'MID', 'Itapema', 'Norte', -27.0859, -48.6125, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Git');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (52, 'MID', 'Riohacha', 'Caribe', 11.5283, -72.9647, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (53, 'MID', 'Cúcuta', 'Oriente', 7.9426, -72.4765, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (54, 'MID', 'Quibdó', 'Pacífico', 5.7215, -76.5748, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (55, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9329, -72.5119, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (51, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (52, 'SENIOR', 'Cacador', 'Oeste', -26.7781, -51.0267, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (52, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (53, 'SENIOR', 'Cacador', 'Oeste', -26.7793, -51.0188, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (53, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (54, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3157, -48.5633, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (54, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (55, 'JUNIOR', 'Laguna', 'Sul', -28.4829, -48.7709, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'React');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (56, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2312, -74.1648, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (57, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.7900, -75.7462, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (58, 'SENIOR', 'Bucaramanga', 'Oriente', 7.1787, -73.1358, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (59, 'SENIOR', 'Riohacha', 'Caribe', 11.4653, -72.9320, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (55, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (56, 'JUNIOR', 'Lages', 'Serra', -27.8239, -50.3299, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (56, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (57, 'JUNIOR', 'Florianopolis', 'Ilha', -27.6027, -48.5561, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (57, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (58, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6906, -48.7812, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (58, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (59, 'MID', 'Joinville', 'Norte', -26.3089, -48.8432, 'TALENTO_JOVEN');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'Linux');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (60, 'MID', 'Valledupar', 'Caribe', 10.4608, -73.2710, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (61, 'MID', 'Bogotá', 'Centro', 4.6748, -74.0670, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (59, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (60, 'SENIOR', 'Tubarao', 'Sul', -28.4825, -49.0055, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (60, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (61, 'MID', 'Criciuma', 'Sul', -28.6764, -49.3708, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'MySQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (61, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (62, 'JUNIOR', 'Sincelejo', 'Caribe', 9.2771, -75.4050, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (62, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6813, -48.7782, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'PostgreSQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (63, 'SENIOR', 'Bogotá', 'Centro', 4.6495, -74.1534, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (64, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.7606, -75.7673, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (65, 'MID', 'Montería', 'Caribe', 8.7038, -75.8684, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (66, 'SENIOR', 'Bogotá', 'Centro', 4.6783, -74.0696, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (67, 'MID', 'Barranquilla', 'Caribe', 10.9955, -74.8281, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (67, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (67, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (68, 'JUNIOR', 'Montería', 'Caribe', 8.7622, -75.8598, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (69, 'SENIOR', 'Valledupar', 'Caribe', 10.5368, -73.2315, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (69, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (69, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (69, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (70, 'SENIOR', 'Santa Marta', 'Caribe', 11.2593, -74.1319, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'HTML');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (62, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (63, 'SENIOR', 'Lages', 'Serra', -27.8271, -50.3353, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (63, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (64, 'MID', 'Itajai', 'Norte', -26.915, -48.6709, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (64, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (65, 'MID', 'Navegantes', 'Norte', -26.8978, -48.6634, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (65, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (66, 'JUNIOR', 'Chapeco', 'Oeste', -27.1018, -52.6233, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (66, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (67, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.681, -48.7776, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (67, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (67, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (67, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (68, 'MID', 'Itajai', 'Norte', -26.905, -48.6616, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (68, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (69, 'MID', 'Sao Jose', 'Continente', -27.603, -48.6434, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (69, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (69, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (70, 'JUNIOR', 'Criciuma', 'Sul', -28.6824, -49.3648, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Figma');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (71, 'MID', 'Santa Marta', 'Caribe', 11.3019, -74.2400, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (72, 'JUNIOR', 'Riohacha', 'Caribe', 11.4983, -72.8606, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (73, 'MID', 'Cali', 'Centro', 3.4102, -76.5470, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (74, 'MID', 'Pereira', 'Eje Cafetero', 4.7934, -75.7317, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (75, 'JUNIOR', 'Montería', 'Caribe', 8.7895, -75.9223, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (76, 'JUNIOR', 'Cúcuta', 'Oriente', 7.8445, -72.4696, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (77, 'MID', 'Montería', 'Caribe', 8.7057, -75.9633, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (78, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1019, -75.5702, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (79, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0654, -75.5199, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (80, 'JUNIOR', 'Riohacha', 'Caribe', 11.4763, -72.8876, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (70, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (71, 'MID', 'Tubarao', 'Sul', -28.4821, -49.0193, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (71, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (72, 'JUNIOR', 'Laguna', 'Sul', -28.4805, -48.7762, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (72, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (73, 'JUNIOR', 'Criciuma', 'Sul', -28.6854, -49.377, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (73, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (74, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.0032, -48.6314, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (74, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (75, 'MID', 'Navegantes', 'Norte', -26.9078, -48.6592, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (75, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (76, 'SENIOR', 'Joinville', 'Norte', -26.3123, -48.8584, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (76, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (77, 'JUNIOR', 'Itapema', 'Norte', -27.0856, -48.619, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (77, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (78, 'MID', 'Florianopolis', 'Ilha', -27.6014, -48.5442, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (78, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (79, 'SENIOR', 'Tubarao', 'Sul', -28.4803, -49.0038, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (79, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (80, 'JUNIOR', 'Chapeco', 'Oeste', -27.0995, -52.6242, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'Python');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'MySQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (80, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (81, 'JUNIOR', 'Valledupar', 'Caribe', 10.4801, -73.2067, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (82, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.4629, -75.6097, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (82, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (82, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (82, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (83, 'JUNIOR', 'Cali', 'Centro', 3.3967, -76.5842, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (84, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.7748, -75.7254, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (85, 'MID', 'Bucaramanga', 'Oriente', 7.1134, -73.1110, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (81, 'MID', 'Criciuma', 'Sul', -28.6816, -49.3695, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (81, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (82, 'SENIOR', 'Balneario Camboriu', 'Norte', -26.9954, -48.635, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (82, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (82, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (83, 'JUNIOR', 'Itapema', 'Norte', -27.0907, -48.6252, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (83, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (84, 'MID', 'Jaragua do Sul', 'Vale', -26.4918, -49.0752, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (84, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (85, 'JUNIOR', 'Balneario Camboriu', 'Norte', -26.9903, -48.6407, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'JavaScript');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (86, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.0855, -75.4585, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (87, 'MID', 'Sincelejo', 'Caribe', 9.3755, -75.3977, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (88, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.4934, -75.7487, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (88, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (88, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (89, 'MID', 'Medellín', 'Centro', 6.2863, -75.6332, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (90, 'MID', 'Riohacha', 'Caribe', 11.6194, -72.9131, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (90, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (90, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (91, 'SENIOR', 'Valledupar', 'Caribe', 10.4941, -73.2871, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (85, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (86, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6821, -48.7702, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (86, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (87, 'MID', 'Sao Jose', 'Continente', -27.5923, -48.622, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (87, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (88, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.699, -48.7717, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (88, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (88, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (88, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (89, 'SENIOR', 'Navegantes', 'Norte', -26.9058, -48.6545, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (89, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (90, 'JUNIOR', 'Cacador', 'Oeste', -26.7892, -51.012, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (90, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (90, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (90, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (91, 'JUNIOR', 'Palhoca', 'Continente', -27.6435, -48.6615, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (91, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (91, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (92, 'SENIOR', 'Pasto', 'Pacífico', 1.1750, -77.3400, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (93, 'MID', 'Valledupar', 'Caribe', 10.3918, -73.2502, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (94, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0604, -75.4787, 'Women in Tech');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (91, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (92, 'MID', 'Cacador', 'Oeste', -26.7707, -51.0158, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (92, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (93, 'MID', 'Criciuma', 'Sul', -28.6818, -49.3761, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (93, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (94, 'SENIOR', 'Criciuma', 'Sul', -28.6882, -49.3765, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (94, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (94, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (94, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (95, 'SENIOR', 'Bogotá', 'Centro', 4.6181, -74.1468, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (94, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (95, 'SENIOR', 'Laguna', 'Sul', -28.4965, -48.7884, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'AWS');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (95, 'SQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (96, 'MID', 'Cartagena', 'Caribe', 10.3994, -75.4797, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (97, 'MID', 'Sincelejo', 'Caribe', 9.2552, -75.3819, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (97, 'Linux');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (96, 'SENIOR', 'Tubarao', 'Sul', -28.4799, -49.0016, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (96, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (97, 'SENIOR', 'Itapema', 'Norte', -27.0805, -48.6146, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (97, 'DevOps');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (97, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (98, 'SENIOR', 'Pasto', 'Pacífico', 1.2841, -77.2773, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (99, 'SENIOR', 'Popayán', 'Pacífico', 2.4423, -76.6415, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (100, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.8657, -75.7049, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (101, 'JUNIOR', 'Florencia', 'Amazonía', 1.6889, -75.6342, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (102, 'JUNIOR', 'Valledupar', 'Caribe', 10.5224, -73.1780, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (103, 'JUNIOR', 'Pasto', 'Pacífico', 1.2710, -77.2210, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (104, 'MID', 'Manizales', 'Eje Cafetero', 5.1499, -75.4709, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (104, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (104, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (105, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1348, -75.5830, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (106, 'JUNIOR', 'Florencia', 'Amazonía', 1.6003, -75.5782, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (106, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (106, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (107, 'MID', 'Armenia', 'Eje Cafetero', 4.5626, -75.6837, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (108, 'JUNIOR', 'Popayán', 'Pacífico', 2.3901, -76.6240, 'Black/Brown');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (98, 'SENIOR', 'Tubarao', 'Sul', -28.4853, -49.0035, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (98, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (99, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.487, -49.0667, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (99, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (100, 'SENIOR', 'Navegantes', 'Norte', -26.8958, -48.6689, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (100, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (101, 'MID', 'Itapema', 'Norte', -27.0823, -48.6255, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (101, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (102, 'MID', 'Blumenau', 'Vale', -26.9138, -49.0672, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (102, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (103, 'SENIOR', 'Tubarao', 'Sul', -28.4886, -49.0088, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (103, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (104, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3103, -48.5582, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (104, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (104, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (104, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (105, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6858, -48.7841, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (105, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (106, 'JUNIOR', 'Itajai', 'Norte', -26.9102, -48.6776, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (106, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (106, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (107, 'MID', 'Navegantes', 'Norte', -26.8953, -48.6501, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (107, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (108, 'SENIOR', 'Blumenau', 'Vale', -26.9169, -49.071, 'MUJER_STEM');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (109, 'MID', 'Manizales', 'Eje Cafetero', 5.0222, -75.5288, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (110, 'SENIOR', 'Santa Marta', 'Caribe', 11.1621, -74.1406, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (111, 'MID', 'Bucaramanga', 'Oriente', 7.1447, -73.0897, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (112, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.1165, -75.5851, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (113, 'MID', 'Valledupar', 'Caribe', 10.4112, -73.3121, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (114, 'JUNIOR', 'Pasto', 'Pacífico', 1.2633, -77.2836, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (114, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (114, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (114, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (115, 'MID', 'Cali', 'Centro', 3.4981, -76.6098, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (116, 'JUNIOR', 'Montería', 'Caribe', 8.6943, -75.9282, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (117, 'MID', 'Quibdó', 'Pacífico', 5.7602, -76.6845, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (117, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (117, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (118, 'MID', 'Riohacha', 'Caribe', 11.4830, -72.9507, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (108, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (109, 'MID', 'Lages', 'Serra', -27.8271, -50.3282, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (109, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (110, 'SENIOR', 'Itajai', 'Norte', -26.9196, -48.6699, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (110, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (111, 'MID', 'Lages', 'Serra', -27.8275, -50.3288, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (111, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (112, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6956, -48.7753, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (112, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (113, 'MID', 'Itajai', 'Norte', -26.9144, -48.6752, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (113, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (114, 'SENIOR', 'Criciuma', 'Sul', -28.6884, -49.3799, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (114, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (114, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (115, 'MID', 'Biguacu', 'Continente', -27.5039, -48.6681, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (115, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (116, 'MID', 'Laguna', 'Sul', -28.4886, -48.7749, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (116, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (117, 'MID', 'Cacador', 'Oeste', -26.7837, -51.02, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (117, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (117, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (117, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (118, 'MID', 'Tubarao', 'Sul', -28.4833, -49.018, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Kubernetes');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (119, 'MID', 'Valledupar', 'Caribe', 10.4879, -73.1998, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (120, 'JUNIOR', 'Quibdó', 'Pacífico', 5.6859, -76.6951, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'Flutter');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (118, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (119, 'MID', 'Blumenau', 'Vale', -26.916, -49.0792, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (119, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (120, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.4876, -49.0672, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'PHP');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'Python');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (120, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (121, 'SENIOR', 'Santa Marta', 'Caribe', 11.1912, -74.2595, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (121, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (121, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (122, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.6087, -75.7552, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (123, 'JUNIOR', 'Tunja', 'Centro', 5.4899, -73.3081, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (124, 'JUNIOR', 'Cartagena', 'Caribe', 10.4061, -75.4666, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (124, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (124, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (125, 'JUNIOR', 'Montería', 'Caribe', 8.8034, -75.9275, 'TALENTO_RURAL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (121, 'MID', 'Itajai', 'Norte', -26.9113, -48.6737, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (121, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (121, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (122, 'MID', 'Jaragua do Sul', 'Vale', -26.4921, -49.067, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (122, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (123, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6981, -48.7829, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (123, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (124, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6865, -48.7783, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (124, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (124, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (124, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (125, 'SENIOR', 'Joinville', 'Norte', -26.3166, -48.8451, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (126, 'SENIOR', 'Barranquilla', 'Caribe', 11.0032, -74.8002, 'PCD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (125, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (126, 'JUNIOR', 'Palhoca', 'Continente', -27.6572, -48.6745, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'Agile');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (127, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.8800, -75.7637, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (128, 'MID', 'Sincelejo', 'Caribe', 9.2929, -75.4605, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (129, 'MID', 'Armenia', 'Eje Cafetero', 4.4770, -75.7431, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (130, 'SENIOR', 'Quibdó', 'Pacífico', 5.6956, -76.6641, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (126, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (127, 'SENIOR', 'Tubarao', 'Sul', -28.4791, -49.0135, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (127, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (128, 'SENIOR', 'Biguacu', 'Continente', -27.4994, -48.6624, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (128, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (129, 'SENIOR', 'Blumenau', 'Vale', -26.923, -49.0623, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (129, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (130, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.4847, -49.0708, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'Testing QA');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (131, 'MID', 'Valledupar', 'Caribe', 10.4373, -73.2606, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (130, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (131, 'MID', 'Chapeco', 'Oeste', -27.1048, -52.6131, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'Analisis de datos');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (132, 'JUNIOR', 'Cartagena', 'Caribe', 10.4296, -75.5185, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (132, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (132, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (133, 'MID', 'Montería', 'Caribe', 8.8069, -75.8766, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (134, 'JUNIOR', 'Medellín', 'Centro', 6.3191, -75.5651, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'REST');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (131, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (132, 'JUNIOR', 'Tubarao', 'Sul', -28.4774, -49.0089, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (132, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (132, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (132, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (133, 'SENIOR', 'Balneario Camboriu', 'Norte', -26.9972, -48.638, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (133, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (134, 'SENIOR', 'Tijucas', 'Norte', -27.2419, -48.6304, 'TALENTO_RECONVERSION');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (135, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9399, -74.7874, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (136, 'MID', 'Armenia', 'Eje Cafetero', 4.5613, -75.6742, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (137, 'JUNIOR', 'Pasto', 'Pacífico', 1.1908, -77.3295, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (138, 'JUNIOR', 'Florencia', 'Amazonía', 1.5688, -75.6201, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (139, 'JUNIOR', 'Medellín', 'Centro', 6.1891, -75.5405, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (134, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (135, 'SENIOR', 'Palhoca', 'Continente', -27.6517, -48.6763, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (135, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (136, 'JUNIOR', 'Cacador', 'Oeste', -26.7872, -51.0129, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (136, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (137, 'SENIOR', 'Biguacu', 'Continente', -27.4926, -48.6572, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (137, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (138, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3125, -48.5584, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (138, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (139, 'MID', 'Jaragua do Sul', 'Vale', -26.4903, -49.0622, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'JavaScript');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (139, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (140, 'MID', 'Quibdó', 'Pacífico', 5.6810, -76.6984, 'TALENTO_JOVEN');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (140, 'MID', 'Joinville', 'Norte', -26.3129, -48.8406, 'MUJER_STEM');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (141, 'MID', 'Manizales', 'Eje Cafetero', 4.9976, -75.5272, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (142, 'MID', 'Santa Marta', 'Caribe', 11.2071, -74.2598, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (140, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (141, 'JUNIOR', 'Blumenau', 'Vale', -26.9164, -49.063, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (141, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (142, 'SENIOR', 'Lages', 'Serra', -27.8165, -50.3399, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'Machine Learning');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (143, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.8087, -75.6373, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (144, 'MID', 'Pasto', 'Pacífico', 1.2267, -77.2668, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (142, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (143, 'SENIOR', 'Biguacu', 'Continente', -27.5071, -48.663, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (143, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (144, 'MID', 'Navegantes', 'Norte', -26.898, -48.6646, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'Azure');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (145, 'SENIOR', 'Cúcuta', 'Oriente', 7.9421, -72.4889, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (144, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (145, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0085, -48.6313, 'TALENTO_RECONVERSION');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (145, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (145, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (145, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (145, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (146, 'JUNIOR', 'Valledupar', 'Caribe', 10.4773, -73.2494, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (147, 'JUNIOR', 'Florencia', 'Amazonía', 1.6357, -75.6024, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (145, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (146, 'SENIOR', 'Biguacu', 'Continente', -27.4975, -48.6526, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (146, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (147, 'MID', 'Chapeco', 'Oeste', -27.0924, -52.6171, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'Swift');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (147, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (148, 'JUNIOR', 'Cartagena', 'Caribe', 10.3607, -75.5666, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (149, 'MID', 'Riohacha', 'Caribe', 11.5386, -72.8981, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (150, 'SENIOR', 'Cali', 'Centro', 3.4466, -76.5110, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (151, 'JUNIOR', 'Cali', 'Centro', 3.4213, -76.5397, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (151, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (148, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0001, -48.6331, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (148, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (149, 'MID', 'Biguacu', 'Continente', -27.4945, -48.6586, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (149, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (150, 'JUNIOR', 'Tubarao', 'Sul', -28.4755, -49.0152, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (150, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (151, 'SENIOR', 'Lages', 'Serra', -27.8114, -50.3348, 'TALENTO_RURAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (151, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (151, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (151, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (152, 'SENIOR', 'Florencia', 'Amazonía', 1.5959, -75.5944, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (153, 'JUNIOR', 'Bucaramanga', 'Oriente', 7.0968, -73.1220, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (151, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (152, 'JUNIOR', 'Joinville', 'Norte', -26.3084, -48.8468, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (152, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (153, 'SENIOR', 'Lages', 'Serra', -27.8277, -50.3231, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'Rust');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (153, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (154, 'MID', 'Medellín', 'Centro', 6.2038, -75.5912, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (154, 'MID', 'Tubarao', 'Sul', -28.4785, -49.0121, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'PostgreSQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (155, 'JUNIOR', 'Valledupar', 'Caribe', 10.5070, -73.2246, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (154, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (155, 'MID', 'Balneario Camboriu', 'Norte', -26.9957, -48.6436, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'Go');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (156, 'MID', 'Sincelejo', 'Caribe', 9.2702, -75.3620, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (157, 'MID', 'Cartagena', 'Caribe', 10.4664, -75.5448, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (158, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3277, -75.4252, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (158, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (158, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (159, 'SENIOR', 'Montería', 'Caribe', 8.6799, -75.9162, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (160, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1254, -75.5742, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (160, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (160, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (161, 'JUNIOR', 'Cartagena', 'Caribe', 10.4153, -75.5697, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (162, 'MID', 'Montería', 'Caribe', 8.7852, -75.9276, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (163, 'SENIOR', 'Bucaramanga', 'Oriente', 7.1043, -73.0466, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (164, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9446, -72.4596, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (164, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (164, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (165, 'MID', 'Popayán', 'Pacífico', 2.5143, -76.5809, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (166, 'SENIOR', 'Florencia', 'Amazonía', 1.5580, -75.6173, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (167, 'JUNIOR', 'Florencia', 'Amazonía', 1.5942, -75.6255, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (168, 'JUNIOR', 'Pasto', 'Pacífico', 1.2612, -77.3365, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (169, 'JUNIOR', 'Cali', 'Centro', 3.3746, -76.5775, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (170, 'MID', 'Pereira', 'Eje Cafetero', 4.7959, -75.6436, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (171, 'MID', 'Tunja', 'Centro', 5.4940, -73.4243, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (155, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (156, 'SENIOR', 'Itajai', 'Norte', -26.9002, -48.666, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (156, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (157, 'MID', 'Tubarao', 'Sul', -28.4724, -49.0099, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (157, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (158, 'SENIOR', 'Criciuma', 'Sul', -28.6867, -49.3761, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (158, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (158, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (159, 'MID', 'Sao Jose', 'Continente', -27.5992, -48.6223, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (159, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (160, 'MID', 'Navegantes', 'Norte', -26.8981, -48.6693, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (160, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (160, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (160, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (161, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0069, -48.6349, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (161, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (162, 'JUNIOR', 'Itapema', 'Norte', -27.0956, -48.6115, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (162, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (163, 'MID', 'Tijucas', 'Norte', -27.2445, -48.6464, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (163, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (164, 'JUNIOR', 'Tubarao', 'Sul', -28.482, -49.0152, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (164, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (164, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (165, 'MID', 'Jaragua do Sul', 'Vale', -26.4952, -49.069, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (165, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (166, 'MID', 'Palhoca', 'Continente', -27.6526, -48.6759, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (166, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (167, 'MID', 'Palhoca', 'Continente', -27.649, -48.6611, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (167, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (168, 'SENIOR', 'Cacador', 'Oeste', -26.7793, -51.0211, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (168, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (169, 'MID', 'Tijucas', 'Norte', -27.2395, -48.633, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (169, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (170, 'SENIOR', 'Itapema', 'Norte', -27.0901, -48.6135, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (170, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (171, 'SENIOR', 'Joinville', 'Norte', -26.3073, -48.8584, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'GCP');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (172, 'SENIOR', 'Cali', 'Centro', 3.4554, -76.5543, 'PCD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (171, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (172, 'SENIOR', 'Sao Jose', 'Continente', -27.5967, -48.6299, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'Go');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (172, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (173, 'JUNIOR', 'Medellín', 'Centro', 6.2659, -75.5042, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (174, 'JUNIOR', 'Barranquilla', 'Caribe', 11.0073, -74.7588, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (173, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6917, -48.7728, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (173, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (174, 'JUNIOR', 'Itajai', 'Norte', -26.9142, -48.6617, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'Go');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (174, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (175, 'JUNIOR', 'Riohacha', 'Caribe', 11.5655, -72.8585, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (176, 'MID', 'Florencia', 'Amazonía', 1.5981, -75.5568, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (177, 'MID', 'Pasto', 'Pacífico', 1.1783, -77.2306, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (178, 'MID', 'Florencia', 'Amazonía', 1.5771, -75.6741, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (179, 'JUNIOR', 'Barranquilla', 'Caribe', 10.8967, -74.7707, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (180, 'SENIOR', 'Valledupar', 'Caribe', 10.4270, -73.1764, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (181, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.5618, -75.6932, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (175, 'JUNIOR', 'Joinville', 'Norte', -26.3134, -48.8502, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (175, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (176, 'JUNIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.329, -48.5597, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (176, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (177, 'JUNIOR', 'Laguna', 'Sul', -28.4954, -48.7867, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (177, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (178, 'JUNIOR', 'Cacador', 'Oeste', -26.7775, -51.0132, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (178, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (179, 'MID', 'Navegantes', 'Norte', -26.9044, -48.6694, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (179, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (180, 'JUNIOR', 'Chapeco', 'Oeste', -27.1093, -52.6257, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (180, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (181, 'MID', 'Blumenau', 'Vale', -26.9256, -49.0701, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Express');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (182, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.4779, -75.6913, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (182, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (182, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (183, 'JUNIOR', 'Florencia', 'Amazonía', 1.5931, -75.6370, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (183, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (183, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (184, 'JUNIOR', 'Florencia', 'Amazonía', 1.5963, -75.5974, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (185, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9056, -74.8646, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (186, 'JUNIOR', 'Popayán', 'Pacífico', 2.4113, -76.6467, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (186, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (186, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (186, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (187, 'JUNIOR', 'Barranquilla', 'Caribe', 11.0415, -74.7497, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (188, 'MID', 'Tunja', 'Centro', 5.5143, -73.3187, 'Black/Brown');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (181, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (182, 'SENIOR', 'Sao Jose', 'Continente', -27.6075, -48.6366, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (182, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (182, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (183, 'MID', 'Biguacu', 'Continente', -27.5053, -48.6555, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (183, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (183, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (183, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (184, 'MID', 'Blumenau', 'Vale', -26.9183, -49.0679, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (184, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (185, 'JUNIOR', 'Criciuma', 'Sul', -28.6886, -49.3768, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (185, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (186, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.4952, -49.0694, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (186, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (186, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (187, 'JUNIOR', 'Tubarao', 'Sul', -28.481, -49.0145, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (187, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (188, 'JUNIOR', 'Biguacu', 'Continente', -27.4984, -48.6659, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (189, 'MID', 'Sincelejo', 'Caribe', 9.3846, -75.3628, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (190, 'SENIOR', 'Quibdó', 'Pacífico', 5.7235, -76.6778, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (188, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (189, 'SENIOR', 'Florianopolis', 'Ilha', -27.6151, -48.5544, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (189, 'Terraform');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (190, 'SENIOR', 'Criciuma', 'Sul', -28.6737, -49.3734, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'Data Science');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (191, 'JUNIOR', 'Medellín', 'Centro', 6.2972, -75.5783, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (192, 'MID', 'Cali', 'Centro', 3.4117, -76.5104, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (190, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (191, 'SENIOR', 'Joinville', 'Norte', -26.3078, -48.8494, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (191, 'Terraform');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (192, 'MID', 'Palhoca', 'Continente', -27.6547, -48.6726, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Terraform');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (192, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (193, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9086, -72.4949, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (193, 'SENIOR', 'Itapema', 'Norte', -27.0966, -48.6237, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'FastAPI');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (194, 'JUNIOR', 'Medellín', 'Centro', 6.3160, -75.5378, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (195, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0930, -75.5421, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (193, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (194, 'JUNIOR', 'Blumenau', 'Vale', -26.914, -49.0758, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (194, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (195, 'MID', 'Joinville', 'Norte', -26.3095, -48.8407, 'TALENTO_JOVEN');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (196, 'JUNIOR', 'Quibdó', 'Pacífico', 5.6812, -76.6586, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (197, 'JUNIOR', 'Montería', 'Caribe', 8.7594, -75.9486, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (198, 'MID', 'Medellín', 'Centro', 6.2106, -75.5997, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (199, 'MID', 'Cúcuta', 'Oriente', 7.8936, -72.5054, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (200, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.7631, -75.7141, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (201, 'SENIOR', 'Cartagena', 'Caribe', 10.4609, -75.4780, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (202, 'JUNIOR', 'Tunja', 'Centro', 5.5452, -73.3893, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (203, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9469, -74.7492, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (203, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (203, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (203, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (204, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3047, -75.4706, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (205, 'JUNIOR', 'Cartagena', 'Caribe', 10.3722, -75.4963, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (206, 'SENIOR', 'Riohacha', 'Caribe', 11.5778, -72.9403, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (207, 'MID', 'Bogotá', 'Centro', 4.6252, -74.1192, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (208, 'SENIOR', 'Cúcuta', 'Oriente', 7.8978, -72.4724, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (209, 'MID', 'Barranquilla', 'Caribe', 10.9144, -74.8058, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (210, 'JUNIOR', 'Riohacha', 'Caribe', 11.6041, -72.8706, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (210, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (210, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (210, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (211, 'MID', 'Florencia', 'Amazonía', 1.5947, -75.5342, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (212, 'MID', 'Riohacha', 'Caribe', 11.4952, -72.9489, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (213, 'SENIOR', 'Riohacha', 'Caribe', 11.5202, -72.8389, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (214, 'SENIOR', 'Sincelejo', 'Caribe', 9.3556, -75.3251, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (214, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (214, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (215, 'MID', 'Montería', 'Caribe', 8.8248, -75.8606, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (215, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (215, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (215, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (216, 'MID', 'Santa Marta', 'Caribe', 11.1828, -74.1805, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (216, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (216, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (217, 'MID', 'Pereira', 'Eje Cafetero', 4.7371, -75.7045, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'Análisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (195, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (196, 'SENIOR', 'Sao Jose', 'Continente', -27.5955, -48.644, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (196, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (197, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.32, -48.5685, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (197, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (198, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3164, -48.5516, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (198, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (199, 'JUNIOR', 'Navegantes', 'Norte', -26.8989, -48.6589, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (199, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (200, 'JUNIOR', 'Sao Jose', 'Continente', -27.6028, -48.6309, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (200, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (201, 'JUNIOR', 'Blumenau', 'Vale', -26.9113, -49.0756, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (201, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (202, 'JUNIOR', 'Cacador', 'Oeste', -26.779, -51.0174, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (202, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (203, 'MID', 'Balneario Camboriu', 'Norte', -27.003, -48.635, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (203, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (203, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (204, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3177, -48.5612, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (204, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (205, 'SENIOR', 'Tijucas', 'Norte', -27.2439, -48.65, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (205, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (206, 'JUNIOR', 'Blumenau', 'Vale', -26.9189, -49.0618, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (206, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (207, 'SENIOR', 'Chapeco', 'Oeste', -27.1078, -52.627, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (207, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (208, 'JUNIOR', 'Biguacu', 'Continente', -27.4947, -48.6599, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (208, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (209, 'JUNIOR', 'Chapeco', 'Oeste', -27.1077, -52.6113, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (209, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (210, 'SENIOR', 'Navegantes', 'Norte', -26.8925, -48.6563, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (210, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (210, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (211, 'MID', 'Joinville', 'Norte', -26.3176, -48.8556, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (211, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (212, 'JUNIOR', 'Joinville', 'Norte', -26.3104, -48.8461, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (212, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (213, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.0069, -48.635, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (213, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (214, 'JUNIOR', 'Chapeco', 'Oeste', -27.1028, -52.6218, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (214, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (214, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (214, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (215, 'MID', 'Cacador', 'Oeste', -26.7708, -51.0273, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (215, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (215, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (216, 'MID', 'Lages', 'Serra', -27.8142, -50.3314, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (216, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (216, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (217, 'MID', 'Chapeco', 'Oeste', -27.1091, -52.6197, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'PHP');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (217, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (218, 'MID', 'Valledupar', 'Caribe', 10.4876, -73.1923, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (219, 'MID', 'Cali', 'Centro', 3.4760, -76.5748, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (219, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (219, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (220, 'SENIOR', 'Cúcuta', 'Oriente', 7.9633, -72.5820, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (221, 'JUNIOR', 'Tunja', 'Centro', 5.5517, -73.2987, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (222, 'MID', 'Barranquilla', 'Caribe', 10.9368, -74.7594, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (223, 'MID', 'Tunja', 'Centro', 5.5632, -73.4164, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (224, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9135, -74.8539, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (225, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.8002, -75.7279, 'Black/Brown');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (218, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3197, -48.5541, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (218, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (219, 'MID', 'Balneario Camboriu', 'Norte', -27.0052, -48.6403, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (219, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (219, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (220, 'JUNIOR', 'Blumenau', 'Vale', -26.919, -49.0628, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (220, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (221, 'MID', 'Cacador', 'Oeste', -26.7893, -51.028, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (221, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (222, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3193, -48.5676, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (222, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (223, 'JUNIOR', 'Criciuma', 'Sul', -28.6771, -49.361, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (223, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (224, 'JUNIOR', 'Chapeco', 'Oeste', -27.0986, -52.6276, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (224, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (225, 'JUNIOR', 'Itajai', 'Norte', -26.9112, -48.6673, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (225, 'React');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (225, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (225, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (226, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.7386, -75.7517, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (225, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (225, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (226, 'MID', 'Chapeco', 'Oeste', -27.1036, -52.6124, 'TALENTO_SENIOR');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (226, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (226, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (226, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (226, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (227, 'MID', 'Armenia', 'Eje Cafetero', 4.4886, -75.6101, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (228, 'MID', 'Bucaramanga', 'Oriente', 7.1673, -73.0892, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (228, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (228, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (229, 'MID', 'Florencia', 'Amazonía', 1.6470, -75.6748, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (226, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (227, 'SENIOR', 'Itapema', 'Norte', -27.0951, -48.614, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (227, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (228, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.483, -49.0779, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (228, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (228, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (228, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (229, 'SENIOR', 'Itajai', 'Norte', -26.9169, -48.6719, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'AWS');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (230, 'JUNIOR', 'Cúcuta', 'Oriente', 7.8664, -72.5045, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (231, 'JUNIOR', 'Cartagena', 'Caribe', 10.4018, -75.5213, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (232, 'JUNIOR', 'Bucaramanga', 'Oriente', 7.1379, -73.1909, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (233, 'JUNIOR', 'Medellín', 'Centro', 6.2101, -75.6324, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (234, 'JUNIOR', 'Cartagena', 'Caribe', 10.4243, -75.5388, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (235, 'MID', 'Manizales', 'Eje Cafetero', 5.0644, -75.4753, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (236, 'MID', 'Cartagena', 'Caribe', 10.3638, -75.4444, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (237, 'MID', 'Bogotá', 'Centro', 4.5682, -74.1509, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (238, 'SENIOR', 'Sincelejo', 'Caribe', 9.2949, -75.3914, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (238, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (238, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (239, 'MID', 'Manizales', 'Eje Cafetero', 5.0278, -75.4438, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (240, 'MID', 'Pereira', 'Eje Cafetero', 4.7949, -75.7266, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (241, 'MID', 'Riohacha', 'Caribe', 11.4719, -72.9332, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (229, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (230, 'MID', 'Balneario Camboriu', 'Norte', -26.9922, -48.6383, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (230, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (231, 'MID', 'Cacador', 'Oeste', -26.7893, -51.0257, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (231, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (232, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.4926, -49.0724, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (232, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (233, 'JUNIOR', 'Biguacu', 'Continente', -27.4988, -48.6584, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (233, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (234, 'MID', 'Cacador', 'Oeste', -26.7845, -51.0241, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (234, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (235, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.4863, -49.0635, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (235, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (236, 'SENIOR', 'Tubarao', 'Sul', -28.4738, -49.0049, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (236, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (237, 'SENIOR', 'Tijucas', 'Norte', -27.2398, -48.6396, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (237, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (238, 'MID', 'Chapeco', 'Oeste', -27.1064, -52.6291, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (238, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (238, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (238, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (239, 'MID', 'Palhoca', 'Continente', -27.6531, -48.6749, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (239, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (240, 'SENIOR', 'Chapeco', 'Oeste', -27.0927, -52.6223, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (240, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (241, 'JUNIOR', 'Joinville', 'Norte', -26.3047, -48.842, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Vue.js');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (241, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (242, 'SENIOR', 'Cúcuta', 'Oriente', 7.9346, -72.5120, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (242, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6996, -48.7732, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'DevOps');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (242, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (243, 'JUNIOR', 'Valledupar', 'Caribe', 10.5379, -73.2440, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (244, 'JUNIOR', 'Montería', 'Caribe', 8.6918, -75.8497, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (245, 'SENIOR', 'Popayán', 'Pacífico', 2.3995, -76.6613, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (245, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (245, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (246, 'SENIOR', 'Barranquilla', 'Caribe', 11.0034, -74.7557, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (247, 'MID', 'Pasto', 'Pacífico', 1.2587, -77.2976, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (248, 'MID', 'Quibdó', 'Pacífico', 5.6305, -76.5759, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (249, 'JUNIOR', 'Medellín', 'Centro', 6.2542, -75.6258, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (250, 'MID', 'Sincelejo', 'Caribe', 9.3159, -75.4385, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (251, 'MID', 'Montería', 'Caribe', 8.7041, -75.8503, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (252, 'SENIOR', 'Cali', 'Centro', 3.5228, -76.5051, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (253, 'JUNIOR', 'Cartagena', 'Caribe', 10.3212, -75.5135, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (254, 'JUNIOR', 'Valledupar', 'Caribe', 10.3850, -73.2485, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (254, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (254, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (255, 'JUNIOR', 'Cúcuta', 'Oriente', 7.8310, -72.5724, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (256, 'JUNIOR', 'Montería', 'Caribe', 8.8305, -75.8922, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (257, 'MID', 'Cali', 'Centro', 3.4364, -76.5517, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (258, 'JUNIOR', 'Riohacha', 'Caribe', 11.5997, -72.8851, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (259, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.7625, -75.6317, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (260, 'SENIOR', 'Tunja', 'Centro', 5.5606, -73.4186, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (243, 'MID', 'Itapema', 'Norte', -27.0812, -48.6254, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (243, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (244, 'JUNIOR', 'Sao Jose', 'Continente', -27.6076, -48.6253, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (244, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (245, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3275, -48.5502, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (245, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (245, 'Kubernetes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (246, 'SENIOR', 'Blumenau', 'Vale', -26.9205, -49.0778, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (246, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (247, 'JUNIOR', 'Tijucas', 'Norte', -27.2332, -48.6392, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (247, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (248, 'MID', 'Itapema', 'Norte', -27.0935, -48.6139, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (248, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (249, 'JUNIOR', 'Biguacu', 'Continente', -27.4995, -48.6687, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (249, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (250, 'MID', 'Criciuma', 'Sul', -28.6891, -49.366, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (250, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (251, 'SENIOR', 'Balneario Camboriu', 'Norte', -26.9912, -48.6324, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (251, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (252, 'SENIOR', 'Laguna', 'Sul', -28.4928, -48.7888, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (252, 'Power BI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (253, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6998, -48.7775, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (253, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (254, 'JUNIOR', 'Cacador', 'Oeste', -26.7789, -51.0241, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (254, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (254, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (255, 'SENIOR', 'Sao Jose', 'Continente', -27.594, -48.6361, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (255, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (256, 'SENIOR', 'Biguacu', 'Continente', -27.5043, -48.6598, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (256, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (257, 'SENIOR', 'Blumenau', 'Vale', -26.9212, -49.0735, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (257, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (258, 'SENIOR', 'Florianopolis', 'Ilha', -27.6152, -48.5409, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (258, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (259, 'MID', 'Palhoca', 'Continente', -27.6457, -48.6636, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (259, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (260, 'MID', 'Navegantes', 'Norte', -26.899, -48.6683, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Rust');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (261, 'MID', 'Cali', 'Centro', 3.4195, -76.5218, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (262, 'JUNIOR', 'Florencia', 'Amazonía', 1.6537, -75.6320, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (263, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.6061, -75.6998, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (260, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (261, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6824, -48.7899, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (261, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (262, 'MID', 'Florianopolis', 'Ilha', -27.6186, -48.5509, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (262, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (263, 'JUNIOR', 'Tubarao', 'Sul', -28.4853, -49.0006, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'Python');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (264, 'MID', 'Popayán', 'Pacífico', 2.5154, -76.6256, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (265, 'SENIOR', 'Cali', 'Centro', 3.4145, -76.5512, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (266, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0615, -75.4686, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (267, 'JUNIOR', 'Popayán', 'Pacífico', 2.4468, -76.6782, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (267, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (267, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (268, 'SENIOR', 'Sincelejo', 'Caribe', 9.2267, -75.4116, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (269, 'JUNIOR', 'Sincelejo', 'Caribe', 9.2518, -75.4348, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (269, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (269, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (270, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2282, -74.2015, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (271, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.4846, -75.7462, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (272, 'MID', 'Pasto', 'Pacífico', 1.2035, -77.2267, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (272, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (272, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (272, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (273, 'JUNIOR', 'Bucaramanga', 'Oriente', 7.1220, -73.1697, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (263, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (264, 'JUNIOR', 'Palhoca', 'Continente', -27.6407, -48.672, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (264, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (265, 'MID', 'Sao Jose', 'Continente', -27.5947, -48.6265, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (265, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (266, 'JUNIOR', 'Laguna', 'Sul', -28.4915, -48.7815, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (266, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (267, 'JUNIOR', 'Joinville', 'Norte', -26.306, -48.8412, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (267, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (267, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (267, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (268, 'MID', 'Chapeco', 'Oeste', -27.1094, -52.6288, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (268, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (269, 'MID', 'Laguna', 'Sul', -28.4951, -48.7795, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (269, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (269, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (269, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (270, 'JUNIOR', 'Blumenau', 'Vale', -26.9183, -49.0683, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (270, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (271, 'MID', 'Tijucas', 'Norte', -27.2316, -48.639, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (271, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (272, 'MID', 'Sao Jose', 'Continente', -27.6035, -48.6381, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (272, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (272, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (273, 'SENIOR', 'Lages', 'Serra', -27.8212, -50.3296, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'Java');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (274, 'JUNIOR', 'Pasto', 'Pacífico', 1.1948, -77.2279, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (275, 'SENIOR', 'Popayán', 'Pacífico', 2.3691, -76.5783, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (276, 'MID', 'Manizales', 'Eje Cafetero', 5.0290, -75.4850, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (273, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (274, 'SENIOR', 'Biguacu', 'Continente', -27.5083, -48.6639, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (274, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (275, 'MID', 'Itapema', 'Norte', -27.0893, -48.623, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (275, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (276, 'JUNIOR', 'Blumenau', 'Vale', -26.9194, -49.0768, 'GENDER_DIVERSITY');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (277, 'SENIOR', 'Sincelejo', 'Caribe', 9.3102, -75.3300, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (278, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.5554, -75.7497, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (279, 'SENIOR', 'Sincelejo', 'Caribe', 9.3794, -75.4247, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (279, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (279, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (280, 'MID', 'Pereira', 'Eje Cafetero', 4.8104, -75.6876, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (280, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (280, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (276, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (277, 'SENIOR', 'Sao Jose', 'Continente', -27.6048, -48.6205, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (277, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (278, 'SENIOR', 'Itajai', 'Norte', -26.91, -48.6731, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (278, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (279, 'MID', 'Jaragua do Sul', 'Vale', -26.4947, -49.067, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (279, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (279, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (279, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (280, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3291, -48.5605, 'TALENTO_RECONVERSION');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (280, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (281, 'MID', 'Quibdó', 'Pacífico', 5.7383, -76.6387, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (281, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (281, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (282, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0569, -75.4365, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (283, 'JUNIOR', 'Quibdó', 'Pacífico', 5.7402, -76.6495, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (284, 'JUNIOR', 'Barranquilla', 'Caribe', 10.8875, -74.8215, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (285, 'SENIOR', 'Popayán', 'Pacífico', 2.3904, -76.6051, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (280, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (281, 'MID', 'Florianopolis', 'Ilha', -27.6245, -48.5446, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (281, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (281, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (281, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (282, 'MID', 'Blumenau', 'Vale', -26.9224, -49.0733, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (282, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (283, 'MID', 'Chapeco', 'Oeste', -27.0903, -52.6244, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (283, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (284, 'JUNIOR', 'Navegantes', 'Norte', -26.9084, -48.6605, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (284, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (285, 'MID', 'Tubarao', 'Sul', -28.4859, -49.0016, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'MongoDB');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (286, 'MID', 'Armenia', 'Eje Cafetero', 4.5946, -75.6914, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (286, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (286, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (286, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (287, 'JUNIOR', 'Tunja', 'Centro', 5.4716, -73.3078, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (288, 'MID', 'Riohacha', 'Caribe', 11.5488, -72.8860, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (289, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9441, -72.4748, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (290, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9221, -74.8577, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (291, 'MID', 'Valledupar', 'Caribe', 10.4128, -73.2315, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (292, 'MID', 'Manizales', 'Eje Cafetero', 5.0127, -75.5401, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (293, 'MID', 'Sincelejo', 'Caribe', 9.3789, -75.3969, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (285, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (286, 'SENIOR', 'Laguna', 'Sul', -28.4931, -48.7872, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (286, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (286, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (287, 'MID', 'Itajai', 'Norte', -26.9095, -48.6727, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (287, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (288, 'SENIOR', 'Itapema', 'Norte', -27.0979, -48.6284, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (288, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (289, 'MID', 'Jaragua do Sul', 'Vale', -26.4985, -49.0737, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (289, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (290, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3292, -48.5617, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (290, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (291, 'MID', 'Lages', 'Serra', -27.8279, -50.3266, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (291, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (292, 'SENIOR', 'Joinville', 'Norte', -26.3011, -48.8487, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (292, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (293, 'SENIOR', 'Cacador', 'Oeste', -26.7894, -51.0165, 'TALENTO_RURAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (294, 'JUNIOR', 'Tunja', 'Centro', 5.4602, -73.3255, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (295, 'MID', 'Quibdó', 'Pacífico', 5.7052, -76.6093, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (295, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (295, 'SQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (296, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2848, -74.1473, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (297, 'SENIOR', 'Bucaramanga', 'Oriente', 7.2038, -73.1817, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (298, 'MID', 'Santa Marta', 'Caribe', 11.2166, -74.1483, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (298, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (298, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (298, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (299, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.5545, -75.7367, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (300, 'JUNIOR', 'Popayán', 'Pacífico', 2.4098, -76.6085, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (301, 'MID', 'Barranquilla', 'Caribe', 10.9056, -74.7564, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (302, 'MID', 'Pereira', 'Eje Cafetero', 4.8505, -75.6624, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (303, 'JUNIOR', 'Cali', 'Centro', 3.4730, -76.4712, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (304, 'MID', 'Tunja', 'Centro', 5.4557, -73.3234, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (305, 'MID', 'Bucaramanga', 'Oriente', 7.2003, -73.0661, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (306, 'SENIOR', 'Tunja', 'Centro', 5.5917, -73.3212, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (307, 'JUNIOR', 'Quibdó', 'Pacífico', 5.6173, -76.5842, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (307, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (307, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (308, 'SENIOR', 'Cartagena', 'Caribe', 10.4608, -75.5461, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (309, 'MID', 'Medellín', 'Centro', 6.2276, -75.6123, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (310, 'MID', 'Cali', 'Centro', 3.3928, -76.5758, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'SQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (311, 'JUNIOR', 'Valledupar', 'Caribe', 10.4941, -73.2568, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (311, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (311, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (312, 'SENIOR', 'Montería', 'Caribe', 8.8180, -75.9437, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (312, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (312, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (312, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (313, 'MID', 'Tunja', 'Centro', 5.4567, -73.3433, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (314, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.5632, -75.6257, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (315, 'JUNIOR', 'Montería', 'Caribe', 8.8311, -75.9153, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (315, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (315, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (316, 'SENIOR', 'Armenia', 'Eje Cafetero', 4.5493, -75.6661, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (317, 'JUNIOR', 'Florencia', 'Amazonía', 1.6315, -75.6571, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (317, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (293, 'Terraform');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (294, 'MID', 'Chapeco', 'Oeste', -27.0937, -52.6217, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (294, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (295, 'JUNIOR', 'Palhoca', 'Continente', -27.6431, -48.6742, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (295, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (295, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (295, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (296, 'JUNIOR', 'Balneario Camboriu', 'Norte', -26.9901, -48.6362, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (296, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (297, 'JUNIOR', 'Palhoca', 'Continente', -27.649, -48.6711, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (297, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (298, 'SENIOR', 'Palhoca', 'Continente', -27.6557, -48.6773, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (298, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (298, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (299, 'JUNIOR', 'Itajai', 'Norte', -26.918, -48.6781, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (299, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (300, 'JUNIOR', 'Itajai', 'Norte', -26.9054, -48.6654, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (300, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (301, 'MID', 'Tubarao', 'Sul', -28.4797, -49.0015, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (301, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (302, 'SENIOR', 'Cacador', 'Oeste', -26.7792, -51.0127, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (302, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (303, 'MID', 'Cacador', 'Oeste', -26.7788, -51.0186, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (303, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (304, 'MID', 'Tijucas', 'Norte', -27.2336, -48.638, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (304, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (305, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.4865, -49.0656, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (305, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (306, 'JUNIOR', 'Chapeco', 'Oeste', -27.1054, -52.6105, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (306, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (307, 'MID', 'Palhoca', 'Continente', -27.65, -48.6727, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (307, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (307, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (307, 'Django');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (308, 'MID', 'Navegantes', 'Norte', -26.899, -48.662, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (308, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (309, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.0019, -48.6483, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (309, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (310, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0023, -48.6413, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (310, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (311, 'MID', 'Biguacu', 'Continente', -27.5002, -48.6604, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (311, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (311, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (311, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (312, 'SENIOR', 'Blumenau', 'Vale', -26.9238, -49.063, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (312, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (312, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (313, 'MID', 'Laguna', 'Sul', -28.4823, -48.7888, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (313, 'GCP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (314, 'JUNIOR', 'Blumenau', 'Vale', -26.9197, -49.0695, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (314, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (315, 'JUNIOR', 'Laguna', 'Sul', -28.4823, -48.787, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (315, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (315, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (316, 'SENIOR', 'Criciuma', 'Sul', -28.681, -49.3666, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (316, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (317, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3186, -48.5506, 'TALENTO_RECONVERSION');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (317, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (318, 'MID', 'Sincelejo', 'Caribe', 9.2427, -75.3979, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (318, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (318, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (319, 'MID', 'Cartagena', 'Caribe', 10.3816, -75.4602, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (320, 'JUNIOR', 'Tunja', 'Centro', 5.4661, -73.4054, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (317, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (317, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (318, 'JUNIOR', 'Itajai', 'Norte', -26.9043, -48.6656, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (318, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (318, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (319, 'JUNIOR', 'Chapeco', 'Oeste', -27.0965, -52.6192, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (319, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (320, 'SENIOR', 'Itapema', 'Norte', -27.0922, -48.6217, 'TALENTO_RURAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (321, 'MID', 'Sincelejo', 'Caribe', 9.2379, -75.3919, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (321, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (321, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (322, 'JUNIOR', 'Florencia', 'Amazonía', 1.6817, -75.5314, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (323, 'MID', 'Pereira', 'Eje Cafetero', 4.7380, -75.7568, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (323, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (323, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (324, 'JUNIOR', 'Barranquilla', 'Caribe', 10.8859, -74.8544, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (325, 'MID', 'Cartagena', 'Caribe', 10.4397, -75.4546, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (326, 'SENIOR', 'Santa Marta', 'Caribe', 11.2446, -74.2369, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (326, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (326, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (327, 'MID', 'Florencia', 'Amazonía', 1.5920, -75.6074, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (320, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (321, 'SENIOR', 'Laguna', 'Sul', -28.4817, -48.7727, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (321, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (321, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (322, 'JUNIOR', 'Biguacu', 'Continente', -27.5039, -48.6602, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (322, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (323, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3207, -48.5684, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (323, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (323, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (323, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (324, 'JUNIOR', 'Laguna', 'Sul', -28.4863, -48.779, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (324, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (325, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.4963, -49.0793, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (325, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (326, 'JUNIOR', 'Jaragua do Sul', 'Vale', -26.4913, -49.0759, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (326, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (326, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (326, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (327, 'SENIOR', 'Criciuma', 'Sul', -28.6734, -49.3691, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Agile');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (328, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9204, -74.7950, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (327, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (328, 'MID', 'Chapeco', 'Oeste', -27.1065, -52.6108, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'Scrum');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (329, 'JUNIOR', 'Riohacha', 'Caribe', 11.5226, -72.8411, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (329, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (329, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (330, 'MID', 'Pereira', 'Eje Cafetero', 4.7802, -75.7040, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (328, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (329, 'MID', 'Criciuma', 'Sul', -28.679, -49.367, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (329, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (329, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (330, 'JUNIOR', 'Criciuma', 'Sul', -28.6818, -49.367, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'Flask');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (331, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9642, -74.7321, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (332, 'JUNIOR', 'Quibdó', 'Pacífico', 5.7533, -76.6091, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (333, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.1086, -75.5516, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (334, 'MID', 'Bogotá', 'Centro', 4.6789, -74.1579, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (334, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (334, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (335, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3605, -75.3614, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (335, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (335, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (335, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (336, 'SENIOR', 'Cartagena', 'Caribe', 10.4336, -75.5795, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (337, 'JUNIOR', 'Florencia', 'Amazonía', 1.5558, -75.5561, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (338, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.7754, -75.6345, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (339, 'SENIOR', 'Cali', 'Centro', 3.5226, -76.5902, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (340, 'JUNIOR', 'Quibdó', 'Pacífico', 5.6649, -76.7136, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (330, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (331, 'MID', 'Lages', 'Serra', -27.8156, -50.3308, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (331, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (332, 'SENIOR', 'Joinville', 'Norte', -26.3027, -48.855, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (332, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (333, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6942, -48.7866, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (333, 'Docker');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (334, 'MID', 'Navegantes', 'Norte', -26.8915, -48.6659, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (334, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (334, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (335, 'SENIOR', 'Tubarao', 'Sul', -28.4791, -49.0098, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (335, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (335, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (336, 'SENIOR', 'Palhoca', 'Continente', -27.6527, -48.6739, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (336, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (337, 'MID', 'Tijucas', 'Norte', -27.2399, -48.6365, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (337, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (338, 'MID', 'Lages', 'Serra', -27.8279, -50.3352, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (338, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (339, 'JUNIOR', 'Blumenau', 'Vale', -26.9286, -49.0632, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (339, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (340, 'JUNIOR', 'Laguna', 'Sul', -28.4819, -48.7772, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (340, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (340, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (340, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (341, 'SENIOR', 'Santa Marta', 'Caribe', 11.2972, -74.2645, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (341, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (341, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (342, 'JUNIOR', 'Cartagena', 'Caribe', 10.3343, -75.5547, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (342, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (342, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (343, 'MID', 'Cúcuta', 'Oriente', 7.8189, -72.5231, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (344, 'SENIOR', 'Barranquilla', 'Caribe', 10.8858, -74.7435, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (345, 'SENIOR', 'Cali', 'Centro', 3.4648, -76.5706, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (345, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (345, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (346, 'SENIOR', 'Cartagena', 'Caribe', 10.3344, -75.4588, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (340, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (341, 'JUNIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3225, -48.5645, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (341, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (341, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (341, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (342, 'JUNIOR', 'Biguacu', 'Continente', -27.4995, -48.6527, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (342, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (342, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (342, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (343, 'JUNIOR', 'Florianopolis', 'Ilha', -27.607, -48.5424, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (343, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (344, 'JUNIOR', 'Itajai', 'Norte', -26.9161, -48.6621, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (344, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (345, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6829, -48.7806, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (345, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (345, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (346, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3244, -48.5626, 'TALENTO_REGIONAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (346, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (346, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (347, 'MID', 'Cúcuta', 'Oriente', 7.9618, -72.5185, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (347, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (347, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (348, 'JUNIOR', 'Cúcuta', 'Oriente', 7.8705, -72.4425, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (349, 'MID', 'Manizales', 'Eje Cafetero', 5.0701, -75.4492, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (350, 'MID', 'Florencia', 'Amazonía', 1.5743, -75.5282, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (351, 'JUNIOR', 'Florencia', 'Amazonía', 1.5859, -75.6440, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (351, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (351, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (351, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (352, 'SENIOR', 'Riohacha', 'Caribe', 11.5491, -72.8656, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (352, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (352, 'Linux');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (353, 'JUNIOR', 'Popayán', 'Pacífico', 2.4954, -76.5479, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (354, 'MID', 'Montería', 'Caribe', 8.8232, -75.9611, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (346, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (346, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (347, 'JUNIOR', 'Blumenau', 'Vale', -26.9279, -49.0628, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (347, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (347, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (348, 'MID', 'Itajai', 'Norte', -26.9063, -48.6628, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (348, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (349, 'SENIOR', 'Cacador', 'Oeste', -26.7822, -51.0256, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (349, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (350, 'SENIOR', 'Tijucas', 'Norte', -27.2402, -48.645, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (350, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (351, 'JUNIOR', 'Itajai', 'Norte', -26.91, -48.6719, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (351, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (351, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (352, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6884, -48.7809, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (352, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (352, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (352, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (353, 'JUNIOR', 'Palhoca', 'Continente', -27.6414, -48.6652, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (353, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (354, 'MID', 'Joinville', 'Norte', -26.3143, -48.8553, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'Angular');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (355, 'JUNIOR', 'Popayán', 'Pacífico', 2.4142, -76.6162, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (356, 'SENIOR', 'Bogotá', 'Centro', 4.5828, -74.0634, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (356, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (356, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (356, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (357, 'SENIOR', 'Cartagena', 'Caribe', 10.4136, -75.4476, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (354, 'Scrum');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (355, 'SENIOR', 'Chapeco', 'Oeste', -27.0955, -52.6162, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (355, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (356, 'SENIOR', 'Itajai', 'Norte', -26.9153, -48.673, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (356, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (356, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (357, 'SENIOR', 'Navegantes', 'Norte', -26.8912, -48.6517, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Testing QA');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (358, 'SENIOR', 'Barranquilla', 'Caribe', 10.9377, -74.8248, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (359, 'MID', 'Armenia', 'Eje Cafetero', 4.5792, -75.7276, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (360, 'SENIOR', 'Tunja', 'Centro', 5.5180, -73.2882, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (361, 'MID', 'Pereira', 'Eje Cafetero', 4.8310, -75.7539, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (361, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (361, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (362, 'JUNIOR', 'Pasto', 'Pacífico', 1.1615, -77.2168, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (363, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.8396, -75.7145, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (363, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (363, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (364, 'SENIOR', 'Quibdó', 'Pacífico', 5.7319, -76.5778, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (365, 'JUNIOR', 'Tunja', 'Centro', 5.5595, -73.3374, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (365, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (365, 'Spring Boot');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (366, 'JUNIOR', 'Pasto', 'Pacífico', 1.1764, -77.3417, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'Análisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (357, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (358, 'SENIOR', 'Laguna', 'Sul', -28.4932, -48.7735, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (358, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (359, 'JUNIOR', 'Florianopolis', 'Ilha', -27.6284, -48.5505, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (359, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (360, 'SENIOR', 'Tubarao', 'Sul', -28.4854, -49.0006, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (360, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (361, 'SENIOR', 'Lages', 'Serra', -27.8199, -50.3302, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (361, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (361, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (362, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3151, -48.5521, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (362, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (363, 'JUNIOR', 'Joinville', 'Norte', -26.3172, -48.8402, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (363, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (363, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (364, 'JUNIOR', 'Itajai', 'Norte', -26.9186, -48.6771, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (364, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (365, 'MID', 'Itapema', 'Norte', -27.0914, -48.6124, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (365, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (365, 'MySQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (366, 'JUNIOR', 'Joinville', 'Norte', -26.3014, -48.8493, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'Azure');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (366, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (367, 'MID', 'Armenia', 'Eje Cafetero', 4.6109, -75.6204, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (368, 'JUNIOR', 'Medellín', 'Centro', 6.1804, -75.6283, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (369, 'MID', 'Medellín', 'Centro', 6.2271, -75.5733, 'TALENTO_REGIONAL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (367, 'MID', 'Chapeco', 'Oeste', -27.0974, -52.6158, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (367, 'Testing QA');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (368, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.01, -48.6455, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (368, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (369, 'JUNIOR', 'Florianopolis', 'Ilha', -27.6071, -48.5568, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (369, 'GCP');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (369, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (369, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (369, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (369, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (370, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.5302, -75.7478, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (371, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3001, -75.3346, 'Women in Tech');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (370, 'SENIOR', 'Itajai', 'Norte', -26.9062, -48.6641, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (370, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (371, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6819, -48.7884, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Swift');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (372, 'SENIOR', 'Santa Marta', 'Caribe', 11.2312, -74.2369, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (372, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (372, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (373, 'MID', 'Cali', 'Centro', 3.4785, -76.4827, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (374, 'SENIOR', 'Florencia', 'Amazonía', 1.6014, -75.6016, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (375, 'MID', 'Sincelejo', 'Caribe', 9.3691, -75.3635, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (376, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9694, -72.4584, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (376, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (376, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (377, 'SENIOR', 'Cartagena', 'Caribe', 10.4532, -75.5531, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (377, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (377, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (378, 'JUNIOR', 'Popayán', 'Pacífico', 2.4284, -76.6425, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (378, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (378, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (379, 'JUNIOR', 'Florencia', 'Amazonía', 1.6595, -75.6693, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (379, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (379, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (380, 'SENIOR', 'Barranquilla', 'Caribe', 11.0096, -74.7376, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (381, 'JUNIOR', 'Riohacha', 'Caribe', 11.4704, -72.9442, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (382, 'JUNIOR', 'Riohacha', 'Caribe', 11.6117, -72.8448, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (383, 'MID', 'Pereira', 'Eje Cafetero', 4.7502, -75.6147, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (384, 'MID', 'Bucaramanga', 'Oriente', 7.1161, -73.0520, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (385, 'SENIOR', 'Manizales', 'Eje Cafetero', 5.1038, -75.5259, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (385, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (371, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (372, 'JUNIOR', 'Lages', 'Serra', -27.8127, -50.3364, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (372, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (372, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (373, 'MID', 'Sao Jose', 'Continente', -27.6093, -48.6271, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (373, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (374, 'MID', 'Itapema', 'Norte', -27.0854, -48.6115, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (374, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (375, 'JUNIOR', 'Biguacu', 'Continente', -27.4933, -48.6593, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (375, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (376, 'MID', 'Blumenau', 'Vale', -26.9153, -49.0624, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (376, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (376, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (376, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (377, 'JUNIOR', 'Cacador', 'Oeste', -26.7867, -51.0166, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (377, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (377, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (378, 'MID', 'Balneario Camboriu', 'Norte', -26.991, -48.636, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (378, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (378, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (378, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (379, 'SENIOR', 'Chapeco', 'Oeste', -27.095, -52.6192, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (379, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (379, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (379, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (380, 'JUNIOR', 'Criciuma', 'Sul', -28.6865, -49.3674, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (380, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (381, 'JUNIOR', 'Palhoca', 'Continente', -27.644, -48.6729, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (381, 'Node.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (382, 'MID', 'Sao Jose', 'Continente', -27.5934, -48.6372, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (382, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (383, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3282, -48.5555, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (383, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (384, 'MID', 'Laguna', 'Sul', -28.4977, -48.7796, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (384, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (385, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6929, -48.7859, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (385, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (386, 'MID', 'Bucaramanga', 'Oriente', 7.1793, -73.1582, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (387, 'MID', 'Florencia', 'Amazonía', 1.5979, -75.5396, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'PHP');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (388, 'JUNIOR', 'Riohacha', 'Caribe', 11.5583, -72.9323, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (385, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (385, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (386, 'SENIOR', 'Itajai', 'Norte', -26.9096, -48.6756, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (386, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (387, 'JUNIOR', 'Tubarao', 'Sul', -28.4764, -49.0044, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (387, 'Terraform');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (388, 'JUNIOR', 'Lages', 'Serra', -27.812, -50.3331, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'TypeScript');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (388, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (389, 'SENIOR', 'Medellín', 'Centro', 6.1903, -75.5696, NULL);
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (389, 'SENIOR', 'Criciuma', 'Sul', -28.6771, -49.3768, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (389, 'FastAPI');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (389, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (389, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (389, 'Linux');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (390, 'SENIOR', 'Valledupar', 'Caribe', 10.4652, -73.1949, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (391, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9101, -72.5864, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (389, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (390, 'SENIOR', 'Itapema', 'Norte', -27.0872, -48.6218, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (390, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (391, 'MID', 'Chapeco', 'Oeste', -27.0998, -52.6118, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (392, 'MID', 'Quibdó', 'Pacífico', 5.6550, -76.6582, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (393, 'JUNIOR', 'Popayán', 'Pacífico', 2.4684, -76.5973, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (394, 'SENIOR', 'Santa Marta', 'Caribe', 11.2026, -74.1652, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (394, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (394, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (394, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (395, 'MID', 'Medellín', 'Centro', 6.2931, -75.5328, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (396, 'MID', 'Santa Marta', 'Caribe', 11.3059, -74.2143, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (397, 'MID', 'Riohacha', 'Caribe', 11.6094, -72.8808, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (398, 'MID', 'Barranquilla', 'Caribe', 10.9592, -74.7579, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (391, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (392, 'MID', 'Joinville', 'Norte', -26.3066, -48.8523, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (392, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (393, 'JUNIOR', 'Itapema', 'Norte', -27.083, -48.6241, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (393, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (394, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0041, -48.6432, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (394, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (394, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (395, 'JUNIOR', 'Itapema', 'Norte', -27.0946, -48.6187, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (395, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (396, 'MID', 'Cacador', 'Oeste', -26.7833, -51.0263, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (396, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (397, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.329, -48.569, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'SRE');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (397, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (398, 'SENIOR', 'Itapema', 'Norte', -27.0928, -48.6121, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'React');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (398, 'MongoDB');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (399, 'MID', 'Montería', 'Caribe', 8.7127, -75.8262, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (400, 'SENIOR', 'Quibdó', 'Pacífico', 5.7509, -76.6576, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (400, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (400, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (401, 'MID', 'Florencia', 'Amazonía', 1.5536, -75.5784, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (402, 'SENIOR', 'Bucaramanga', 'Oriente', 7.1002, -73.0401, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (402, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (402, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (402, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (403, 'JUNIOR', 'Riohacha', 'Caribe', 11.5176, -72.8304, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'Linux');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (404, 'SENIOR', 'Bucaramanga', 'Oriente', 7.1672, -73.1711, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (405, 'SENIOR', 'Valledupar', 'Caribe', 10.4845, -73.2687, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (406, 'SENIOR', 'Bucaramanga', 'Oriente', 7.1623, -73.0461, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (406, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (399, 'MID', 'Balneario Camboriu', 'Norte', -27.0027, -48.6493, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (399, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (400, 'SENIOR', 'Criciuma', 'Sul', -28.677, -49.3757, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (400, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (400, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (401, 'SENIOR', 'Blumenau', 'Vale', -26.9294, -49.0777, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (401, 'Power BI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (402, 'SENIOR', 'Lages', 'Serra', -27.8145, -50.329, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (402, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (402, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (403, 'MID', 'Itapema', 'Norte', -27.0815, -48.6134, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (403, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (404, 'SENIOR', 'Itapema', 'Norte', -27.0979, -48.6241, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (404, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (405, 'MID', 'Biguacu', 'Continente', -27.5095, -48.6582, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (405, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (406, 'JUNIOR', 'Biguacu', 'Continente', -27.5014, -48.6668, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (406, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (406, 'CI/CD');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (406, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (406, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (407, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.7649, -75.6303, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (408, 'MID', 'Medellín', 'Centro', 6.2119, -75.6147, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (409, 'SENIOR', 'Montería', 'Caribe', 8.7970, -75.9392, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (410, 'MID', 'Florencia', 'Amazonía', 1.5614, -75.6286, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Kubernetes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (411, 'MID', 'Armenia', 'Eje Cafetero', 4.6124, -75.6574, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (411, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (411, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (412, 'MID', 'Quibdó', 'Pacífico', 5.6755, -76.6453, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'CSS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (413, 'JUNIOR', 'Valledupar', 'Caribe', 10.4890, -73.2272, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (414, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.4721, -75.7451, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'Excel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (407, 'JUNIOR', 'Navegantes', 'Norte', -26.9065, -48.6625, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (407, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (408, 'JUNIOR', 'Laguna', 'Sul', -28.4969, -48.7762, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (408, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (409, 'MID', 'Chapeco', 'Oeste', -27.0974, -52.6176, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (409, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (410, 'MID', 'Blumenau', 'Vale', -26.9145, -49.0654, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (410, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (411, 'JUNIOR', 'Biguacu', 'Continente', -27.4969, -48.6608, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (411, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (411, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (411, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (412, 'MID', 'Joinville', 'Norte', -26.3137, -48.8587, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (412, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (413, 'SENIOR', 'Itajai', 'Norte', -26.91, -48.678, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (413, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (414, 'JUNIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3262, -48.5525, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'REST API');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'Express');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (414, 'C#');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (415, 'JUNIOR', 'Montería', 'Caribe', 8.7895, -75.9183, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (415, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (415, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (415, 'PostgreSQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (416, 'JUNIOR', 'Bogotá', 'Centro', 4.5317, -74.1475, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (417, 'SENIOR', 'Santa Marta', 'Caribe', 11.2639, -74.2059, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (418, 'MID', 'Montería', 'Caribe', 8.8053, -75.9156, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (419, 'SENIOR', 'Cúcuta', 'Oriente', 7.8665, -72.4447, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (415, 'SENIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6864, -48.7845, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (415, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (415, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (416, 'MID', 'Chapeco', 'Oeste', -27.0965, -52.6155, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (416, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (417, 'JUNIOR', 'Navegantes', 'Norte', -26.893, -48.6613, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (417, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (418, 'MID', 'Biguacu', 'Continente', -27.5076, -48.6676, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (418, 'Figma');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (419, 'MID', 'Cacador', 'Oeste', -26.7734, -51.0181, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'JavaScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (420, 'MID', 'Cúcuta', 'Oriente', 7.8321, -72.5238, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (421, 'JUNIOR', 'Medellín', 'Centro', 6.3213, -75.5261, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (422, 'SENIOR', 'Montería', 'Caribe', 8.7748, -75.8276, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (422, 'REST');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (419, 'MongoDB');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (420, 'SENIOR', 'Sao Jose', 'Continente', -27.6084, -48.6469, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (420, 'AWS');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (421, 'MID', 'Laguna', 'Sul', -28.4972, -48.7837, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (421, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (422, 'MID', 'Blumenau', 'Vale', -26.9246, -49.0721, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (422, 'Express');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (422, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (422, 'SQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (423, 'MID', 'Valledupar', 'Caribe', 10.4536, -73.3231, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (424, 'MID', 'Barranquilla', 'Caribe', 10.9532, -74.7601, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (425, 'MID', 'Cúcuta', 'Oriente', 7.8948, -72.5127, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (426, 'MID', 'Pereira', 'Eje Cafetero', 4.7816, -75.7261, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (423, 'MID', 'Tijucas', 'Norte', -27.2397, -48.6403, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (423, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (424, 'SENIOR', 'Laguna', 'Sul', -28.4881, -48.7856, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (424, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (425, 'JUNIOR', 'Tijucas', 'Norte', -27.2307, -48.631, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (425, 'CI/CD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (426, 'SENIOR', 'Blumenau', 'Vale', -26.9227, -49.0625, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'MongoDB');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (426, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (427, 'MID', 'Tunja', 'Centro', 5.5270, -73.3102, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Spring Boot');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (428, 'SENIOR', 'Popayán', 'Pacífico', 2.4527, -76.5626, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'GraphQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (429, 'JUNIOR', 'Pasto', 'Pacífico', 1.1927, -77.3498, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (430, 'SENIOR', 'Montería', 'Caribe', 8.7915, -75.9474, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (431, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0779, -75.5306, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Rust');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (432, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9246, -74.8451, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (433, 'MID', 'Valledupar', 'Caribe', 10.3905, -73.2319, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'GraphQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Microservicios');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (434, 'SENIOR', 'Bogotá', 'Centro', 4.6146, -74.1539, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'Ciberseguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (427, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.4836, -49.0774, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Flask');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (427, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (428, 'MID', 'Palhoca', 'Continente', -27.6477, -48.6633, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'MySQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (428, 'Rust');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (429, 'MID', 'Tijucas', 'Norte', -27.2382, -48.6304, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (429, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (430, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3145, -48.5622, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (430, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (431, 'MID', 'Itajai', 'Norte', -26.905, -48.6693, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (431, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (432, 'SENIOR', 'Balneario Camboriu', 'Norte', -27.0019, -48.6357, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (432, 'React');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (433, 'MID', 'Itapema', 'Norte', -27.0865, -48.6155, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (433, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (434, 'JUNIOR', 'Criciuma', 'Sul', -28.6781, -49.3664, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'Redes');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (435, 'JUNIOR', 'Sincelejo', 'Caribe', 9.3299, -75.3808, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (436, 'JUNIOR', 'Pasto', 'Pacífico', 1.2899, -77.2860, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (437, 'MID', 'Bucaramanga', 'Oriente', 7.0790, -73.0838, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (438, 'MID', 'Pasto', 'Pacífico', 1.2483, -77.2368, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (439, 'MID', 'Barranquilla', 'Caribe', 10.8879, -74.8531, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (440, 'SENIOR', 'Medellín', 'Centro', 6.2747, -75.6140, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'Análisis de datos');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (441, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.8475, -75.6808, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Swift');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (442, 'JUNIOR', 'Popayán', 'Pacífico', 2.3734, -76.5757, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (443, 'JUNIOR', 'Armenia', 'Eje Cafetero', 4.4847, -75.6473, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (443, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (443, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (443, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (444, 'MID', 'Barranquilla', 'Caribe', 10.9443, -74.8078, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (434, 'C++');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (435, 'MID', 'Jaragua do Sul', 'Vale', -26.4981, -49.0681, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (435, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (436, 'JUNIOR', 'Lages', 'Serra', -27.8245, -50.3244, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (436, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (437, 'JUNIOR', 'Chapeco', 'Oeste', -27.092, -52.6126, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (437, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (438, 'SENIOR', 'Itapema', 'Norte', -27.0844, -48.6145, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (438, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (439, 'MID', 'Lages', 'Serra', -27.827, -50.3294, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (439, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (440, 'JUNIOR', 'Joinville', 'Norte', -26.3076, -48.846, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (440, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (441, 'MID', 'Tijucas', 'Norte', -27.2497, -48.6479, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Azure');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'FastAPI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (441, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (442, 'MID', 'Palhoca', 'Continente', -27.6526, -48.6635, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (442, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (443, 'JUNIOR', 'Tubarao', 'Sul', -28.4815, -49.0032, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (443, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (443, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (444, 'SENIOR', 'Navegantes', 'Norte', -26.8981, -48.6693, 'TALENTO_RURAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (445, 'JUNIOR', 'Pasto', 'Pacífico', 1.2092, -77.2085, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (446, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0688, -75.4988, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (447, 'MID', 'Florencia', 'Amazonía', 1.5599, -75.6004, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'JavaScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (448, 'MID', 'Manizales', 'Eje Cafetero', 5.0253, -75.4700, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'Flutter');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (449, 'SENIOR', 'Quibdó', 'Pacífico', 5.6532, -76.6301, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (449, 'HTML');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (449, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (450, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9456, -74.7900, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (451, 'MID', 'Manizales', 'Eje Cafetero', 5.1340, -75.5596, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (451, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (451, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (451, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (452, 'JUNIOR', 'Cali', 'Centro', 3.4053, -76.5113, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (444, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (445, 'JUNIOR', 'Balneario Camboriu', 'Norte', -27.0051, -48.6406, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (445, 'Java');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (446, 'JUNIOR', 'Criciuma', 'Sul', -28.6875, -49.3662, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (446, 'Machine Learning');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (447, 'MID', 'Lages', 'Serra', -27.8113, -50.3209, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (447, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (448, 'MID', 'Joinville', 'Norte', -26.3178, -48.8599, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (448, 'Express');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (449, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.3146, -48.5645, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (449, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (449, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (449, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (450, 'SENIOR', 'Lages', 'Serra', -27.8125, -50.3342, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (450, 'C#');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (451, 'SENIOR', 'Tubarao', 'Sul', -28.471, -49.0199, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (451, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (451, 'Python');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (452, 'SENIOR', 'Sao Jose', 'Continente', -27.5983, -48.6314, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (453, 'JUNIOR', 'Cartagena', 'Caribe', 10.3235, -75.4797, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (452, 'PostgreSQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (453, 'MID', 'Florianopolis', 'Ilha', -27.6182, -48.5532, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (453, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (453, 'Swift');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (453, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (453, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (454, 'SENIOR', 'Popayán', 'Pacífico', 2.3761, -76.5632, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'HTML');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (455, 'JUNIOR', 'Bogotá', 'Centro', 4.5920, -74.1428, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (455, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (455, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (456, 'JUNIOR', 'Cali', 'Centro', 3.4288, -76.5315, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (453, 'Spring Boot');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (454, 'JUNIOR', 'Navegantes', 'Norte', -26.9044, -48.6524, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (454, 'Analisis de datos');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (455, 'SENIOR', 'Tijucas', 'Norte', -27.2456, -48.6466, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (455, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (455, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (455, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (456, 'JUNIOR', 'Laguna', 'Sul', -28.491, -48.7882, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'MongoDB');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'Go');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (456, 'CI/CD');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (457, 'MID', 'Sincelejo', 'Caribe', 9.2879, -75.3721, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (457, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (457, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (457, 'Power BI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (458, 'MID', 'Manizales', 'Eje Cafetero', 5.1439, -75.5673, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'SQL');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (459, 'MID', 'Medellín', 'Centro', 6.1650, -75.5657, 'TALENTO_REGIONAL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (457, 'SENIOR', 'Biguacu', 'Continente', -27.4999, -48.669, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (457, 'Redes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (457, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (458, 'SENIOR', 'Tubarao', 'Sul', -28.4791, -49.0195, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (458, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (459, 'MID', 'Sao Jose', 'Continente', -27.606, -48.6294, 'TALENTO_REGIONAL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (459, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (459, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (459, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (459, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (460, 'SENIOR', 'Cartagena', 'Caribe', 10.3455, -75.5591, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'Machine Learning');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (461, 'SENIOR', 'Medellín', 'Centro', 6.3004, -75.5120, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'DevOps');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (462, 'MID', 'Santa Marta', 'Caribe', 11.1765, -74.1629, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (463, 'MID', 'Armenia', 'Eje Cafetero', 4.4645, -75.7323, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (459, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (460, 'JUNIOR', 'Sao Jose', 'Continente', -27.6033, -48.6251, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (460, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (461, 'MID', 'Palhoca', 'Continente', -27.6437, -48.668, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'Power BI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (461, 'GraphQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (462, 'JUNIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3239, -48.5512, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (462, 'UX/UI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (463, 'SENIOR', 'Jaragua do Sul', 'Vale', -26.4888, -49.0722, 'TALENTO_RECONVERSION');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (464, 'JUNIOR', 'Pasto', 'Pacífico', 1.2880, -77.3315, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (464, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (464, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (464, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (465, 'MID', 'Cartagena', 'Caribe', 10.4284, -75.5413, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'AWS');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (466, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9172, -72.5747, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Python');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (463, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (464, 'MID', 'Santo Amaro da Imperatriz', 'Continente', -27.6823, -48.7782, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (464, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (464, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (465, 'JUNIOR', 'Itapema', 'Norte', -27.0974, -48.6205, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (465, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (466, 'SENIOR', 'Joinville', 'Norte', -26.3124, -48.8487, 'GENDER_DIVERSITY');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (466, 'Power BI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (466, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (466, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (467, 'SENIOR', 'Cali', 'Centro', 3.4880, -76.4693, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (467, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (467, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (468, 'JUNIOR', 'Tunja', 'Centro', 5.4893, -73.4414, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (466, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (466, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (467, 'JUNIOR', 'Itajai', 'Norte', -26.9178, -48.6723, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (467, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (467, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (468, 'MID', 'Joinville', 'Norte', -26.3174, -48.8415, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Azure');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (469, 'JUNIOR', 'Manizales', 'Eje Cafetero', 5.0117, -75.5102, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (469, 'PostgreSQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (469, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (470, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9351, -72.5653, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (470, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (470, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (470, 'Docker');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (471, 'JUNIOR', 'Pereira', 'Eje Cafetero', 4.8505, -75.7335, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (471, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (471, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (472, 'SENIOR', 'Montería', 'Caribe', 8.7391, -75.8187, 'TALENTO_REGIONAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'Excel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'Docker');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (468, 'TypeScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (469, 'JUNIOR', 'Joinville', 'Norte', -26.3129, -48.8481, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (469, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (469, 'Testing QA');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (469, 'Microservicios');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (470, 'MID', 'Lages', 'Serra', -27.8271, -50.3289, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (470, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (470, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (471, 'JUNIOR', 'Florianopolis', 'Ilha', -27.6094, -48.5511, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (471, 'Angular');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (471, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (472, 'SENIOR', 'Cacador', 'Oeste', -26.7878, -51.0212, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'GCP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'MySQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (472, 'Linux');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (473, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2534, -74.1878, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Ciberseguridad');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Git');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (474, 'MID', 'Sincelejo', 'Caribe', 9.3803, -75.4421, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'Microservicios');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'Java');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (475, 'JUNIOR', 'Florencia', 'Amazonía', 1.6755, -75.6169, 'PCD');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (473, 'SENIOR', 'Itapema', 'Norte', -27.092, -48.6243, 'TALENTO_SENIOR');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Laravel');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Microservicios');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (473, 'Vue.js');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (474, 'JUNIOR', 'Criciuma', 'Sul', -28.6771, -49.3727, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (474, 'PHP');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (475, 'JUNIOR', 'Biguacu', 'Continente', -27.4998, -48.6664, NULL);
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'Vue.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'Kotlin');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'Express');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (475, 'TypeScript');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (476, 'MID', 'Montería', 'Caribe', 8.7733, -75.8349, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'SQL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'REST');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (476, 'JUNIOR', 'Itajai', 'Norte', -26.9165, -48.6638, 'MUJER_STEM');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'Ciberseguridad');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (477, 'JUNIOR', 'Cúcuta', 'Oriente', 7.9175, -72.5221, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Python');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Testing QA');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (478, 'JUNIOR', 'Medellín', 'Centro', 6.3067, -75.6377, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (479, 'MID', 'Tunja', 'Centro', 5.5573, -73.3067, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (480, 'SENIOR', 'Riohacha', 'Caribe', 11.6032, -72.9610, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'Ciberseguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (476, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (477, 'JUNIOR', 'Lages', 'Serra', -27.8191, -50.3318, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Analisis de datos');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Java');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (477, 'Data Science');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (478, 'SENIOR', 'Sao Jose', 'Continente', -27.6068, -48.6345, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (478, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (479, 'JUNIOR', 'Santo Amaro da Imperatriz', 'Continente', -27.6932, -48.7821, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Git');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (479, 'Swift');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (480, 'MID', 'Criciuma', 'Sul', -28.6893, -49.3794, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'GraphQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'Swift');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'Soporte TI');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (481, 'JUNIOR', 'Florencia', 'Amazonía', 1.5767, -75.5714, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (481, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (481, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (482, 'MID', 'Sincelejo', 'Caribe', 9.2459, -75.4751, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'Node.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'AWS');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (480, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (481, 'MID', 'Joinville', 'Norte', -26.311, -48.8463, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (481, 'Express');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (481, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (481, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (482, 'SENIOR', 'Laguna', 'Sul', -28.4984, -48.7727, 'TALENTO_REGIONAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'Machine Learning');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'Scrum');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (482, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (483, 'MID', 'Armenia', 'Eje Cafetero', 4.5493, -75.6229, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (484, 'JUNIOR', 'Cartagena', 'Caribe', 10.4640, -75.5081, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Kotlin');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (483, 'SENIOR', 'Itapema', 'Norte', -27.0952, -48.6212, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (483, 'REST API');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (484, 'SENIOR', 'Florianopolis', 'Ilha', -27.5959, -48.5429, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Express');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (484, 'Terraform');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (485, 'SENIOR', 'Pereira', 'Eje Cafetero', 4.8788, -75.6935, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'Terraform');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'Python');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (486, 'SENIOR', 'Santa Marta', 'Caribe', 11.2371, -74.2418, 'MUJER_STEM');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Excel');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (487, 'JUNIOR', 'Barranquilla', 'Caribe', 10.9671, -74.8164, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'Rust');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'Kotlin');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'Node.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (488, 'SENIOR', 'Valledupar', 'Caribe', 10.4874, -73.2926, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Soporte TI');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Go');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Vue.js');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (489, 'JUNIOR', 'Valledupar', 'Caribe', 10.4714, -73.2440, 'PCD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'CSS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Go');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (490, 'MID', 'Cartagena', 'Caribe', 10.4565, -75.4889, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'Vue.js');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (491, 'MID', 'Sincelejo', 'Caribe', 9.3505, -75.3497, 'Women in Tech');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'Swift');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (492, 'MID', 'Bogotá', 'Centro', 4.6584, -74.0300, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'Angular');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'Git');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'Kotlin');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (493, 'SENIOR', 'Cali', 'Centro', 3.4690, -76.4961, 'TALENTO_SENIOR');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Redes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Kubernetes');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'PHP');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Testing QA');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (494, 'MID', 'Riohacha', 'Caribe', 11.5346, -72.9560, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'C#');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'Docker');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'Redes');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (485, 'MID', 'Governador Celso Ramos', 'Norte da Ilha', -27.315, -48.5668, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (485, 'JavaScript');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (486, 'MID', 'Balneario Camboriu', 'Norte', -27.0023, -48.6435, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'C++');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (486, 'Agile');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (487, 'JUNIOR', 'Itajai', 'Norte', -26.9157, -48.676, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'PHP');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'TypeScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (487, 'Git');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (488, 'MID', 'Itajai', 'Norte', -26.9063, -48.671, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Seguridad');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (488, 'Redis');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (489, 'SENIOR', 'Tijucas', 'Norte', -27.2466, -48.6482, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'DevOps');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'UX/UI');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Scrum');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (489, 'Seguridad');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (490, 'JUNIOR', 'Cacador', 'Oeste', -26.7893, -51.0159, 'GENDER_DIVERSITY');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (490, 'FastAPI');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (491, 'SENIOR', 'Governador Celso Ramos', 'Norte da Ilha', -27.3124, -48.5508, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'Redis');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'Spring Boot');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (491, 'Flask');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (492, 'MID', 'Lages', 'Serra', -27.8166, -50.3342, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'Django');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (492, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (493, 'JUNIOR', 'Cacador', 'Oeste', -26.7823, -51.0232, 'TALENTO_RECONVERSION');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Figma');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Agile');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Terraform');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'React');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (493, 'Laravel');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (494, 'SENIOR', 'Itapema', 'Norte', -27.0991, -48.6204, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'GraphQL');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'Scrum');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (495, 'MID', 'Florencia', 'Amazonía', 1.6462, -75.5889, 'TALENTO_JOVEN');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'TypeScript');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'Angular');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (496, 'JUNIOR', 'Santa Marta', 'Caribe', 11.2855, -74.2225, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (496, 'Excel');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (496, 'Java');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (496, 'React');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (497, 'MID', 'Cali', 'Centro', 3.4595, -76.4958, 'Black/Brown');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'Flutter');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'Linux');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'MongoDB');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'Redes');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (498, 'JUNIOR', 'Bucaramanga', 'Oriente', 7.1182, -73.1335, 'TALENTO_RURAL');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'Scrum');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'AWS');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'Análisis de datos');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'React');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'DevOps');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (499, 'SENIOR', 'Pasto', 'Pacífico', 1.2861, -77.2300, NULL);
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'CI/CD');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'Swift');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (494, 'SQL');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (495, 'MID', 'Palhoca', 'Continente', -27.6577, -48.6733, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'CI/CD');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'Kubernetes');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'PostgreSQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (495, 'DevOps');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (496, 'SENIOR', 'Cacador', 'Oeste', -26.7899, -51.0265, 'MUJER_STEM');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (496, 'Node.js');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (496, 'Go');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (497, 'MID', 'Balneario Camboriu', 'Norte', -27.0081, -48.6423, NULL);
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'JavaScript');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'Rust');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (497, 'Azure');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (498, 'JUNIOR', 'Itajai', 'Norte', -26.9051, -48.6745, 'TALENTO_RURAL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'Data Science');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (498, 'SRE');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (499, 'SENIOR', 'Balneario Camboriu', 'Norte', -26.9989, -48.6309, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'Azure');
 INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'Machine Learning');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'REST');
-INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (500, 'MID', 'Pereira', 'Eje Cafetero', 4.8499, -75.6168, 'LGBTQ+');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (500, 'REST');
-INSERT INTO candidate_skills (candidate_id, skill) VALUES (500, 'SQL');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (499, 'Angular');
+
+INSERT INTO candidate (id, experience_level, municipio, cluster, latitude, longitude, diversity_badge) VALUES (500, 'JUNIOR', 'Biguacu', 'Continente', -27.5007, -48.6625, 'TALENTO_JOVEN');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (500, 'Go');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (500, 'C#');
+INSERT INTO candidate_skills (candidate_id, skill) VALUES (500, 'SRE');
