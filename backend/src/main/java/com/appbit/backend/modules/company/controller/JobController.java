@@ -6,7 +6,7 @@ import com.appbit.backend.modules.candidate.Service.CandidateService;
 import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.company.dto.JobRequest;
-import com.appbit.backend.modules.company.entity.Job;
+import com.appbit.backend.modules.company.dto.JobResponse;
 import com.appbit.backend.modules.company.service.JobService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -72,7 +72,7 @@ public class JobController {
             summary = "Crear una nueva oferta de trabajo",
             description = "Crea una nueva oferta de trabajo (job) en el sistema. " +
                     "La oferta queda asociada a una empresa existente mediante el companyId. " +
-                    "Devuelve la entidad Job con el ID generado automáticamente y la fecha de publicación.",
+                    "Devuelve la oferta con el ID generado automáticamente y la fecha de publicación.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Datos de la oferta de trabajo a crear",
                     required = true,
@@ -88,7 +88,7 @@ public class JobController {
                     description = "Oferta de trabajo creada exitosamente",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Job.class)
+                            schema = @Schema(implementation = JobResponse.class)
                     )
             ),
             @ApiResponse(
@@ -107,10 +107,10 @@ public class JobController {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<Job> createJob(
+    public ResponseEntity<JobResponse> createJob(
             @Parameter(description = "Datos de la oferta de trabajo a crear", required = true)
             @RequestBody JobRequest job) {
-        Job createdJob = jobService.create(job);
+        JobResponse createdJob = jobService.create(job);
         return new ResponseEntity<>(createdJob, HttpStatus.CREATED);
     }
 
@@ -135,7 +135,7 @@ public class JobController {
                     description = "Lista de ofertas de trabajo obtenida exitosamente",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Job.class)
+                            schema = @Schema(implementation = JobResponse.class)
                     )
             ),
             @ApiResponse(
@@ -144,8 +144,8 @@ public class JobController {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<List<Job>> getAllJobs() {
-        List<Job> jobs = jobService.findAll();
+    public ResponseEntity<List<JobResponse>> getAllJobs() {
+        List<JobResponse> jobs = jobService.findAll();
         return ResponseEntity.ok(jobs);
     }
 
@@ -179,7 +179,7 @@ public class JobController {
                     description = "Oferta de trabajo encontrada exitosamente",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Job.class)
+                            schema = @Schema(implementation = JobResponse.class)
                     )
             ),
             @ApiResponse(
@@ -193,10 +193,10 @@ public class JobController {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<Job> getJobById(
+    public ResponseEntity<JobResponse> getJobById(
             @Parameter(description = "ID único de la oferta de trabajo", required = true, example = "1")
             @PathVariable Long id) {
-        Job job = jobService.findById(id);
+        JobResponse job = jobService.findById(id);
         return ResponseEntity.ok(job);
     }
 

@@ -47,3 +47,10 @@ export function createJob(job) {
     body: JSON.stringify(job),
   });
 }
+
+export function findMatches(requestBody) {
+  return request('/jobs/matches', {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+  });
+}
