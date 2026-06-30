@@ -16,6 +16,7 @@ public class CompanyMapper {
                 .diversityGoal(dto.diversityGoal())
                 .priorityRegions(dto.priorityRegions())
                 .interestGroups(dto.interestGroups())
+                .reportFocus(dto.reportFocus())
                 .nit(dto.nit())
                 .size(dto.size())
                 .city(dto.city())

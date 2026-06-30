@@ -125,6 +125,14 @@ public record JobRequest (
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
                 minimum = "0"
         )
-        Integer experienceYears
+        Integer experienceYears,
+
+        @Schema(
+                description = "Nivel educativo requerido",
+                example = "Ingeniería de Sistemas o afín",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 200
+        )
+        String education
 ){
 }

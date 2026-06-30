@@ -39,6 +39,9 @@ public class Company {
     @Column(name = "interest_groups", length = 500)
     private String interestGroups;
 
+    @Column(name = "report_focus", length = 500)
+    private String reportFocus;
+
     @Column(length = 20)
     private String nit;
 

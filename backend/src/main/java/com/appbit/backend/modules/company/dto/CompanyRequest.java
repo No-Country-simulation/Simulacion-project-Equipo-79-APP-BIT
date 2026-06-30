@@ -66,6 +66,14 @@ public record CompanyRequest(
         String interestGroups,
 
         @Schema(
+                description = "Enfoque de reporte ESG (género, territorio, discapacidad, edad, etc.)",
+                example = "Género, territorio, discapacidad, edad, pertenencia étnica",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 500
+        )
+        String reportFocus,
+
+        @Schema(
                 description = "NIT (Número de Identificación Tributaria) de la empresa",
                 example = "900123456-7",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,

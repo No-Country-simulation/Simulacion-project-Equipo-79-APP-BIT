@@ -62,6 +62,9 @@ public class Job {
     @Column(name = "experience_years")
     private Integer experienceYears;
 
+    @Column(length = 200)
+    private String education;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;

@@ -28,6 +28,7 @@ public class JobMapper {
                 .contractType(dto.contractType())
                 .softSkills(dto.softSkills())
                 .experienceYears(dto.experienceYears())
+                .education(dto.education())
                 .build();
     }
 

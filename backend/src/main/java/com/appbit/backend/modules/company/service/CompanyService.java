@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -45,5 +46,10 @@ public class CompanyService {
         }
         return companyRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Empresa no encontrada con el ID: " + id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Company> findAll() {
+        return companyRepository.findAll();
     }
 }
