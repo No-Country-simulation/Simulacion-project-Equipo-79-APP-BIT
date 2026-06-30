@@ -11,6 +11,8 @@ date: 2026-06-11
 | Milena | 
 | Antonio Del Hierro | 
 | Fernando | 
+| Andrea | 
+| Caleb | 
 
 ## Statement
 
