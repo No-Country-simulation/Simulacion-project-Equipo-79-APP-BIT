@@ -21,6 +21,13 @@ public class JobMapper {
                 .skills(dto.requiredSkills())
                 .experienceLevel(dto.experienceLevel())
                 .company(company)
+                .diversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled())
+                .targetDiversityPercentage(dto.targetDiversityPercentage())
+                .modality(dto.modality())
+                .salaryRange(dto.salaryRange())
+                .contractType(dto.contractType())
+                .softSkills(dto.softSkills())
+                .experienceYears(dto.experienceYears())
                 .build();
     }
 }

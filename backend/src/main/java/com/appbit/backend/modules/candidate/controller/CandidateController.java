@@ -1,5 +1,6 @@
 package com.appbit.backend.modules.candidate.controller;
 
+import com.appbit.backend.modules.candidate.dto.CandidateFullProfileResponse;
 import com.appbit.backend.modules.candidate.entity.Candidate;
 import com.appbit.backend.modules.candidate.repository.CandidateRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -142,6 +143,18 @@ public class CandidateController {
             @Parameter(description = "ID único del candidato", required = true, example = "1")
             @PathVariable Long id) {
         return candidateRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/full-profile")
+    @Operation(
+            summary = "Obtener perfil completo del candidato",
+            description = "Retorna todos los datos del candidato incluyendo información de diversidad autodeclarada."
+    )
+    public ResponseEntity<CandidateFullProfileResponse> getFullProfile(@PathVariable Long id) {
+        return candidateRepository.findById(id)
+                .map(CandidateFullProfileResponse::from)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

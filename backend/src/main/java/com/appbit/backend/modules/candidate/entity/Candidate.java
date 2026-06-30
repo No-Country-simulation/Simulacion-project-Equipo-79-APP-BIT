@@ -38,4 +38,19 @@ public class Candidate {
 
     private String diversityBadge;
 
+    @Column(name = "gender_optional")
+    private String genderOptional;
+
+    @Column(name = "disability_optional")
+    private String disabilityOptional;
+
+    @Column(name = "ethnicity_optional")
+    private String ethnicityOptional;
+
+    @Column(name = "rural_optional")
+    private Boolean ruralOptional;
+
+    @Column(name = "consent_status")
+    private Boolean consentStatus;
+
 }

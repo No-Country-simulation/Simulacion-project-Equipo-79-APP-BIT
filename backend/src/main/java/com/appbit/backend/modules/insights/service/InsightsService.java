@@ -1,6 +1,10 @@
 package com.appbit.backend.modules.insights.service;
 
 import com.appbit.backend.modules.candidate.Service.CandidateService;
+import com.appbit.backend.modules.candidate.entity.Candidate;
+import com.appbit.backend.modules.candidate.repository.CandidateRepository;
+import com.appbit.backend.modules.company.entity.Job;
+import com.appbit.backend.modules.company.repository.JobRepository;
 import com.appbit.backend.modules.insights.dto.RegionInsightResponse;
 import com.appbit.backend.modules.insights.model.CoverageZone;
 import com.appbit.backend.modules.insights.model.NetworkCoverage;
@@ -16,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -27,7 +32,15 @@ public class InsightsService {
     private static final String TENSOR_CSV = "data/tensor_concentracao.csv";
     private static final String CSV_SEPARATOR = ",";
 
+    private static final double COVERAGE_GOOD_CONGESTION_MAX = 1.0;
+    private static final double COVERAGE_GOOD_DROP_MAX = 0.5;
+    private static final double COVERAGE_MEDIUM_CONGESTION_MAX = 3.0;
+    private static final double COVERAGE_MEDIUM_DROP_MAX = 1.5;
+    private static final int TOP_SKILLS_LIMIT = 3;
+
     private final CandidateService candidateService;
+    private final CandidateRepository candidateRepository;
+    private final JobRepository jobRepository;
 
     // Estructuras en memoria
     private final Map<String, CoverageZone> antenasByEcgi = new ConcurrentHashMap<>();
@@ -153,16 +166,12 @@ public class InsightsService {
      * Algoritmo de clasificación de red ajustado a la escala del CSV.
      */
     private NetworkCoverage calculateCoverage(double avgCongestion, double avgDrop) {
-        // Umbrales ajustados a la muestra (0.348 de congestión, 0.066 de drop)
-        // Si la congestión es muy baja y casi no hay caídas -> GOOD
-        if (avgCongestion <= 1.0 && avgDrop <= 0.5) {
+        if (avgCongestion <= COVERAGE_GOOD_CONGESTION_MAX && avgDrop <= COVERAGE_GOOD_DROP_MAX) {
             return NetworkCoverage.GOOD;
         }
-        // Si hay algo de congestión o caídas -> MEDIUM
-        if (avgCongestion <= 3.0 && avgDrop <= 1.5) {
+        if (avgCongestion <= COVERAGE_MEDIUM_CONGESTION_MAX && avgDrop <= COVERAGE_MEDIUM_DROP_MAX) {
             return NetworkCoverage.MEDIUM;
         }
-        // Si se pasa -> POOR
         return NetworkCoverage.POOR;
     }
 
@@ -171,12 +180,42 @@ public class InsightsService {
      * y candidatos.
      */
     public List<RegionInsightResponse> getRegionInsights() {
-        log.info("🛠️ Generando RegionInsights...");
+        return getRegionInsights(null);
+    }
 
-        Map<String, Long> candidateCounts = candidateService.countByMunicipio();
-        if (candidateCounts == null) {
-            candidateCounts = Collections.emptyMap();
+    public List<RegionInsightResponse> getRegionInsights(Long jobId) {
+        log.info("🛠️ Generando RegionInsights" + (jobId != null ? " para jobId=" + jobId : "") + "...");
+
+        List<Candidate> allCandidates;
+        Map<String, Long> candidateCounts;
+        Map<String, Long> diversityCounts;
+
+        if (jobId != null) {
+            Job job = jobRepository.findById(jobId)
+                    .orElseThrow(() -> new NoSuchElementException("Vacante no encontrada con ID: " + jobId));
+            allCandidates = candidateRepository.findAll().stream()
+                    .filter(c -> job.getRegion() == null || job.getRegion().equals(c.getMunicipio()))
+                    .filter(c -> job.getExperienceLevel() == null || job.getExperienceLevel() == c.getExperienceLevel())
+                    .toList();
+
+            candidateCounts = allCandidates.stream()
+                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+            diversityCounts = allCandidates.stream()
+                    .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
+                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+        } else {
+            allCandidates = candidateRepository.findAll();
+            candidateCounts = candidateService.countByMunicipio();
+            diversityCounts = candidateService.countDiversityByMunicipio();
         }
+
+        if (candidateCounts == null) candidateCounts = Collections.emptyMap();
+        if (diversityCounts == null) diversityCounts = Collections.emptyMap();
+
+        Map<String, List<String>> skillsByMunicipio = allCandidates.stream()
+                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                        Collectors.flatMapping(c -> c.getSkills() != null ? c.getSkills().stream() : Stream.empty(),
+                                Collectors.toList())));
 
         // 2. Agrupar antenas por municipio
         Map<String, List<CoverageZone>> antenasByMunicipio = antenasByEcgi.values().stream()
@@ -195,25 +234,35 @@ public class InsightsService {
                 NetworkCoverage antenaCoverage = coverageByEcgi.getOrDefault(antena.ecgi(), NetworkCoverage.POOR);
                 if (antenaCoverage == NetworkCoverage.GOOD) {
                     municipioCoverage = NetworkCoverage.GOOD;
-                    break; // Si hay una GOOD, ya sabemos que el municipio es GOOD
+                    break;
                 } else if (antenaCoverage == NetworkCoverage.MEDIUM) {
                     municipioCoverage = NetworkCoverage.MEDIUM;
                 }
             }
 
-            // Obtener coordenadas representativas (usamos la primera antena de la lista)
             double lat = antenas.get(0).latitude();
             double lon = antenas.get(0).longitude();
 
-            // Obtener densidad de candidatos
             long density = candidateCounts.getOrDefault(municipio, 0L);
+            long divCount = diversityCounts.getOrDefault(municipio, 0L);
+            double divPct = density > 0 ? (divCount * 100.0 / density) : 0.0;
 
-            // Armar respuesta
+            List<String> topSkills = skillsByMunicipio.getOrDefault(municipio, List.of()).stream()
+                    .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+                    .entrySet().stream()
+                    .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                    .limit(TOP_SKILLS_LIMIT)
+                    .map(Map.Entry::getKey)
+                    .toList();
+
             response.add(new RegionInsightResponse(
                     municipio,
                     (int) density,
                     municipioCoverage,
-                    (int) density, // availableProfiles por ahora igual a density
+                    (int) density,
+                    (int) divCount,
+                    Math.round(divPct * 10.0) / 10.0,
+                    topSkills,
                     lat,
                     lon
             ));

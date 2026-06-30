@@ -3,6 +3,8 @@ package com.appbit.backend.modules.insights.dto;
 import com.appbit.backend.modules.insights.model.NetworkCoverage;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.List;
+
 /**
  * DTO (Data Transfer Object) para la respuesta de insights de una región.
  * <p>
@@ -19,9 +21,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 public record RegionInsightResponse(
         String municipio,
-        int candidateDensity,          // Cuántos candidatos hay ahí (de BE2)
-        NetworkCoverage networkCoverage, // Calidad de red (calculada en BE4)
-        int availableProfiles,         // Mismo que candidateDensity por ahora
-        double latitude,               // Latitud representativa del municipio
-        double longitude               // Longitud representativa del municipio
+        int candidateDensity,
+        NetworkCoverage networkCoverage,
+        int availableProfiles,
+        @Schema(description = "Cantidad de candidatos con badge de diversidad en el municipio", example = "18")
+        int diversityCount,
+        @Schema(description = "Porcentaje de candidatos con badge de diversidad respecto al total del municipio", example = "52.5")
+        double diversityPercentage,
+        @Schema(description = "Top 3 habilidades más frecuentes entre los candidatos del municipio", example = "[\"React\", \"SQL\", \"Docker\"]")
+        List<String> topSkills,
+        double latitude,
+        double longitude
 ) {}

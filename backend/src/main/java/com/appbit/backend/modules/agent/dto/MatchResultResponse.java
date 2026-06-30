@@ -32,13 +32,22 @@ public record MatchResultResponse(
         Long candidateId,
 
         @Schema(
-                description = "Puntuación de compatibilidad entre el candidato y la oferta de trabajo (escala de 0 a 100)",
+                description = "Puntuación de compatibilidad técnica (escala de 0 a 100). Mide mérito técnico puro.",
                 example = "85",
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 minimum = "0",
                 maximum = "100"
         )
-        int compatibilityScore,     // Puntuación de 0 a 100
+        int compatibilityScore,
+
+        @Schema(
+                description = "Puntuación de aporte a diversidad (escala de 0 a 100). Independiente del score técnico.",
+                example = "70",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "0",
+                maximum = "100"
+        )
+        int diversityScore,
 
         @Schema(
                 description = "Lista de habilidades técnicas en común entre el candidato y la oferta de trabajo",
@@ -57,12 +66,12 @@ public record MatchResultResponse(
         String inclusionReason,     // Justificación técnica del agente
 
         @Schema(
-                description = "Distintivo de diversidad si el candidato cumple con cuotas regionales o de inclusión. " +
-                        "Valores posibles: 'REGIONAL_DIVERSITY' (cumple cuota regional), 'GENDER_DIVERSITY' (cumple cuota de género), " +
-                        "'REGIONAL_AND_GENDER_DIVERSITY' (cumple ambas cuotas), o null si no aplica.",
-                example = "REGIONAL_DIVERSITY",
+                description = "Distintivo de diversidad si el candidato cumple con criterios de inclusión. " +
+                        "Valores definidos en el prompt de matching (prompts/matching_prompt.txt).",
+                example = "TALENTO_REGIONAL",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                allowableValues = {"REGIONAL_DIVERSITY", "GENDER_DIVERSITY", "REGIONAL_AND_GENDER_DIVERSITY"}
+                allowableValues = {"TALENTO_REGIONAL", "TALENTO_RURAL", "MUJER_STEM", "TALENTO_JOVEN",
+                        "TALENTO_SENIOR", "TALENTO_RECONVERSION", "REGIONAL_DIVERSITY", "GENDER_DIVERSITY", "REGIONAL_AND_GENDER_DIVERSITY"}
         )
         String diversityBadge       // Distintivo si cumple con cuota regional/inclusión
 ) {
@@ -71,17 +80,12 @@ public record MatchResultResponse(
      * de datos antes de que el objeto sea instanciado.
      */
     public MatchResultResponse {
-        // si la IA o el parser devuelven null en la lista,
-        // la inicializamos como una lista vacía inmutable.
         if (matchingSkills == null) {
             matchingSkills = List.of();
         }
-
-        // Validación de rango de negocio para el Score de compatibilidad (0 - 100)
-        if (compatibilityScore < 0) {
-            compatibilityScore = 0;
-        } else if (compatibilityScore > 100) {
-            compatibilityScore = 100;
-        }
+        if (compatibilityScore < 0) compatibilityScore = 0;
+        if (compatibilityScore > 100) compatibilityScore = 100;
+        if (diversityScore < 0) diversityScore = 0;
+        if (diversityScore > 100) diversityScore = 100;
     }
 }
