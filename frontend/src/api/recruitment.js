@@ -33,17 +33,33 @@ async function request(path, options = {}) {
   return response.json();
 }
 
-export function registerCompany(company) {
-  return request('/companies', {
+export function initiateContact({ jobId, candidateId, recruiterNotes, decisionReason }) {
+  return request('/recruitment', {
     method: 'POST',
-    body: JSON.stringify(company),
+    body: JSON.stringify({ jobId, candidateId, recruiterNotes, decisionReason }),
   });
 }
 
-export function getCompanyById(companyId) {
-  return request(`/companies/${companyId}`);
+export function updateStatus(id, status, decisionReason) {
+  const params = new URLSearchParams();
+  params.set('status', status);
+  if (decisionReason) params.set('decisionReason', decisionReason);
+  return request(`/recruitment/${id}/status?${params.toString()}`, {
+    method: 'PUT',
+  });
 }
 
-export function listCompanies() {
-  return request('/companies');
+export function updateNotes(id, notes) {
+  return request(`/recruitment/${id}/notes`, {
+    method: 'PUT',
+    body: JSON.stringify({ notes }),
+  });
+}
+
+export function findByJob(jobId) {
+  return request(`/recruitment?jobId=${jobId}`);
+}
+
+export function findById(id) {
+  return request(`/recruitment/${id}`);
 }

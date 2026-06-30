@@ -33,6 +33,7 @@ async function request(path, options = {}) {
   return response.json();
 }
 
-export function getEsgMetrics() {
-  return request('/dashboard/esg');
+export function getEsgMetrics(jobId) {
+  const queryString = jobId ? `?jobId=${jobId}` : '';
+  return request(`/dashboard/esg${queryString}`);
 }
