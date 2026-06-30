@@ -31,6 +31,11 @@ public class DashboardEsgService {
     private static final String STATUS_EN_PROGRESO = "EN_PROGRESO";
     private static final String STATUS_NO_ALCANZADA = "NO_ALCANZADA";
 
+    private static final String GENDER_UNDEFINED = "No declarado";
+
+    private static final String GOAL_CONFIGURED_DEFAULT = "Meta de diversidad configurada por la empresa";
+    private static final String GOAL_UNCONFIGURED = "Sin meta configurada";
+
     private final CandidateRepository candidateRepository;
     private final CandidateService candidateService;
     private final JobRepository jobRepository;
@@ -44,8 +49,8 @@ public class DashboardEsgService {
     public DashboardEsgResponse getEsgMetrics(Long jobId) {
         List<Candidate> scope = candidateRepository.findAll();
         String goalLabel = companyRepository.count() > 0
-                ? "Meta de diversidad configurada por la empresa"
-                : "Sin meta configurada";
+                ? GOAL_CONFIGURED_DEFAULT
+                : GOAL_UNCONFIGURED;
 
         if (jobId != null) {
             Job job = jobRepository.findById(jobId)
@@ -141,7 +146,7 @@ public class DashboardEsgService {
         return scope.stream()
                 .collect(Collectors.groupingBy(c ->
                         c.getGenderOptional() != null && !c.getGenderOptional().isBlank()
-                                ? c.getGenderOptional() : "No declarado",
+                                ? c.getGenderOptional() : GENDER_UNDEFINED,
                         Collectors.counting()))
                 .entrySet().stream()
                 .map(e -> {
