@@ -42,7 +42,15 @@ public class JobMapper {
                 job.getRegion(),
                 job.getSkills(),
                 new JobResponse.CompanySummary(c.getId(), c.getName(), c.getIndustrySector(), c.getEsgGoals()),
-                job.getPublishedAt()
+                job.getPublishedAt(),
+                job.isDiversityFocusEnabled(),
+                job.getTargetDiversityPercentage(),
+                job.getModality(),
+                job.getSalaryRange(),
+                job.getContractType(),
+                job.getSoftSkills(),
+                job.getExperienceYears(),
+                job.getEducation()
         );
     }
 
