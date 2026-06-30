@@ -32,6 +32,7 @@ public class DashboardEsgService {
     private static final String STATUS_NO_ALCANZADA = "NO_ALCANZADA";
 
     private static final String GENDER_UNDEFINED = "No declarado";
+    private static final String EXPERIENCE_UNDEFINED = "Sin clasificar";
 
     private static final String GOAL_CONFIGURED_DEFAULT = "Meta de diversidad configurada por la empresa";
     private static final String GOAL_UNCONFIGURED = "Sin meta configurada";
@@ -133,7 +134,9 @@ public class DashboardEsgService {
 
     private List<DashboardEsgResponse.ExperienceLevelBreakdown> buildExperienceBreakdown(List<Candidate> scope, long total) {
         return scope.stream()
-                .collect(Collectors.groupingBy(c -> c.getExperienceLevel().name(), Collectors.counting()))
+                .collect(Collectors.groupingBy(c ->
+                        c.getExperienceLevel() != null ? c.getExperienceLevel().name() : EXPERIENCE_UNDEFINED,
+                        Collectors.counting()))
                 .entrySet().stream()
                 .map(e -> {
                     double pct = total > 0 ? Math.round((e.getValue() * 1000.0 / total)) / 10.0 : 0.0;

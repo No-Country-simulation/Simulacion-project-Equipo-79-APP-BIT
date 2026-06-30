@@ -5,7 +5,6 @@ import AddIcon from '../components/icons/AddIcon';
 import JobCreatedIcon from '../components/icons/JobCreatedIcon';
 
 const RegisterCompany = () => {
-  const navigate = useNavigate();
   const companyNameId = useId();
   const industrySectorId = useId();
   const esGoalsId = useId();
