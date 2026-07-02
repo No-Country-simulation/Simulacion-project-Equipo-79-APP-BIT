@@ -18,7 +18,7 @@ public record CandidateFullProfileResponse(
         @Schema(description = "Nivel de experiencia")
         ExperienceLevel experienceLevel,
 
-        @Schema(description = "Municipio de residencia", example = "Bogotá")
+        @Schema(description = "Municipio de residencia", example = "Florianopolis")
         String municipio,
 
         @Schema(description = "Región/cluster geográfico", example = "Centro")
