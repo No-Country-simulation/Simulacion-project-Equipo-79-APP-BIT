@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Controlador REST para la gestión de empresas (companies).
  * <p>
@@ -145,5 +147,11 @@ public class CompanyController {
             @PathVariable Long id) {
         Company company = companyService.findById(id);
         return ResponseEntity.ok(company);
+    }
+
+    @GetMapping
+    @Operation(summary = "Listar todas las empresas")
+    public ResponseEntity<List<Company>> getAllCompanies() {
+        return ResponseEntity.ok(companyService.findAll());
     }
 }

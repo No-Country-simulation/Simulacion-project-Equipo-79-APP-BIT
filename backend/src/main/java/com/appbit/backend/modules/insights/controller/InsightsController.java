@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -71,7 +72,10 @@ public class InsightsController {
             }
     )
     @GetMapping
-    public List<RegionInsightResponse> getRegionInsights() {
-        return insightsService.getRegionInsights();
+    public List<RegionInsightResponse> getRegionInsights(
+            @RequestParam(required = false) Long jobId) {
+        return jobId != null
+                ? insightsService.getRegionInsights(jobId)
+                : insightsService.getRegionInsights();
     }
 }

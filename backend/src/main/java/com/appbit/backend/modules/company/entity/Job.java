@@ -39,6 +39,32 @@ public class Job {
     @Builder.Default
     private List<String> skills = new ArrayList<>();
 
+    @Column(name = "diversity_focus_enabled")
+    private boolean diversityFocusEnabled;
+
+    @Column(name = "target_diversity_percentage")
+    private Integer targetDiversityPercentage;
+
+    private String modality;
+
+    @Column(name = "salary_range")
+    private String salaryRange;
+
+    @Column(name = "contract_type")
+    private String contractType;
+
+    @ElementCollection()
+    @CollectionTable(name = "job_soft_skills", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "skill")
+    @Builder.Default
+    private List<String> softSkills = new ArrayList<>();
+
+    @Column(name = "experience_years")
+    private Integer experienceYears;
+
+    @Column(length = 200)
+    private String education;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;

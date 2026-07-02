@@ -47,3 +47,7 @@ export function listCandidates(filters = {}) {
 export function getCandidateById(candidateId) {
   return request(`/candidates/${candidateId}`);
 }
+
+export function getFullProfile(candidateId) {
+  return request(`/candidates/${candidateId}/full-profile`);
+}

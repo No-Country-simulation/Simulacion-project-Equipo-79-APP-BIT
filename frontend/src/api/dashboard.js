@@ -33,17 +33,7 @@ async function request(path, options = {}) {
   return response.json();
 }
 
-export function registerCompany(company) {
-  return request('/companies', {
-    method: 'POST',
-    body: JSON.stringify(company),
-  });
-}
-
-export function getCompanyById(companyId) {
-  return request(`/companies/${companyId}`);
-}
-
-export function listCompanies() {
-  return request('/companies');
+export function getEsgMetrics(jobId) {
+  const queryString = jobId ? `?jobId=${jobId}` : '';
+  return request(`/dashboard/esg${queryString}`);
 }

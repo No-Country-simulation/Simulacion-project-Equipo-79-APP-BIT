@@ -33,6 +33,7 @@ async function request(path, options = {}) {
   return response.json();
 }
 
-export function getRegionInsights() {
-  return request('/insights');
+export function getRegionInsights(jobId) {
+  const queryString = jobId ? `?jobId=${jobId}` : '';
+  return request(`/insights${queryString}`);
 }

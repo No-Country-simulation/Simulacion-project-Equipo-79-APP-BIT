@@ -1,7 +1,8 @@
 package com.appbit.backend.modules.candidate.controller;
 
+import com.appbit.backend.modules.candidate.Service.CandidateService;
+import com.appbit.backend.modules.candidate.dto.CandidateFullProfileResponse;
 import com.appbit.backend.modules.candidate.entity.Candidate;
-import com.appbit.backend.modules.candidate.repository.CandidateRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,20 +23,16 @@ import java.util.List;
  * Soporta la obtención de todos los candidatos o el filtrado por municipio.
  * </p>
  *
- * @see CandidateRepository
+ * @see CandidateService
  * @see Candidate
  */
 @RestController
 @RequestMapping("/candidates")
+@RequiredArgsConstructor
 @Tag(name = "Candidates", description = "API para la consulta de candidatos registrados en la plataforma")
 public class CandidateController {
 
-    private final CandidateRepository candidateRepository;
-
-    @Autowired
-    public CandidateController(CandidateRepository candidateRepository) {
-        this.candidateRepository = candidateRepository;
-    }
+    private final CandidateService candidateService;
 
     /**
      * Obtiene la lista de candidatos, con la opción de filtrar por municipio.
@@ -46,7 +43,7 @@ public class CandidateController {
      * </p>
      *
      * @param municipio (opcional) nombre del municipio para filtrar los candidatos.
-     *                  Ejemplo: "Bogotá", "Medellín", "São Paulo".
+     *                  Ejemplo: "Florianopolis", "Sao Jose", "Blumenau".
      * @return lista de candidatos que coinciden con el filtro, o la lista completa
      * si no se especifica municipio. Código HTTP 200 (OK).
      */
@@ -59,9 +56,9 @@ public class CandidateController {
             parameters = {
                     @Parameter(
                             name = "municipio",
-                            description = "Filtro opcional por municipio. Ejemplo: 'Bogotá', 'Medellín'",
+                            description = "Filtro opcional por municipio. Ejemplo: 'Florianopolis', 'Sao Jose'",
                             required = false,
-                            example = "Bogotá"
+                            example = "Florianopolis"
                     )
             }
     )
@@ -86,12 +83,12 @@ public class CandidateController {
             )
     })
     public ResponseEntity<List<Candidate>> findAll(
-            @Parameter(description = "Filtro opcional por municipio", required = false, example = "Bogotá")
+            @Parameter(description = "Filtro opcional por municipio", required = false, example = "Florianopolis")
             @RequestParam(required = false) String municipio) {
         if (municipio != null && !municipio.isEmpty()) {
-            return ResponseEntity.ok(candidateRepository.findByMunicipio(municipio));
+            return ResponseEntity.ok(candidateService.findByMunicipio(municipio));
         }
-        return ResponseEntity.ok(candidateRepository.findAll());
+        return ResponseEntity.ok(candidateService.findAll());
     }
 
     /**
@@ -141,8 +138,16 @@ public class CandidateController {
     public ResponseEntity<Candidate> findById(
             @Parameter(description = "ID único del candidato", required = true, example = "1")
             @PathVariable Long id) {
-        return candidateRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(candidateService.findById(id));
+    }
+
+    @GetMapping("/{id}/full-profile")
+    @Operation(
+            summary = "Obtener perfil completo del candidato",
+            description = "Retorna todos los datos del candidato incluyendo información de diversidad autodeclarada."
+    )
+    public ResponseEntity<CandidateFullProfileResponse> getFullProfile(@PathVariable Long id) {
+        Candidate candidate = candidateService.findById(id);
+        return ResponseEntity.ok(CandidateFullProfileResponse.from(candidate));
     }
 }

@@ -41,7 +41,7 @@ public record JobRequest (
 
         @Schema(
                 description = "Región geográfica donde se ubica el puesto de trabajo",
-                example = "Bogotá",
+                example = "Florianopolis",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
                 maxLength = 100
         )
@@ -70,6 +70,69 @@ public record JobRequest (
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 minimum = "1"
         )
-        Long companyId
+        Long companyId,
+
+        @Schema(
+                description = "Activa el enfoque de diversidad inclusiva en la vacante",
+                example = "true",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        Boolean diversityFocusEnabled,
+
+        @Schema(
+                description = "Porcentaje objetivo de shortlist con talento diverso para esta vacante",
+                example = "40",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                minimum = "0",
+                maximum = "100"
+        )
+        Integer targetDiversityPercentage,
+
+        @Schema(
+                description = "Modalidad de trabajo",
+                example = "Remoto",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                allowableValues = {"Remoto", "Híbrido", "Presencial"}
+        )
+        String modality,
+
+        @Schema(
+                description = "Rango salarial ofrecido",
+                example = "3.000.000 - 5.000.000 COP",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        String salaryRange,
+
+        @Schema(
+                description = "Tipo de contrato",
+                example = "Término indefinido",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                allowableValues = {"Término indefinido", "Término fijo", "Prestación de servicios", "Freelance"}
+        )
+        String contractType,
+
+        @Schema(
+                description = "Lista de habilidades blandas requeridas para el puesto",
+                example = "[\"Comunicación\", \"Liderazgo\", \"Trabajo en equipo\"]",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        @ArraySchema(schema = @Schema(type = "string", example = "Comunicación"))
+        List<String> softSkills,
+
+        @Schema(
+                description = "Años mínimos de experiencia requeridos",
+                example = "3",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                minimum = "0"
+        )
+        Integer experienceYears,
+
+        @Schema(
+                description = "Nivel educativo requerido",
+                example = "Ingeniería de Sistemas o afín",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 200
+        )
+        String education
 ){
 }
