@@ -16,8 +16,6 @@ import com.appbit.backend.modules.company.entity.ExperienceLevel;
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     List<Candidate> findByMunicipio(String municipio);
-    List<Candidate> findByExperienceLevel(ExperienceLevel experienceLevel);
-    List<Candidate> findByMunicipioAndExperienceLevel(String municipio, ExperienceLevel experienceLevel);
 
     @Query(value = "SELECT municipio, COUNT(*) FROM candidate GROUP BY municipio", nativeQuery = true)
     List<Object[]> countByMunicipio();
@@ -31,10 +29,14 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     @Query(value = "SELECT diversity_badge, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL GROUP BY diversity_badge ORDER BY COUNT(*) DESC", nativeQuery = true)
     List<Object[]> badgeBreakdown();
 
-    @EntityGraph(attributePaths = {"skills"})
-    Page<Candidate> findAll(Pageable pageable);
 
-    @Query("SELECT DISTINCT c FROM Candidate c LEFT JOIN FETCH c.skills WHERE c.municipio = :municipio")
-    Page<Candidate> findByMunicipioPageable (@Param("municipio") String municipio, Pageable pageable);
+    @Query("SELECT c FROM Candidate c WHERE " +
+            "(:municipio IS NULL OR c.municipio = :municipio) AND " +
+            "(:experienceLevel IS NULL OR c.experienceLevel = :experienceLevel)")
+    List<Candidate> findCandidatesForMatchingWithLimit(
+            @Param("municipio") String municipio,
+            @Param("experienceLevel") ExperienceLevel experienceLevel,
+            Pageable pageable
+    );
 
 }

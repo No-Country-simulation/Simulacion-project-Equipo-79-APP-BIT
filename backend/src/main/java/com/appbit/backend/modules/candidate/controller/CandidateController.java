@@ -83,15 +83,13 @@ public class CandidateController {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<Page<Candidate>> findAll(
+    public ResponseEntity<List<Candidate>> findAll(
             @Parameter(description = "Filtro opcional por municipio", required = false, example = "Bogotá")
-            @RequestParam(required = false) String municipio,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(required = false) String municipio) {
         if (municipio != null && !municipio.isEmpty()) {
-            return ResponseEntity.ok(candidateService.findByMunicipio(municipio, page,size));
+            return ResponseEntity.ok(candidateService.findByMunicipio(municipio));
         }
-        return ResponseEntity.ok(candidateService.findAllPaginated(page,size));
+        return ResponseEntity.ok(candidateService.findAll());
     }
 
     /**

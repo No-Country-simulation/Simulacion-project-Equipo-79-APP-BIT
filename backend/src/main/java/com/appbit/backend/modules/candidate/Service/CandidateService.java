@@ -33,17 +33,23 @@ public class CandidateService {
      * @param experienceLevel nivel de experiencia (JUNIOR, MID, SENIOR) (puede ser null)
      * @return lista de DTOs anonimizados, nunca null (vacía si no hay resultados)
      */
+    /**
+     * Obtiene una lista de candidatos anonimizados que coinciden con los filtros
+     * de municipio y nivel de experiencia, limitado a un máximo de 35 para el LLM.
+     */
+    @Transactional(readOnly = true)
     public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio, ExperienceLevel experienceLevel) {
-        List<Candidate> candidates;
-        if (municipio != null && experienceLevel != null) {
-            candidates = candidateRepository.findByMunicipioAndExperienceLevel(municipio, experienceLevel);
-        } else if (municipio != null) {
-            candidates = candidateRepository.findByMunicipio(municipio);
-        } else if (experienceLevel != null) {
-            candidates = candidateRepository.findByExperienceLevel(experienceLevel);
-        } else {
-            candidates = candidateRepository.findAll();
-        }
+
+        Pageable topThirtyFive = PageRequest.of(0, 35);
+        List<Candidate> candidates = candidateRepository.findCandidatesForMatchingWithLimit(
+                municipio,
+                experienceLevel,
+                topThirtyFive
+        );
+
+
+        candidates.forEach(c -> c.getSkills().size());
+
         return candidates.stream()
                 .map(AnonymousCandidateResponse::from)
                 .collect(Collectors.toList());
@@ -58,16 +64,13 @@ public class CandidateService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Candidate> findAllPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        return candidateRepository.findAll(pageable);
+    public List<Candidate> findAll() {
+        return candidateRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Page<Candidate> findByMunicipio(String municipio, int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return candidateRepository.findByMunicipioPageable(municipio, pageable);
+    public List<Candidate> findByMunicipio(String municipio) {
+        return candidateRepository.findByMunicipio(municipio);
     }
 
     @Transactional(readOnly = true)

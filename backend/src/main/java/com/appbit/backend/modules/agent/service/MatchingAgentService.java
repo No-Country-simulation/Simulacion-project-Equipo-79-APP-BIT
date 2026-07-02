@@ -43,20 +43,19 @@ public class MatchingAgentService {
 
     public List<MatchResultResponse> executeMatching(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
         if (candidates.isEmpty()) {
+            log.warn("⚠️ [MATCHING] La lista de candidatos llegó VACÍA.");
             return List.of();
         }
 
-        log.info("🤖 Iniciando llamada al LLM para vacante: {}", job.title());
+        log.info("🤖 [MATCHING] Enviando {} candidatos al LLM...", candidates.size());
 
         try {
-            // 1. Preparar datos para inyectar en el prompt
+            // 1. Preparar datos
             String jobSkills = String.join(", ", job.skills());
             String candidatesJson = objectMapper.writeValueAsString(candidates);
-
-            // Si tu DTO no tiene description, pon un string vacío
             String jobDescription = job.description() != null ? job.description() : "N/A";
 
-            // 2. Formatear el prompt usando REPLACE (Evita el error del símbolo %)
+            // 2. Formatear el prompt
             String finalPrompt = promptTemplate
                     .replace("{jobTitle}", job.title())
                     .replace("{jobDescription}", jobDescription)
@@ -64,17 +63,19 @@ public class MatchingAgentService {
                     .replace("{jobExperienceLevel}", job.experienceLevel().toString())
                     .replace("{candidatesJson}", candidatesJson);
 
-            // 3. Llamar al LLM de forma asíncrona con Timeout de 10s
-            CompletableFuture<String> llmCallFuture = CompletableFuture.supplyAsync(() -> {
-                return chatClient.prompt()
-                        .user(finalPrompt)
-                        .call()
-                        .content();
-            });
+            long startTime = System.currentTimeMillis();
 
-            String llmResponse = llmCallFuture.get(10, TimeUnit.SECONDS);
+            // 3. Llamada directa síncrona (Dejamos que el cliente maneje su timeout natural o de red)
+            log.info("⚙️ Esperando respuesta directa del proveedor de IA...");
 
-            log.info("📥 Respuesta cruda del LLM recibida (Longitud: {} chars)", llmResponse.length());
+            // Ejecutamos en el mismo hilo para atrapar excepciones reales de conexión/red
+            String llmResponse = chatClient.prompt()
+                    .user(finalPrompt)
+                    .call()
+                    .content();
+
+            long duration = System.currentTimeMillis() - startTime;
+            log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());
 
             // 4. Limpiar y extraer el JSON puro
             String cleanJson = extractJsonArray(llmResponse);
@@ -85,24 +86,16 @@ public class MatchingAgentService {
                     objectMapper.getTypeFactory().constructCollectionType(List.class, MatchResultResponse.class)
             );
 
-            // 🛡️ FILTRO ANTI-SESGO EN LOGS
             verifyAntiBias(results);
 
-            log.info("✅ Matching completado. {} candidatos devueltos por IA.", results.size());
+            log.info("✅ Matching completado con éxito. {} candidatos mapeados.", results.size());
             return results;
 
-        } catch (TimeoutException e) {
-            log.error("⏳ TIMEOUT: El LLM tardó más de 10 segundos. Abortando.");
-            throw new RuntimeException("El agente de IA tardó demasiado en responder.");
-        } catch (ExecutionException | InterruptedException e) {
-            log.error("💥 Error en el hilo de la llamada al LLM: {}", e.getMessage(), e);
-            throw new RuntimeException("Falló la ejecución del agente de IA", e);
         } catch (Exception e) {
-            log.error("💥 Error general en matching: {}", e.getMessage(), e);
-            throw new RuntimeException("Error inesperado en el agente", e);
+            log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}", e.getMessage(), e);
+            throw new RuntimeException("El agente de IA falló o tardó demasiado: " + e.getMessage());
         }
     }
-
     private void verifyAntiBias(List<MatchResultResponse> results) {
         for (MatchResultResponse r : results) {
             if (r.inclusionReason() != null) {
