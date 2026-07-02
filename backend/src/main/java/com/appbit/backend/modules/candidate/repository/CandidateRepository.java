@@ -2,8 +2,12 @@ package com.appbit.backend.modules.candidate.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.appbit.backend.modules.candidate.entity.Candidate;
@@ -26,5 +30,11 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     @Query(value = "SELECT diversity_badge, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL GROUP BY diversity_badge ORDER BY COUNT(*) DESC", nativeQuery = true)
     List<Object[]> badgeBreakdown();
+
+    @EntityGraph(attributePaths = {"skills"})
+    Page<Candidate> findAll(Pageable pageable);
+
+    @Query("SELECT DISTINCT c FROM Candidate c LEFT JOIN FETCH c.skills WHERE c.municipio = :municipio")
+    Page<Candidate> findByMunicipioPageable (@Param("municipio") String municipio, Pageable pageable);
 
 }

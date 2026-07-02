@@ -4,6 +4,9 @@ import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.candidate.entity.Candidate;
 import com.appbit.backend.modules.candidate.repository.CandidateRepository;
 import com.appbit.backend.modules.company.entity.ExperienceLevel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,13 +58,16 @@ public class CandidateService {
     }
 
     @Transactional(readOnly = true)
-    public List<Candidate> findAll() {
-        return candidateRepository.findAll();
+    public Page<Candidate> findAllPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return candidateRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<Candidate> findByMunicipio(String municipio) {
-        return candidateRepository.findByMunicipio(municipio);
+    public Page<Candidate> findByMunicipio(String municipio, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return candidateRepository.findByMunicipioPageable(municipio, pageable);
     }
 
     @Transactional(readOnly = true)

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,13 +83,15 @@ public class CandidateController {
                     content = @Content(mediaType = "application/json")
             )
     })
-    public ResponseEntity<List<Candidate>> findAll(
+    public ResponseEntity<Page<Candidate>> findAll(
             @Parameter(description = "Filtro opcional por municipio", required = false, example = "Bogotá")
-            @RequestParam(required = false) String municipio) {
+            @RequestParam(required = false) String municipio,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
         if (municipio != null && !municipio.isEmpty()) {
-            return ResponseEntity.ok(candidateService.findByMunicipio(municipio));
+            return ResponseEntity.ok(candidateService.findByMunicipio(municipio, page,size));
         }
-        return ResponseEntity.ok(candidateService.findAll());
+        return ResponseEntity.ok(candidateService.findAllPaginated(page,size));
     }
 
     /**
