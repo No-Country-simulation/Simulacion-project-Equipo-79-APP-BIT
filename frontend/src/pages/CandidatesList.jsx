@@ -16,12 +16,19 @@ const mapCandidateForView = (candidate, matchResult) => {
     skills: candidate.skills ?? [],
     experienceLevel: candidate.experienceLevel ?? 'MID',
     region: candidate.region ?? candidate.municipio ?? 'No region',
-    diversityBadge: matchResult?.diversityBadge ?? '',
+    cluster: candidate.cluster ?? '',
+    diversityBadge: matchResult?.diversityBadge ?? candidate.diversityBadge ?? '',
+    diversityScore: matchResult?.diversityScore ?? 0,
     latitude: candidate.latitude ?? candidate.lat,
     longitude: candidate.longitude ?? candidate.lng,
     matchingSkills: matchResult?.matchingSkills ?? [],
     compatibilityScore: matchResult?.compatibilityScore ?? 0,
     inclusionReason: matchResult?.inclusionReason ?? '',
+    genderOptional: candidate.genderOptional ?? '',
+    disabilityOptional: candidate.disabilityOptional ?? '',
+    ethnicityOptional: candidate.ethnicityOptional ?? '',
+    ruralOptional: candidate.ruralOptional ?? null,
+    consentStatus: candidate.consentStatus ?? false,
   };
 };
 
@@ -39,16 +46,32 @@ const ScoreCircle = ({ score }) => {
   );
 };
 
+const badgeColors = {
+  TALENTO_REGIONAL: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  TALENTO_RURAL: 'bg-green-100 text-green-800 border-green-200',
+  MUJER_STEM: 'bg-purple-100 text-purple-800 border-purple-200',
+  TALENTO_JOVEN: 'bg-blue-100 text-blue-800 border-blue-200',
+  TALENTO_SENIOR: 'bg-amber-100 text-amber-800 border-amber-200',
+  TALENTO_RECONVERSION: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+  REGIONAL_DIVERSITY: 'bg-teal-100 text-teal-800 border-teal-200',
+  GENDER_DIVERSITY: 'bg-pink-100 text-pink-800 border-pink-200',
+};
+
 const BadgeTag = ({ badge }) => {
   if (!badge) return null;
-  const colors = {
-    DIVERSITY_LEADER: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    INCLUSION_CHAMPION: 'bg-blue-100 text-blue-800 border-blue-200',
-  };
-  const styles = colors[badge] || 'bg-gray-100 text-gray-700 border-gray-200';
+  const styles = badgeColors[badge] || 'bg-gray-100 text-gray-700 border-gray-200';
   return (
     <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${styles}`}>
       {badge.replace(/_/g, ' ')}
+    </span>
+  );
+};
+
+const DiversityChip = ({ label, value }) => {
+  if (!value) return null;
+  return (
+    <span className="text-[10px] font-medium text-gray-500 bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-md">
+      {label}: {value}
     </span>
   );
 };
@@ -400,8 +423,13 @@ const CandidatesList = () => {
             <div key={candidate.candidateId}
               className={`group bg-white rounded-2xl border shadow-sm p-5 transition-all hover:shadow-md ${selectedCandidates.has(candidate.candidateId) ? 'border-[#006B5F] ring-2 ring-[#006B5F]/20' : 'border-gray-100 hover:border-gray-200'}`}>
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 pt-1">
+                <div className="flex-shrink-0 pt-1 flex flex-col items-center gap-1">
                   <ScoreCircle score={candidate.compatibilityScore} />
+                  {candidate.diversityScore > 0 && (
+                    <span className="text-[9px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">
+                      D:{candidate.diversityScore}%
+                    </span>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
@@ -436,6 +464,19 @@ const CandidatesList = () => {
                       {candidate.inclusionReason}
                     </p>
                   </div>
+
+                  {candidate.consentStatus && (
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {candidate.genderOptional && <DiversityChip label="Género" value={candidate.genderOptional} />}
+                      {candidate.ethnicityOptional && <DiversityChip label="Etnia" value={candidate.ethnicityOptional} />}
+                      {candidate.disabilityOptional && <DiversityChip label="Discapacidad" value={candidate.disabilityOptional} />}
+                      {candidate.ruralOptional === true && (
+                        <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
+                          Zona rural
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   <div className="mt-3 flex items-center gap-3">
                     <label className="flex items-center gap-2 cursor-pointer group">
