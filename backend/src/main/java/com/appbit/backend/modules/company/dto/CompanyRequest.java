@@ -91,7 +91,7 @@ public record CompanyRequest(
 
         @Schema(
                 description = "Ciudad principal de operación de la empresa",
-                example = "Bogotá",
+                example = "Florianopolis",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
                 maxLength = 100
         )

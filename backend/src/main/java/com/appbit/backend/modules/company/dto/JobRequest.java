@@ -41,7 +41,7 @@ public record JobRequest (
 
         @Schema(
                 description = "Región geográfica donde se ubica el puesto de trabajo",
-                example = "Bogotá",
+                example = "Florianopolis",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
                 maxLength = 100
         )

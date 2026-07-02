@@ -36,6 +36,9 @@ public class JobService {
         if (job.companyId() == null) {
             throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
         }
+        if (job.experienceLevel() == null) {
+            throw new IllegalArgumentException("El nivel de experiencia es obligatorio.");
+        }
 
         Company company = companyRepository.findById(job.companyId())
                 .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
