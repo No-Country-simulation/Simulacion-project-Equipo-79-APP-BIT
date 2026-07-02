@@ -32,16 +32,29 @@ const mapCandidateForView = (candidate, matchResult) => {
   };
 };
 
+const scoreLabel = (score) => {
+  if (score >= 90) return { text: 'Alta compatibilidad', color: 'text-emerald-600' };
+  if (score >= 70) return { text: 'Buena compatibilidad', color: 'text-amber-600' };
+  if (score >= 50) return { text: 'Compatibilidad media', color: 'text-orange-600' };
+  return { text: 'Baja compatibilidad', color: 'text-red-600' };
+};
+
 const ScoreCircle = ({ score }) => {
   const color = score >= 85 ? '#006B5F' : score >= 70 ? '#F59E0B' : '#EF4444';
+  const label = scoreLabel(score);
   return (
-    <div className="relative w-14 h-14 flex items-center justify-center">
-      <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
-        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#E5E7EB" strokeWidth="2.5" />
-        <circle cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="2.5"
-          strokeDasharray={`${(score / 100) * 97.4} 97.4`} strokeLinecap="round" />
-      </svg>
-      <span className="absolute text-xs font-bold" style={{ color }}>{score}%</span>
+    <div className="flex flex-col items-center gap-0.5">
+      <div className="relative w-14 h-14 flex items-center justify-center">
+        <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#E5E7EB" strokeWidth="2.5" />
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="2.5"
+            strokeDasharray={`${(score / 100) * 97.4} 97.4`} strokeLinecap="round" />
+        </svg>
+        <span className="absolute text-xs font-bold" style={{ color }}>{score}%</span>
+      </div>
+      <span className={`text-[9px] font-semibold text-center leading-tight ${label.color}`}>
+        {label.text}
+      </span>
     </div>
   );
 };
@@ -97,6 +110,7 @@ const CandidatesList = () => {
   const [regionFilter, setRegionFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
   const [selectedCandidates, setSelectedCandidates] = useState(new Set());
+  const [expandedCandidates, setExpandedCandidates] = useState(new Set());
   const [viewMode, setViewMode] = useState('list');
 
   useEffect(() => {
@@ -184,6 +198,14 @@ const CandidatesList = () => {
     });
   };
 
+  const toggleExpanded = (id) => {
+    setExpandedCandidates(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
   const handleContact = () => {
     sileo.success({
       title: 'Contact initiated',
@@ -196,6 +218,7 @@ const CandidatesList = () => {
     setRegionFilter('');
     setLevelFilter('');
     setSelectedCandidates(new Set());
+    setExpandedCandidates(new Set());
   };
 
   const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2B6952]/20 focus:border-[#2B6952] bg-white transition-all';
@@ -459,24 +482,93 @@ const CandidatesList = () => {
                     ))}
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="text-xs text-gray-500 leading-relaxed flex-1 min-w-0 mr-4">
-                      {candidate.inclusionReason}
-                    </p>
-                  </div>
+                  {/* Expandable: Why this candidate */}
+                  <div className="mt-3">
+                    <button
+                      onClick={() => toggleExpanded(candidate.candidateId)}
+                      className="flex items-center gap-1.5 text-xs font-semibold text-[#006B5F] hover:text-[#005a50] transition-colors cursor-pointer"
+                    >
+                      <svg
+                        className={`w-3.5 h-3.5 transition-transform ${expandedCandidates.has(candidate.candidateId) ? 'rotate-180' : ''}`}
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                      ¿Por qué este candidato?
+                    </button>
 
-                  {candidate.consentStatus && (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {candidate.genderOptional && <DiversityChip label="Género" value={candidate.genderOptional} />}
-                      {candidate.ethnicityOptional && <DiversityChip label="Etnia" value={candidate.ethnicityOptional} />}
-                      {candidate.disabilityOptional && <DiversityChip label="Discapacidad" value={candidate.disabilityOptional} />}
-                      {candidate.ruralOptional === true && (
-                        <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
-                          Zona rural
-                        </span>
-                      )}
-                    </div>
-                  )}
+                    {expandedCandidates.has(candidate.candidateId) && (
+                      <div className="mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-3">
+                        {/* Skills coincidentes */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
+                            Skills coincidentes
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {candidate.matchingSkills.length > 0
+                              ? candidate.matchingSkills.map(skill => (
+                                  <SkillTag key={skill} skill={skill} matched />
+                                ))
+                              : <span className="text-xs text-gray-400">No hay skills coincidentes</span>
+                            }
+                          </div>
+                        </div>
+
+                        {/* Nivel de experiencia */}
+                        <div className="flex items-center gap-2">
+                          <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Nivel de experiencia</p>
+                            <p className="text-xs font-semibold text-gray-700">{candidate.experienceLevel.charAt(0) + candidate.experienceLevel.slice(1).toLowerCase()}</p>
+                          </div>
+                        </div>
+
+                        {/* Región */}
+                        <div className="flex items-center gap-2">
+                          <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Región</p>
+                            <p className="text-xs font-semibold text-gray-700">{candidate.region}</p>
+                          </div>
+                        </div>
+
+                        {/* Badge de diversidad */}
+                        {candidate.diversityBadge && (
+                          <div className="flex items-center gap-2">
+                            <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                            <div>
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Badge de diversidad</p>
+                              <BadgeTag badge={candidate.diversityBadge} />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Explicación del score */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+                            Explicación del score
+                          </p>
+                          <p className="text-xs text-gray-600 leading-relaxed">{candidate.inclusionReason}</p>
+                        </div>
+
+                        {/* Diversity chips (consent) */}
+                        {candidate.consentStatus && (
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {candidate.genderOptional && <DiversityChip label="Género" value={candidate.genderOptional} />}
+                            {candidate.ethnicityOptional && <DiversityChip label="Etnia" value={candidate.ethnicityOptional} />}
+                            {candidate.disabilityOptional && <DiversityChip label="Discapacidad" value={candidate.disabilityOptional} />}
+                            {candidate.ruralOptional === true && (
+                              <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
+                                Zona rural
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
 
                   <div className="mt-3 flex items-center gap-3">
                     <label className="flex items-center gap-2 cursor-pointer group">
