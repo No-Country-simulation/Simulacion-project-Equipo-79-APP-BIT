@@ -50,6 +50,7 @@ public record CandidateFullProfileResponse(
 
 ) {
     public static CandidateFullProfileResponse from(Candidate c) {
+        boolean hasConsent = Boolean.TRUE.equals(c.getConsentStatus());
         return new CandidateFullProfileResponse(
                 c.getId(),
                 c.getSkills(),
@@ -59,10 +60,10 @@ public record CandidateFullProfileResponse(
                 c.getLatitude(),
                 c.getLongitude(),
                 c.getDiversityBadge(),
-                c.getGenderOptional(),
-                c.getDisabilityOptional(),
-                c.getEthnicityOptional(),
-                c.getRuralOptional(),
+                hasConsent ? c.getGenderOptional() : null,
+                hasConsent ? c.getDisabilityOptional() : null,
+                hasConsent ? c.getEthnicityOptional() : null,
+                hasConsent ? c.getRuralOptional() : null,
                 c.getConsentStatus()
         );
     }

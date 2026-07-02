@@ -49,14 +49,16 @@ public class RecruitmentService {
         RecruitmentProcess process = repository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Proceso no encontrado con ID: " + id));
 
-        if (newStatus == RecruitmentStatus.DESCARTADO && (decisionReason == null || decisionReason.isBlank())) {
-            throw new IllegalArgumentException("Se requiere una razón objetiva para descartar al candidato.");
+        if (newStatus == RecruitmentStatus.DESCARTADO) {
+            if (decisionReason == null || decisionReason.isBlank()) {
+                throw new IllegalArgumentException("Se requiere una razón objetiva para descartar al candidato.");
+            }
+            process.setDecisionReason(decisionReason);
+        } else {
+            process.setDecisionReason(null);
         }
 
         process.setStatus(newStatus);
-        if (decisionReason != null && !decisionReason.isBlank()) {
-            process.setDecisionReason(decisionReason);
-        }
 
         RecruitmentProcess updated = repository.save(process);
         log.info("Estado actualizado: proceso={}, status={}", id, newStatus);
