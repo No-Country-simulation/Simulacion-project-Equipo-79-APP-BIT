@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sileo } from 'sileo';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { createJob } from '../api/jobs.js';
+import { listCompanies } from '../api/company.js';
 import PinIcon from '../components/icons/PinIcon';
 import ChevronIcon from '../components/icons/ChevronIcon';
 
@@ -12,10 +13,36 @@ const CreateJobOffer = () => {
     experienceLevel: 'MID',
     region: '',
     requiredSkills: '',
-    companyId: 1,
+    companyId: '',
     description: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [companies, setCompanies] = useState([]);
+  const [companiesLoading, setCompaniesLoading] = useState(true);
+  const [companiesError, setCompaniesError] = useState('');
+
+  useEffect(() => {
+    let ignore = false;
+    const loadCompanies = async () => {
+      try {
+        setCompaniesLoading(true);
+        setCompaniesError('');
+        const data = await listCompanies();
+        if (ignore) return;
+        const list = Array.isArray(data) ? data : [];
+        setCompanies(list);
+        if (list.length > 0) {
+          setFormData(prev => ({ ...prev, companyId: String(list[0].id) }));
+        }
+      } catch (err) {
+        if (!ignore) setCompaniesError(err instanceof Error ? err.message : 'No se pudieron cargar las empresas.');
+      } finally {
+        if (!ignore) setCompaniesLoading(false);
+      }
+    };
+    loadCompanies();
+    return () => { ignore = true; };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,17 +158,36 @@ const CreateJobOffer = () => {
 
             {/* Company */}
             <div className="flex flex-col">
-              <label className={labelClass}>Company ID</label>
-              <input
-                type="number"
-                name="companyId"
-                value={formData.companyId}
-                onChange={handleChange}
-                min="1"
-                placeholder="1"
-                className={inputClass}
-                required
-              />
+              <label className={labelClass}>Company</label>
+              {companiesLoading ? (
+                <div className={`${inputClass} animate-pulse bg-gray-100 text-gray-400`}>Loading companies...</div>
+              ) : companiesError ? (
+                <p className="text-xs text-red-500 mt-1">{companiesError}</p>
+              ) : companies.length === 0 ? (
+                <p className="text-xs text-gray-500 mt-1">
+                  No companies registered yet.{' '}
+                  <Link to="/register-company" className="text-[#006B5F] hover:underline font-semibold">
+                    Register one first
+                  </Link>
+                </p>
+              ) : (
+                <div className="relative">
+                  <select
+                    name="companyId"
+                    value={formData.companyId}
+                    onChange={handleChange}
+                    className={`${inputClass} appearance-none pr-9 cursor-pointer`}
+                    required
+                  >
+                    {companies.map(company => (
+                      <option key={company.id} value={company.id}>{company.name}</option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <ChevronIcon />
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -183,7 +229,7 @@ const CreateJobOffer = () => {
             </button>
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || companies.length === 0}
               className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 text-white text-sm font-semibold px-8 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer"
             >
               {isSubmitting ? 'Posting...' : 'Post Job Offer'}

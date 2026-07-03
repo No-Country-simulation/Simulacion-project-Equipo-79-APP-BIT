@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -97,15 +99,58 @@ public class MatchingAgentService {
             return results;
 
         } catch (TimeoutException e) {
-            log.error("⏳ TIMEOUT: El LLM tardó más de 20 segundos. Abortando.");
-            throw new RuntimeException("El agente de IA tardó demasiado en responder.");
+            log.error("⏳ TIMEOUT: El LLM tardó más de 20 segundos. Usando matching de respaldo.");
+            return buildFallbackResults(job, candidates);
         } catch (ExecutionException | InterruptedException e) {
-            log.error("💥 [ERROR IA] Error en la llamada al LLM: {}", e.getMessage(), e);
-            throw new RuntimeException("Falló la ejecución del agente de IA", e);
+            log.error("💥 [ERROR IA] Error en la llamada al LLM: {}. Usando matching de respaldo.", e.getMessage(), e);
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            return buildFallbackResults(job, candidates);
         } catch (Exception e) {
-            log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}", e.getMessage(), e);
-            throw new RuntimeException("El agente de IA falló o tardó demasiado: " + e.getMessage());
+            log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}. Usando matching de respaldo.", e.getMessage(), e);
+            return buildFallbackResults(job, candidates);
         }
+    }
+
+    /**
+     * Matching de respaldo cuando el agente de IA no responde a tiempo o falla.
+     * Se basa únicamente en solapamiento de skills y nivel de experiencia (mismas
+     * reglas anti-sesgo que el prompt: nunca infiere diversityBadge sin el LLM,
+     * para no inventar una acción afirmativa sin criterio verificado).
+     */
+    private List<MatchResultResponse> buildFallbackResults(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
+        List<String> jobSkillsLower = job.skills().stream().map(s -> s.toLowerCase(Locale.ROOT)).toList();
+
+        List<MatchResultResponse> results = new ArrayList<>();
+        for (AnonymousCandidateResponse candidate : candidates) {
+            List<String> matchingSkills = candidate.skills().stream()
+                    .filter(skill -> jobSkillsLower.contains(skill.toLowerCase(Locale.ROOT)))
+                    .toList();
+
+            int compatibilityScore;
+            if (!jobSkillsLower.isEmpty()) {
+                compatibilityScore = (int) Math.round((matchingSkills.size() * 100.0) / jobSkillsLower.size());
+            } else {
+                compatibilityScore = 50;
+            }
+            if (candidate.experienceLevel() == job.experienceLevel()) {
+                compatibilityScore = Math.min(100, compatibilityScore + 10);
+            }
+
+            results.add(new MatchResultResponse(
+                    candidate.candidateId(),
+                    compatibilityScore,
+                    0,
+                    matchingSkills,
+                    "Score calculado por reglas de respaldo (skills en común y nivel de experiencia): " +
+                            "el agente de IA no estuvo disponible para esta búsqueda.",
+                    null
+            ));
+        }
+
+        results.sort((a, b) -> Integer.compare(b.compatibilityScore(), a.compatibilityScore()));
+        return results;
     }
     private void verifyAntiBias(List<MatchResultResponse> results) {
         for (MatchResultResponse r : results) {
