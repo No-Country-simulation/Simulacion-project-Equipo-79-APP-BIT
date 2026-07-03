@@ -15,6 +15,14 @@ const CreateJobOffer = () => {
     requiredSkills: '',
     companyId: '',
     description: '',
+    diversityFocusEnabled: false,
+    targetDiversityPercentage: '',
+    modality: 'Remoto',
+    salaryRange: '',
+    contractType: 'Término indefinido',
+    softSkills: '',
+    experienceYears: '',
+    education: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [companies, setCompanies] = useState([]);
@@ -45,8 +53,11 @@ const CreateJobOffer = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -62,6 +73,21 @@ const CreateJobOffer = () => {
         .filter(Boolean),
       experienceLevel: formData.experienceLevel,
       companyId: Number(formData.companyId),
+      diversityFocusEnabled: formData.diversityFocusEnabled,
+      targetDiversityPercentage:
+        formData.diversityFocusEnabled && formData.targetDiversityPercentage !== ''
+          ? Number(formData.targetDiversityPercentage)
+          : null,
+      modality: formData.modality,
+      salaryRange: formData.salaryRange,
+      contractType: formData.contractType,
+      softSkills: formData.softSkills
+        .split(',')
+        .map(skill => skill.trim())
+        .filter(Boolean),
+      experienceYears:
+        formData.experienceYears !== '' ? Number(formData.experienceYears) : null,
+      education: formData.education,
     };
 
     try {
@@ -217,6 +243,138 @@ const CreateJobOffer = () => {
               className={`${inputClass} resize-none`}
               required
             />
+          </div>
+
+          {/* ── Row 5: Modality + Contract Type ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col">
+              <label className={labelClass}>Modality</label>
+              <div className="relative">
+                <select
+                  name="modality"
+                  value={formData.modality}
+                  onChange={handleChange}
+                  className={`${inputClass} appearance-none pr-9 cursor-pointer`}
+                >
+                  <option value="Remoto">Remoto</option>
+                  <option value="Híbrido">Híbrido</option>
+                  <option value="Presencial">Presencial</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <ChevronIcon />
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col">
+              <label className={labelClass}>Contract Type</label>
+              <div className="relative">
+                <select
+                  name="contractType"
+                  value={formData.contractType}
+                  onChange={handleChange}
+                  className={`${inputClass} appearance-none pr-9 cursor-pointer`}
+                >
+                  <option value="Término indefinido">Término indefinido</option>
+                  <option value="Término fijo">Término fijo</option>
+                  <option value="Prestación de servicios">Prestación de servicios</option>
+                  <option value="Freelance">Freelance</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <ChevronIcon />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Row 6: Salary + Experience Years ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col">
+              <label className={labelClass}>Salary Range</label>
+              <input
+                type="text"
+                name="salaryRange"
+                value={formData.salaryRange}
+                onChange={handleChange}
+                placeholder="3.000.000 - 5.000.000 COP"
+                className={inputClass}
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className={labelClass}>Experience Years</label>
+              <input
+                type="number"
+                name="experienceYears"
+                value={formData.experienceYears}
+                onChange={handleChange}
+                placeholder="3"
+                min="0"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          {/* ── Row 7: Education + Soft Skills ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col">
+              <label className={labelClass}>Education</label>
+              <input
+                type="text"
+                name="education"
+                value={formData.education}
+                onChange={handleChange}
+                placeholder="Ingeniería de Sistemas o afín"
+                className={inputClass}
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className={labelClass}>Soft Skills</label>
+              <input
+                type="text"
+                name="softSkills"
+                value={formData.softSkills}
+                onChange={handleChange}
+                placeholder="Comunicación, Liderazgo, Trabajo en equipo"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          {/* ── Row 8: Diversity Focus ── */}
+          <div className="rounded-xl border border-gray-200 p-4 bg-gray-50/60">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div>
+                <p className="text-sm font-semibold text-gray-700">Diversity Focus</p>
+                <p className="text-xs text-gray-500 mt-0.5">Enable inclusive hiring target for this position.</p>
+              </div>
+              <label className="inline-flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="diversityFocusEnabled"
+                  checked={formData.diversityFocusEnabled}
+                  onChange={handleChange}
+                  className="w-4 h-4 rounded border-gray-300 text-[#006B5F] focus:ring-[#006B5F] cursor-pointer accent-[#006B5F]"
+                />
+                <span className="text-sm font-medium text-gray-600">Enable</span>
+              </label>
+            </div>
+
+            <div className="mt-4 max-w-xs">
+              <label className={labelClass}>Target Diversity Percentage</label>
+              <input
+                type="number"
+                name="targetDiversityPercentage"
+                value={formData.targetDiversityPercentage}
+                onChange={handleChange}
+                placeholder="40"
+                min="0"
+                max="100"
+                disabled={!formData.diversityFocusEnabled}
+                className={`${inputClass} disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed`}
+              />
+            </div>
           </div>
 
           {/* ── Action Buttons ── */}
