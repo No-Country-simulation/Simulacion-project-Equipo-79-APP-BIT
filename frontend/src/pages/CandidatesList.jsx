@@ -619,6 +619,13 @@ const CandidatesList = () => {
                     ))}
                   </div>
 
+                  {job.skills && job.skills.length > 0 && candidate.matchingSkills.length > 0 && (
+                    <p className="text-[10px] text-gray-400 mt-1.5">
+                      <span className="font-semibold text-[#006B5F]">{candidate.matchingSkills.length}</span>
+                      <span className="text-gray-300">/{job.skills.length}</span> skills requeridas cubiertas
+                    </p>
+                  )}
+
                   {/* Expandable: Why this candidate */}
                   <div className="mt-3">
                     <button
@@ -635,12 +642,58 @@ const CandidatesList = () => {
                     </button>
 
                     {expandedCandidates.has(candidate.candidateId) && (
-                      <div className="mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-3">
+                      <div className="mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-4">
+
+                        {/* Match Overview Bar */}
+                        <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-200">
+                          <div className="flex-1">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Compatibilidad general</span>
+                              <span className="text-xs font-bold" style={{ color: candidate.compatibilityScore >= 85 ? '#006B5F' : candidate.compatibilityScore >= 70 ? '#F59E0B' : '#EF4444' }}>
+                                {candidate.compatibilityScore}%
+                              </span>
+                            </div>
+                            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-full rounded-full transition-all" style={{
+                                width: `${candidate.compatibilityScore}%`,
+                                backgroundColor: candidate.compatibilityScore >= 85 ? '#006B5F' : candidate.compatibilityScore >= 70 ? '#F59E0B' : '#EF4444'
+                              }} />
+                            </div>
+                          </div>
+                          {candidate.diversityScore > 0 && (
+                            <div className="text-center border-l border-gray-200 pl-4">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-500">Diversidad</span>
+                              <p className="text-sm font-bold text-purple-700">{candidate.diversityScore}%</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Skills buscadas del Job */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                            Skills buscadas en esta vacante
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {job.skills && job.skills.length > 0
+                              ? job.skills.map(skill => (
+                                  <SkillTag key={skill} skill={skill} matched={candidate.matchingSkills.includes(skill)} />
+                                ))
+                              : <span className="text-xs text-gray-400">No se especificaron skills</span>
+                            }
+                          </div>
+                          {candidate.matchingSkills.length > 0 && candidate.matchingSkills.length < (job.skills?.length ?? 0) && (
+                            <p className="text-[10px] text-gray-400 mt-1.5">
+                              {candidate.matchingSkills.length} de {job.skills.length} skills requeridas
+                            </p>
+                          )}
+                        </div>
+
                         {/* Skills coincidentes */}
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
                             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
-                            Skills coincidentes
+                            Skills coincidentes con el candidato
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {candidate.matchingSkills.length > 0
@@ -651,6 +704,8 @@ const CandidatesList = () => {
                             }
                           </div>
                         </div>
+
+                        <hr className="border-gray-200" />
 
                         {/* Nivel de experiencia */}
                         <div className="flex items-center gap-2">
