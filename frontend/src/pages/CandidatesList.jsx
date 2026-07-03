@@ -19,10 +19,23 @@ const statusLabels = {
 
 const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
 
+const normalizeSkills = (skills = []) => {
+  if (!Array.isArray(skills)) {
+    return [];
+  }
+
+  return [...new Set(
+    skills
+      .filter(Boolean)
+      .map(skill => String(skill).trim())
+      .filter(Boolean)
+  )];
+};
+
 const mapCandidateForView = (candidate, matchResult) => {
   return {
     candidateId: candidate.candidateId ?? candidate.id,
-    skills: candidate.skills ?? [],
+    skills: normalizeSkills(candidate.skills),
     experienceLevel: candidate.experienceLevel ?? 'MID',
     region: candidate.region ?? candidate.municipio ?? 'No region',
     cluster: candidate.cluster ?? '',
@@ -30,7 +43,7 @@ const mapCandidateForView = (candidate, matchResult) => {
     diversityScore: matchResult?.diversityScore ?? 0,
     latitude: candidate.latitude ?? candidate.lat,
     longitude: candidate.longitude ?? candidate.lng,
-    matchingSkills: matchResult?.matchingSkills ?? [],
+    matchingSkills: normalizeSkills(matchResult?.matchingSkills ?? []),
     compatibilityScore: matchResult?.compatibilityScore ?? 0,
     inclusionReason: matchResult?.inclusionReason ?? '',
   };
@@ -221,11 +234,15 @@ const CandidatesList = () => {
 
   const filteredCandidates = useMemo(() => {
     if (!job) return [];
-    return viewCandidates.filter(c => {
-      if (regionFilter && c.region !== regionFilter) return false;
-      if (levelFilter && c.experienceLevel !== levelFilter) return false;
-      return true;
-    }).sort((a, b) => b.compatibilityScore - a.compatibilityScore);
+
+    return viewCandidates
+      .filter(c => {
+        if (regionFilter && c.region !== regionFilter) return false;
+        if (levelFilter && c.experienceLevel !== levelFilter) return false;
+        return c.compatibilityScore >= 50;
+      })
+      .sort((a, b) => b.compatibilityScore - a.compatibilityScore)
+      .slice(0, 10);
   }, [job, regionFilter, levelFilter, viewCandidates]);
 
   const geoLocatedCandidates = useMemo(

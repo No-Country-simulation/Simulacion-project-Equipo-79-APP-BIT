@@ -15,6 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -95,8 +98,9 @@ public class MatchingAgentService {
 
             verifyAntiBias(results);
 
-            log.info("✅ Matching completado con éxito. {} candidatos mapeados.", results.size());
-            return results;
+            List<MatchResultResponse> rankedResults = rankAndLimitMatches(results, 10, 50);
+            log.info("✅ Matching completado con éxito. {} candidatos mapeados, {} mostrados.", results.size(), rankedResults.size());
+            return rankedResults;
 
         } catch (TimeoutException e) {
             log.error("⏳ TIMEOUT: El LLM tardó más de 20 segundos. Usando matching de respaldo.");
@@ -161,6 +165,20 @@ public class MatchingAgentService {
                 }
             }
         }
+    }
+
+    static List<MatchResultResponse> rankAndLimitMatches(List<MatchResultResponse> results, int limit, int minimumScore) {
+        if (results == null || results.isEmpty()) {
+            return List.of();
+        }
+
+        return results.stream()
+                .filter(Objects::nonNull)
+                .filter(result -> result.compatibilityScore() >= minimumScore)
+                .sorted(Comparator.comparingInt(MatchResultResponse::compatibilityScore).reversed()
+                        .thenComparing(MatchResultResponse::candidateId))
+                .limit(limit)
+                .toList();
     }
 
     private String extractJsonArray(String rawResponse) {
