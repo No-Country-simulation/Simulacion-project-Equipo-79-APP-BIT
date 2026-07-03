@@ -1,4 +1,5 @@
 import { SignIn } from "@clerk/react"
+import { Link } from 'react-router';
 
 const SignInPage = () => {
   return (
@@ -42,6 +43,13 @@ const SignInPage = () => {
           </div>
 
           <SignIn />
+
+          <p className="text-sm text-[#6B7280] text-center mt-6">
+            ¿No tenés cuenta?{' '}
+            <Link to="/sign-up" className="text-[#006B5F] hover:underline font-semibold">
+              Registrate
+            </Link>
+          </p>
         </div>
       </div>
     </div>
