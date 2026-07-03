@@ -10,10 +10,8 @@ const RegisterCompany = () => {
     name: '',
     industrySector: '',
     esgGoals: '',
-    diversityGoal: '',
     priorityRegions: '',
     interestGroups: '',
-    reportFocus: '',
     nit: '',
     size: '',
     city: '',
@@ -53,7 +51,6 @@ const RegisterCompany = () => {
           <>
             <p className="text-neutral-300/70! font-medium">Name: <b className='text-white'>{company.name}</b></p>
             <p className="text-neutral-300/70! font-medium">Sector: <b className='text-white'>{company.industrySector ?? '—'}</b></p>
-            {company.diversityGoal && <p className="text-neutral-300/70! font-medium">Diversity Goal: <b className='text-white'>{company.diversityGoal}</b></p>}
           </>
         ),
       });
@@ -122,20 +119,12 @@ const RegisterCompany = () => {
                 <input type="text" name="esgGoals" value={formData.esgGoals} onChange={handleChange} placeholder="e.g. Reduce carbon footprint by 30%" className={inputClass} />
               </div>
               <div className="flex flex-col">
-                <label className={labelClass}>Diversity Goal</label>
-                <input type="text" name="diversityGoal" value={formData.diversityGoal} onChange={handleChange} placeholder="e.g. 30% of shortlist with diverse talent" className={inputClass} />
-              </div>
-              <div className="flex flex-col">
                 <label className={labelClass}>Priority Regions</label>
                 <input type="text" name="priorityRegions" value={formData.priorityRegions} onChange={handleChange} placeholder="e.g. Caribe, Pacífico, Amazonía" className={inputClass} />
               </div>
               <div className="flex flex-col">
                 <label className={labelClass}>Interest Groups</label>
                 <input type="text" name="interestGroups" value={formData.interestGroups} onChange={handleChange} placeholder="e.g. Women, Youth, Rural population" className={inputClass} />
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <label className={labelClass}>Report Focus</label>
-                <input type="text" name="reportFocus" value={formData.reportFocus} onChange={handleChange} placeholder="e.g. Gender, territory, disability, age, ethnicity" className={inputClass} />
               </div>
             </div>
           </div>
