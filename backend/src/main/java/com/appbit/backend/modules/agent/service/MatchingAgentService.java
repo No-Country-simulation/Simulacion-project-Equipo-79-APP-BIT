@@ -65,14 +65,19 @@ public class MatchingAgentService {
 
             long startTime = System.currentTimeMillis();
 
-            // 3. Llamada directa síncrona (Dejamos que el cliente maneje su timeout natural o de red)
-            log.info("⚙️ Esperando respuesta directa del proveedor de IA...");
+            // 3. Llamada al LLM con timeout acotado: sin esto, una respuesta colgada del
+            // proveedor bloquea el hilo indefinidamente (no hay read-timeout configurado
+            // para spring.ai.openai en application.properties).
+            log.info("⚙️ Esperando respuesta del proveedor de IA...");
 
-            // Ejecutamos en el mismo hilo para atrapar excepciones reales de conexión/red
-            String llmResponse = chatClient.prompt()
-                    .user(finalPrompt)
-                    .call()
-                    .content();
+            CompletableFuture<String> llmCallFuture = CompletableFuture.supplyAsync(() ->
+                    chatClient.prompt()
+                            .user(finalPrompt)
+                            .call()
+                            .content()
+            );
+
+            String llmResponse = llmCallFuture.get(20, TimeUnit.SECONDS);
 
             long duration = System.currentTimeMillis() - startTime;
             log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());
@@ -91,6 +96,12 @@ public class MatchingAgentService {
             log.info("✅ Matching completado con éxito. {} candidatos mapeados.", results.size());
             return results;
 
+        } catch (TimeoutException e) {
+            log.error("⏳ TIMEOUT: El LLM tardó más de 20 segundos. Abortando.");
+            throw new RuntimeException("El agente de IA tardó demasiado en responder.");
+        } catch (ExecutionException | InterruptedException e) {
+            log.error("💥 [ERROR IA] Error en la llamada al LLM: {}", e.getMessage(), e);
+            throw new RuntimeException("Falló la ejecución del agente de IA", e);
         } catch (Exception e) {
             log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}", e.getMessage(), e);
             throw new RuntimeException("El agente de IA falló o tardó demasiado: " + e.getMessage());
