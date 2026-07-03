@@ -4,6 +4,7 @@ import com.appbit.backend.modules.candidate.Service.CandidateService;
 import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.company.dto.JobMatchRequest;
 import com.appbit.backend.modules.agent.dto.MatchResultResponse;
+import com.appbit.backend.modules.company.entity.ExperienceLevel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -12,11 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -47,12 +45,38 @@ public class MatchingAgentService {
             return List.of();
         }
 
-        log.info("🤖 [MATCHING] Enviando {} candidatos al LLM...", candidates.size());
+        log.info("🤖 [MATCHING] Procesando {} candidatos. Calculando scores en Java...", candidates.size());
 
         try {
-            // 1. Preparar datos
+            List<Map<String, Object>> payloadParaIA = new ArrayList<>();
+
+            for (AnonymousCandidateResponse c : candidates) {
+                Map<String, Object> item = new LinkedHashMap<>();
+                item.put("candidateId", c.candidateId());
+
+                Set<String> candidateSkills = c.skills() != null ?
+                        c.skills().stream().map(String::toLowerCase).collect(Collectors.toSet()) : Set.of();
+
+                List<String> matchingSkills = job.skills().stream()
+                        .filter(s -> candidateSkills.contains(s.toLowerCase()))
+                        .collect(Collectors.toList());
+                item.put("matchingSkills", matchingSkills);
+
+                double skillRatio = job.skills().isEmpty() ? 0 : (double) matchingSkills.size() / job.skills().size();
+                double levelFactor = calculateLevelFactor(job.experienceLevel(), c.experienceLevel());
+                int techScore = (int) Math.round(skillRatio * 100 * levelFactor);
+                item.put("compatibilityScore", Math.min(100, Math.max(0, techScore)));
+
+                int divScore = calculateDiversityScore(c.diversityBadge());
+                item.put("diversityScore", divScore);
+                item.put("diversityBadge", c.diversityBadge() != null ? c.diversityBadge() : null);
+                item.put("municipio", c.municipio());
+
+                payloadParaIA.add(item);
+            }
+
+            String candidatesJson = objectMapper.writeValueAsString(payloadParaIA);
             String jobSkills = String.join(", ", job.skills());
-            String candidatesJson = objectMapper.writeValueAsString(candidates);
             String jobDescription = job.description() != null ? job.description() : "N/A";
 
             // 2. Formatear el prompt
@@ -63,48 +87,47 @@ public class MatchingAgentService {
                     .replace("{jobExperienceLevel}", job.experienceLevel().toString())
                     .replace("{candidatesJson}", candidatesJson);
 
-            long startTime = System.currentTimeMillis();
-
-            // 3. Llamada directa síncrona (Dejamos que el cliente maneje su timeout natural o de red)
-            log.info("⚙️ Esperando respuesta directa del proveedor de IA...");
-
-            // Ejecutamos en el mismo hilo para atrapar excepciones reales de conexión/red
+            log.info("⚙️ Enviando datos pre-calculados al LLM para generar justificaciones...");
             String llmResponse = chatClient.prompt()
                     .user(finalPrompt)
                     .call()
                     .content();
 
-            long duration = System.currentTimeMillis() - startTime;
-            log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());
-
-            // 4. Limpiar y extraer el JSON puro
             String cleanJson = extractJsonArray(llmResponse);
 
-            // 5. Parseo seguro
             List<MatchResultResponse> results = objectMapper.readValue(
                     cleanJson,
                     objectMapper.getTypeFactory().constructCollectionType(List.class, MatchResultResponse.class)
             );
-
-            verifyAntiBias(results);
 
             log.info("✅ Matching completado con éxito. {} candidatos mapeados.", results.size());
             return results;
 
         } catch (Exception e) {
             log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}", e.getMessage(), e);
-            throw new RuntimeException("El agente de IA falló o tardó demasiado: " + e.getMessage());
+            throw new RuntimeException("El agente de IA falló: " + e.getMessage());
         }
     }
-    private void verifyAntiBias(List<MatchResultResponse> results) {
-        for (MatchResultResponse r : results) {
-            if (r.inclusionReason() != null) {
-                String reasonLower = r.inclusionReason().toLowerCase();
-                if (reasonLower.contains("género") || reasonLower.contains("edad") || reasonLower.contains("etnia")) {
-                    log.warn("⚠️ ALERTA ANTI-SESGO: La IA mencionó datos sensibles para el candidato {}", r.candidateId());
-                }
-            }
+
+    private double calculateLevelFactor(ExperienceLevel jobLevel, ExperienceLevel candidateLevel) {
+        if (jobLevel == null || candidateLevel == null) return 1.0;
+        if (jobLevel == ExperienceLevel.SENIOR) {
+            return candidateLevel == ExperienceLevel.SENIOR ? 1.0 : (candidateLevel == ExperienceLevel.MID ? 0.8 : 0.5);
         }
+        if (jobLevel == ExperienceLevel.MID) {
+            return candidateLevel == ExperienceLevel.SENIOR ? 1.0 : (candidateLevel == ExperienceLevel.MID ? 1.0 : 0.7);
+        }
+        return 1.0;
+    }
+
+    private int calculateDiversityScore(String badge) {
+        if (badge == null || badge.isBlank()) return 0;
+        return switch (badge) {
+            case "TALENTO_REGIONAL", "TALENTO_RURAL", "MUJER_STEM" -> 90;
+            case "REGIONAL_DIVERSITY", "GENDER_DIVERSITY" -> 75;
+            case "TALENTO_RECONVERSION", "TALENTO_JOVEN", "TALENTO_SENIOR" -> 60;
+            default -> 50;
+        };
     }
 
     private String extractJsonArray(String rawResponse) {

@@ -10,7 +10,7 @@ import java.util.List;
 @Schema(
         name = "AnonymousCandidateResponse",
         description = "Candidato con datos anonimizados. Cumple con la LGPD y principios anti-sesgo. " +
-                "No expone nombre, email, género ni ningún dato personal identificable."
+                "No expone nombre, email ni datos personales sensibles."
 )
 public record AnonymousCandidateResponse(
 
@@ -26,6 +26,12 @@ public record AnonymousCandidateResponse(
                 allowableValues = {"JUNIOR", "MID", "SENIOR"}
         )
         ExperienceLevel experienceLevel,
+
+        @Schema(description = "Municipio de residencia (para evaluar diversidad regional)", example = "Florianópolis")
+        String municipio,
+
+        @Schema(description = "Badge de diversidad pre-existente en la base de datos", example = "TALENTO_REGIONAL")
+        String diversityBadge,
 
         @Schema(description = "Latitud geográfica del candidato", example = "-27.413")
         double latitude,
@@ -46,6 +52,8 @@ public record AnonymousCandidateResponse(
                 candidate.getId(),
                 candidate.getSkills(),
                 candidate.getExperienceLevel(),
+                candidate.getMunicipio(),
+                candidate.getDiversityBadge(),
                 candidate.getLatitude(),
                 candidate.getLongitude()
         );
