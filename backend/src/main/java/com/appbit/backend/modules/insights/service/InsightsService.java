@@ -221,27 +221,50 @@ public class InsightsService {
         Map<String, List<CoverageZone>> antenasByMunicipio = antenasByEcgi.values().stream()
                 .collect(Collectors.groupingBy(CoverageZone::municipio));
 
+        // Coordenadas promedio por municipio a partir de los candidatos, para los
+        // municipios que no tienen antena en antenas_flp.csv (ver punto 3).
+        Map<String, double[]> avgCoordsByMunicipio = allCandidates.stream()
+                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                        Collectors.teeing(
+                                Collectors.averagingDouble(Candidate::getLatitude),
+                                Collectors.averagingDouble(Candidate::getLongitude),
+                                (lat, lon) -> new double[]{lat, lon}
+                        )));
+
+        // 3. Unión de municipios con antena Y municipios con candidatos: antes solo
+        // se iteraba antenasByMunicipio, así que los municipios sembrados en data.sql
+        // sin antena en antenas_flp.csv (la mayoría) nunca aparecían en /insights.
+        Set<String> allMunicipios = new HashSet<>(antenasByMunicipio.keySet());
+        allMunicipios.addAll(candidateCounts.keySet());
+
         List<RegionInsightResponse> response = new ArrayList<>();
 
-        // 3. Iterar sobre cada municipio y armar el DTO
-        for (Map.Entry<String, List<CoverageZone>> entry : antenasByMunicipio.entrySet()) {
-            String municipio = entry.getKey();
-            List<CoverageZone> antenas = entry.getValue();
+        for (String municipio : allMunicipios) {
+            List<CoverageZone> antenas = antenasByMunicipio.get(municipio);
 
-            // Calcular cobertura del municipio (regla: la mejor antena define la cobertura)
+            // Calcular cobertura del municipio (regla: la mejor antena define la cobertura).
+            // Sin antena registrada no hay dato de red real, así que se reporta POOR.
             NetworkCoverage municipioCoverage = NetworkCoverage.POOR;
-            for (CoverageZone antena : antenas) {
-                NetworkCoverage antenaCoverage = coverageByEcgi.getOrDefault(antena.ecgi(), NetworkCoverage.POOR);
-                if (antenaCoverage == NetworkCoverage.GOOD) {
-                    municipioCoverage = NetworkCoverage.GOOD;
-                    break;
-                } else if (antenaCoverage == NetworkCoverage.MEDIUM) {
-                    municipioCoverage = NetworkCoverage.MEDIUM;
-                }
-            }
+            double lat;
+            double lon;
 
-            double lat = antenas.get(0).latitude();
-            double lon = antenas.get(0).longitude();
+            if (antenas != null && !antenas.isEmpty()) {
+                for (CoverageZone antena : antenas) {
+                    NetworkCoverage antenaCoverage = coverageByEcgi.getOrDefault(antena.ecgi(), NetworkCoverage.POOR);
+                    if (antenaCoverage == NetworkCoverage.GOOD) {
+                        municipioCoverage = NetworkCoverage.GOOD;
+                        break;
+                    } else if (antenaCoverage == NetworkCoverage.MEDIUM) {
+                        municipioCoverage = NetworkCoverage.MEDIUM;
+                    }
+                }
+                lat = antenas.get(0).latitude();
+                lon = antenas.get(0).longitude();
+            } else {
+                double[] avgCoords = avgCoordsByMunicipio.getOrDefault(municipio, new double[]{0.0, 0.0});
+                lat = avgCoords[0];
+                lon = avgCoords[1];
+            }
 
             long density = candidateCounts.getOrDefault(municipio, 0L);
             long divCount = diversityCounts.getOrDefault(municipio, 0L);
