@@ -54,7 +54,7 @@ public record DashboardEsgResponse(
 
     @Schema(description = "Diversidad agregada por región")
     public record RegionDiversity(
-            @Schema(description = "Nombre del municipio", example = "Bogotá")
+            @Schema(description = "Nombre del municipio", example = "Florianopolis")
             String municipio,
             @Schema(description = "Total de candidatos en el municipio", example = "45")
             long total,

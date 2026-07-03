@@ -33,6 +33,7 @@ public class DashboardEsgService {
 
     private static final String GENDER_UNDEFINED = "No declarado";
     private static final String EXPERIENCE_UNDEFINED = "Sin clasificar";
+    private static final String MUNICIPIO_UNDEFINED = "Sin municipio";
 
     private static final String GOAL_CONFIGURED_DEFAULT = "Meta de diversidad configurada por la empresa";
     private static final String GOAL_UNCONFIGURED = "Sin meta configurada";
@@ -76,10 +77,10 @@ public class DashboardEsgService {
                 : 0.0;
 
         Map<String, Long> byMunicipio = scope.stream()
-                .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+                .collect(Collectors.groupingBy(this::municipioOrUndefined, Collectors.counting()));
         Map<String, Long> divByMunicipio = scope.stream()
                 .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
-                .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+                .collect(Collectors.groupingBy(this::municipioOrUndefined, Collectors.counting()));
         long totalRegions = byMunicipio.size();
 
         List<DashboardEsgResponse.BadgeBreakdown> badges = buildBadgeBreakdown(scope, totalCandidates);
@@ -94,6 +95,10 @@ public class DashboardEsgService {
                 diversityPct, totalDiversity, badges, regions, compliance,
                 experienceBreakdown, genderBreakdown, pipeline
         );
+    }
+
+    private String municipioOrUndefined(Candidate c) {
+        return c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED;
     }
 
     private List<DashboardEsgResponse.BadgeBreakdown> buildBadgeBreakdown(List<Candidate> scope, long total) {

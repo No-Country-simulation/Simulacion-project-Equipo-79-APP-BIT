@@ -7,6 +7,7 @@ import com.appbit.backend.modules.company.entity.Job;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public class JobMapper {
                 .title(dto.title())
                 .description(dto.description())
                 .region(dto.region())
-                .skills(dto.requiredSkills())
+                .skills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>())
                 .experienceLevel(dto.experienceLevel())
                 .company(company)
                 .diversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled())
@@ -26,7 +27,7 @@ public class JobMapper {
                 .modality(dto.modality())
                 .salaryRange(dto.salaryRange())
                 .contractType(dto.contractType())
-                .softSkills(dto.softSkills())
+                .softSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>())
                 .experienceYears(dto.experienceYears())
                 .education(dto.education())
                 .build();
@@ -52,6 +53,23 @@ public class JobMapper {
                 job.getExperienceYears(),
                 job.getEducation()
         );
+    }
+
+    public void updateEntity(Job job, JobRequest dto, Company company) {
+        job.setTitle(dto.title());
+        job.setDescription(dto.description());
+        job.setRegion(dto.region());
+        job.setSkills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>());
+        job.setExperienceLevel(dto.experienceLevel());
+        job.setCompany(company);
+        job.setDiversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled());
+        job.setTargetDiversityPercentage(dto.targetDiversityPercentage());
+        job.setModality(dto.modality());
+        job.setSalaryRange(dto.salaryRange());
+        job.setContractType(dto.contractType());
+        job.setSoftSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>());
+        job.setExperienceYears(dto.experienceYears());
+        job.setEducation(dto.education());
     }
 
     public List<JobResponse> toResponseList(List<Job> jobs) {

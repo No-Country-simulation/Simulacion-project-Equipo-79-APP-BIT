@@ -44,7 +44,7 @@ public class CandidateController {
      * </p>
      *
      * @param municipio (opcional) nombre del municipio para filtrar los candidatos.
-     *                  Ejemplo: "Bogotá", "Medellín", "São Paulo".
+     *                  Ejemplo: "Florianopolis", "Sao Jose", "Blumenau".
      * @return lista de candidatos que coinciden con el filtro, o la lista completa
      * si no se especifica municipio. Código HTTP 200 (OK).
      */
@@ -57,9 +57,9 @@ public class CandidateController {
             parameters = {
                     @Parameter(
                             name = "municipio",
-                            description = "Filtro opcional por municipio. Ejemplo: 'Bogotá', 'Medellín'",
+                            description = "Filtro opcional por municipio. Ejemplo: 'Florianopolis', 'Sao Jose'",
                             required = false,
-                            example = "Bogotá"
+                            example = "Florianopolis"
                     )
             }
     )
@@ -84,7 +84,7 @@ public class CandidateController {
             )
     })
     public ResponseEntity<List<Candidate>> findAll(
-            @Parameter(description = "Filtro opcional por municipio", required = false, example = "Bogotá")
+            @Parameter(description = "Filtro opcional por municipio", required = false, example = "Florianopolis")
             @RequestParam(required = false) String municipio) {
         if (municipio != null && !municipio.isEmpty()) {
             return ResponseEntity.ok(candidateService.findByMunicipio(municipio));

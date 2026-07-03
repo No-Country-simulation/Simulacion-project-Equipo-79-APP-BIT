@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { sileo } from 'sileo';
-import { useNavigate, Link } from 'react-router';
-import { createJob } from '../api/jobs.js';
+import { useNavigate, useParams, Link } from 'react-router';
+import { getJobById, updateJob } from '../api/jobs.js';
 import { listCompanies } from '../api/company.js';
 import PinIcon from '../components/icons/PinIcon';
 import ChevronIcon from '../components/icons/ChevronIcon';
 
-const CreateJobOffer = () => {
+const EditJobOffer = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     title: '',
     experienceLevel: 'MID',
@@ -25,9 +26,49 @@ const CreateJobOffer = () => {
     education: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loadingJob, setLoadingJob] = useState(true);
   const [companies, setCompanies] = useState([]);
   const [companiesLoading, setCompaniesLoading] = useState(true);
   const [companiesError, setCompaniesError] = useState('');
+
+  useEffect(() => {
+    let ignore = false;
+    const loadJob = async () => {
+      try {
+        setLoadingJob(true);
+        const job = await getJobById(Number(id));
+        if (ignore) return;
+        setFormData({
+          title: job.title || '',
+          experienceLevel: job.experienceLevel || 'MID',
+          region: job.region || '',
+          requiredSkills: Array.isArray(job.skills) ? job.skills.join(', ') : '',
+          companyId: String(job.company?.id ?? ''),
+          description: job.description || '',
+          diversityFocusEnabled: job.diversityFocusEnabled || false,
+          targetDiversityPercentage: job.targetDiversityPercentage != null ? String(job.targetDiversityPercentage) : '',
+          modality: job.modality || 'Remoto',
+          salaryRange: job.salaryRange || '',
+          contractType: job.contractType || 'Término indefinido',
+          softSkills: Array.isArray(job.softSkills) ? job.softSkills.join(', ') : '',
+          experienceYears: job.experienceYears != null ? String(job.experienceYears) : '',
+          education: job.education || '',
+        });
+      } catch (err) {
+        if (!ignore) {
+          sileo.error({
+            title: 'Could not load job offer',
+            description: err instanceof Error ? err.message : 'Unexpected error',
+          });
+          navigate('/job');
+        }
+      } finally {
+        if (!ignore) setLoadingJob(false);
+      }
+    };
+    loadJob();
+    return () => { ignore = true; };
+  }, [id, navigate]);
 
   useEffect(() => {
     let ignore = false;
@@ -39,9 +80,6 @@ const CreateJobOffer = () => {
         if (ignore) return;
         const list = Array.isArray(data) ? data : [];
         setCompanies(list);
-        if (list.length > 0) {
-          setFormData(prev => ({ ...prev, companyId: String(list[0].id) }));
-        }
       } catch (err) {
         if (!ignore) setCompaniesError(err instanceof Error ? err.message : 'No se pudieron cargar las empresas.');
       } finally {
@@ -92,12 +130,12 @@ const CreateJobOffer = () => {
 
     try {
       setIsSubmitting(true);
-      await createJob(payload);
-      sileo.success({ title: 'Job offer created successfully!' });
+      await updateJob(Number(id), payload);
+      sileo.success({ title: 'Job offer updated successfully!' });
       navigate('/job');
     } catch (error) {
       sileo.error({
-        title: 'Could not create job offer',
+        title: 'Could not update job offer',
         description: error instanceof Error ? error.message : 'Unexpected error',
       });
     } finally {
@@ -110,22 +148,28 @@ const CreateJobOffer = () => {
   const inputClass =
     'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2B6952]/20 focus:border-[#2B6952] bg-white transition-all';
 
+  if (loadingJob) {
+    return (
+      <div className="p-8 max-w-4xl mx-auto">
+        <div className="rounded-2xl border border-gray-200 bg-white p-8 text-sm text-gray-500 shadow-sm">
+          Loading job offer...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-8 max-w-4xl mx-auto">
-      {/* Header Area */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">Create Job Offer</h1>
-        <p className="text-sm text-gray-500 mt-1">Fill in the details to post a new position on the ESG Matching Portal.</p>
+        <h1 className="text-2xl font-bold text-gray-800">Edit Job Offer</h1>
+        <p className="text-sm text-gray-500 mt-1">Update the details of the job posting.</p>
       </div>
 
-      {/* Card */}
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <form onSubmit={handleSubmit} className="p-8 flex flex-col gap-6">
 
-          {/* ── Row 1: Job Title + Experience Level ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Job Title */}
             <div className="flex flex-col">
               <label className={labelClass}>Job Title</label>
               <input
@@ -139,7 +183,6 @@ const CreateJobOffer = () => {
               />
             </div>
 
-            {/* Experience Level */}
             <div className="flex flex-col">
               <label className={labelClass}>Experience Level</label>
               <div className="relative">
@@ -160,10 +203,8 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 2: Region + Company ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Region / Location */}
             <div className="flex flex-col">
               <label className={labelClass}>Region / Location</label>
               <div className="relative">
@@ -182,7 +223,6 @@ const CreateJobOffer = () => {
               </div>
             </div>
 
-            {/* Company */}
             <div className="flex flex-col">
               <label className={labelClass}>Company</label>
               {companiesLoading ? (
@@ -217,7 +257,6 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 3: Required Skills ── */}
           <div className="flex flex-col">
             <label className={labelClass}>Required Skills</label>
             <input
@@ -231,7 +270,6 @@ const CreateJobOffer = () => {
             />
           </div>
 
-          {/* ── Row 4: Description Summary ── */}
           <div className="flex flex-col">
             <label className={labelClass}>Description Summary</label>
             <textarea
@@ -245,7 +283,6 @@ const CreateJobOffer = () => {
             />
           </div>
 
-          {/* ── Row 5: Modality + Contract Type ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col">
               <label className={labelClass}>Modality</label>
@@ -287,7 +324,6 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 6: Salary + Experience Years ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col">
               <label className={labelClass}>Salary Range</label>
@@ -315,7 +351,6 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 7: Education + Soft Skills ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col">
               <label className={labelClass}>Education</label>
@@ -342,7 +377,6 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Row 8: Diversity Focus ── */}
           <div className="rounded-xl border border-gray-200 p-4 bg-gray-50/60">
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div>
@@ -377,20 +411,17 @@ const CreateJobOffer = () => {
             </div>
           </div>
 
-          {/* ── Action Buttons ── */}
           <div className="border-t border-gray-100 pt-6 flex justify-end gap-3">
-            <button
-              type="button"
-              className="px-6 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
-            >
+            <Link to="/job"
+              className="px-6 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer">
               Cancel
-            </button>
+            </Link>
             <button
               type="submit"
               disabled={isSubmitting || companies.length === 0}
               className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 text-white text-sm font-semibold px-8 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer"
             >
-              {isSubmitting ? 'Posting...' : 'Post Job Offer'}
+              {isSubmitting ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
 
@@ -400,4 +431,4 @@ const CreateJobOffer = () => {
   );
 };
 
-export default CreateJobOffer;
+export default EditJobOffer;

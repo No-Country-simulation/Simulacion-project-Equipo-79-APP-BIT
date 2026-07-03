@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { listJobs } from '../api/jobs.js';
+import { sileo } from 'sileo';
+import { listJobs, deleteJob } from '../api/jobs.js';
 import PinIcon from '../components/icons/PinIcon';
 
 const levelColors = {
@@ -12,9 +13,11 @@ const levelColors = {
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     const loadJobs = async () => {
+      setLoading(true);
       try {
         const data = await listJobs();
         setJobs(Array.isArray(data) ? data : []);
@@ -24,7 +27,23 @@ const Jobs = () => {
     };
 
     loadJobs();
-  }, []);
+  }, [reload]);
+
+  const handleDelete = async (id, title) => {
+    if (!window.confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+      return;
+    }
+    try {
+      await deleteJob(id);
+      sileo.success({ title: 'Job offer deleted successfully!' });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      sileo.error({
+        title: 'Could not delete job offer',
+        description: error instanceof Error ? error.message : 'Unexpected error',
+      });
+    }
+  };
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
@@ -60,10 +79,20 @@ const Jobs = () => {
                   </p>
                   <p className="text-xs text-gray-400 mt-1">{job.description}</p>
                 </div>
-                <Link to={`/job/${job.id}/candidates`}
-                  className="bg-[#006B5F]/5 hover:bg-[#006B5F]/10 text-[#006B5F] border border-[#006B5F]/20 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all cursor-pointer text-center whitespace-nowrap">
-                  View Matches
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link to={`/edit-job/${job.id}`}
+                    className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center whitespace-nowrap">
+                    Edit
+                  </Link>
+                  <button onClick={() => handleDelete(job.id, job.title)}
+                    className="bg-red-50 hover:bg-red-100 text-red-600 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center whitespace-nowrap">
+                    Delete
+                  </button>
+                  <Link to={`/job/${job.id}/candidates`}
+                    className="bg-[#006B5F]/5 hover:bg-[#006B5F]/10 text-[#006B5F] border border-[#006B5F]/20 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all cursor-pointer text-center whitespace-nowrap">
+                    View Matches
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

@@ -5,6 +5,7 @@ import com.appbit.backend.modules.company.entity.Company;
 import com.appbit.backend.modules.company.mapper.CompanyMapper;
 import com.appbit.backend.modules.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,11 @@ public class CompanyService {
             throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
         }
 
-        return companyRepository.save(companyMapper.toEntity(company));
+        try {
+            return companyRepository.save(companyMapper.toEntity(company));
+        } catch (DataIntegrityViolationException ex) {
+            throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
+        }
     }
 
     /**

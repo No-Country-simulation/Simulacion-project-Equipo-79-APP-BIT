@@ -1,3 +1,5 @@
+
+
 ---
 status: "proposed"
 date: 2026-06-11
@@ -13,6 +15,28 @@ date: 2026-06-11
 | Fernando | 
 | Andrea | 
 | Caleb | 
+
+## Cómo correr el proyecto localmente
+
+Instrucciones detalladas y ejemplos de request/response en:
+
+- [`backend/README.md`](backend/README.md) — cómo levantar la API (con o sin base de datos externa), cómo configurar tu propia clave de IA sin tocar el repo, y ejemplos `curl` de los endpoints principales.
+- [`frontend/README.md`](frontend/README.md) — variables de entorno y comandos de desarrollo.
+
+Resumen rápido:
+
+```bash
+# Backend (perfil local, sin DB externa ni clave de IA obligatoria)
+cd backend
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# arriba en http://localhost:8080, Swagger en /swagger-ui.html
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+# arriba en http://localhost:5173 (o el puerto que indique Vite)
+```
 
 ## Statement
 
@@ -75,6 +99,8 @@ Datos de concentración de personas por zona + cobertura de red ERB (5G/4G/3G) c
 | :--- | :--- | :--- | :--- |
 | **POST** | `/match` | `{ empresa_id, vacante: { titulo, skills, nivel, region }, filtros: { anti_sesgo, diversidad_minima } }` | `{ candidatos: [{ candidato_id, nombre, score_match, badge_diversidad, skills, lat, lng }], total_analizados, diversidad_resultado }` |
 | **GET** | `/insights` | N/A | `{ mapa_talentos: [{ region, concentracion, cobertura_red, perfiles_disponibles }] }` |
+
+> **Nota:** el contrato implementado de `/match` (ver [`backend/README.md`](backend/README.md#endpoints-principales-ejemplos)) usa un shape distinto al de esta tabla: request plano (no `vacante`/`filtros` anidados) y response como array plano sin wrapper, **sin exponer `nombre`** del candidato. Es una decisión deliberada de anti-sesgo: el candidato llega anonimizado al agente de IA para que el score no pueda sesgarse por datos personales. `/match` y `/jobs/matches` son alias del mismo endpoint.
 
 ### Funcionalidades Opcionales
 

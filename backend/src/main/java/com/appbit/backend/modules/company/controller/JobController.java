@@ -201,6 +201,45 @@ public class JobController {
     }
 
     /**
+     * Actualiza una oferta de trabajo existente.
+     *
+     * @param id  identificador único de la oferta a actualizar.
+     * @param job datos actualizados de la oferta.
+     * @return la oferta actualizada con código HTTP 200 (OK).
+     */
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar una oferta de trabajo", description = "Actualiza los datos de una oferta de trabajo existente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Oferta actualizada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
+            @ApiResponse(responseCode = "404", description = "Oferta no encontrada")
+    })
+    public ResponseEntity<JobResponse> updateJob(
+            @Parameter(description = "ID de la oferta a actualizar", required = true) @PathVariable Long id,
+            @RequestBody JobRequest job) {
+        JobResponse updated = jobService.updateJob(id, job);
+        return ResponseEntity.ok(updated);
+    }
+
+    /**
+     * Elimina una oferta de trabajo por su ID.
+     *
+     * @param id identificador único de la oferta a eliminar.
+     * @return código HTTP 204 (No Content).
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una oferta de trabajo", description = "Elimina una oferta de trabajo y sus procesos de reclutamiento asociados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Oferta eliminada exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Oferta no encontrada")
+    })
+    public ResponseEntity<Void> deleteJob(
+            @Parameter(description = "ID de la oferta a eliminar", required = true) @PathVariable Long id) {
+        jobService.deleteJob(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
      * Busca candidatos compatibles con una oferta de trabajo usando el motor de matching con IA.
      *
      * @param request datos de la vacante (título, habilidades, nivel de experiencia y región).

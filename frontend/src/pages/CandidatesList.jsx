@@ -2,18 +2,42 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import { sileo } from 'sileo';
 import { getJobById, findMatches } from '../api/jobs.js';
-import { listCandidates } from '../api/candidates.js';
+import { listCandidates, getFullProfile } from '../api/candidates.js';
+import { initiateContact, findByJob } from '../api/recruitment.js';
 import CandidateMap from '../components/CandidateMap';
 import ChevronIcon from '../components/icons/ChevronIcon';
 import PinIcon from '../components/icons/PinIcon';
 import 'leaflet/dist/leaflet.css';
 
+const statusLabels = {
+  CONTACTADO: { text: 'Contactado', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+  INTERESADO: { text: 'Interesado', color: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  ENTREVISTA: { text: 'En entrevista', color: 'bg-purple-50 text-purple-700 border-purple-200' },
+  OFERTA: { text: 'Oferta enviada', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  DESCARTADO: { text: 'Descartado', color: 'bg-gray-100 text-gray-500 border-gray-200' },
+};
+
 const experienceLevels = ['JUNIOR', 'MID', 'SENIOR'];
 
+const normalizeSkills = (skills = []) => {
+  if (!Array.isArray(skills)) {
+    return [];
+  }
+
+  return [...new Set(
+    skills
+      .filter(Boolean)
+      .map(skill => String(skill).trim())
+      .filter(Boolean)
+  )];
+};
+
 const mapCandidateForView = (candidate, matchResult) => {
+  const matchingSkills = normalizeSkills(matchResult?.matchingSkills ?? []);
+
   return {
     candidateId: candidate.candidateId ?? candidate.id,
-    skills: candidate.skills ?? [],
+    skills: normalizeSkills(candidate.skills),
     experienceLevel: candidate.experienceLevel ?? 'MID',
     region: candidate.region ?? candidate.municipio ?? 'No region',
     cluster: candidate.cluster ?? '',
@@ -21,27 +45,35 @@ const mapCandidateForView = (candidate, matchResult) => {
     diversityScore: matchResult?.diversityScore ?? 0,
     latitude: candidate.latitude ?? candidate.lat,
     longitude: candidate.longitude ?? candidate.lng,
-    matchingSkills: matchResult?.matchingSkills ?? [],
+    matchingSkills,
     compatibilityScore: matchResult?.compatibilityScore ?? 0,
     inclusionReason: matchResult?.inclusionReason ?? '',
-    genderOptional: candidate.genderOptional ?? '',
-    disabilityOptional: candidate.disabilityOptional ?? '',
-    ethnicityOptional: candidate.ethnicityOptional ?? '',
-    ruralOptional: candidate.ruralOptional ?? null,
-    consentStatus: candidate.consentStatus ?? false,
   };
+};
+
+const scoreLabel = (score) => {
+  if (score >= 90) return { text: 'Alta compatibilidad', color: 'text-emerald-600' };
+  if (score >= 70) return { text: 'Buena compatibilidad', color: 'text-amber-600' };
+  if (score >= 50) return { text: 'Compatibilidad media', color: 'text-orange-600' };
+  return { text: 'Baja compatibilidad', color: 'text-red-600' };
 };
 
 const ScoreCircle = ({ score }) => {
   const color = score >= 85 ? '#006B5F' : score >= 70 ? '#F59E0B' : '#EF4444';
+  const label = scoreLabel(score);
   return (
-    <div className="relative w-14 h-14 flex items-center justify-center">
-      <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
-        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#E5E7EB" strokeWidth="2.5" />
-        <circle cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="2.5"
-          strokeDasharray={`${(score / 100) * 97.4} 97.4`} strokeLinecap="round" />
-      </svg>
-      <span className="absolute text-xs font-bold" style={{ color }}>{score}%</span>
+    <div className="flex flex-col items-center gap-0.5">
+      <div className="relative w-14 h-14 flex items-center justify-center">
+        <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#E5E7EB" strokeWidth="2.5" />
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="2.5"
+            strokeDasharray={`${(score / 100) * 97.4} 97.4`} strokeLinecap="round" />
+        </svg>
+        <span className="absolute text-xs font-bold" style={{ color }}>{score}%</span>
+      </div>
+      <span className={`text-[9px] font-semibold text-center leading-tight ${label.color}`}>
+        {label.text}
+      </span>
     </div>
   );
 };
@@ -94,14 +126,21 @@ const CandidatesList = () => {
   const [matchResults, setMatchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [matchLoading, setMatchLoading] = useState(false);
+  const [matchError, setMatchError] = useState('');
+  const [recruitmentByCandidate, setRecruitmentByCandidate] = useState(new Map());
+  const [contacting, setContacting] = useState(false);
+  const [fullProfiles, setFullProfiles] = useState(new Map());
   const [regionFilter, setRegionFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
   const [selectedCandidates, setSelectedCandidates] = useState(new Set());
+  const [expandedCandidates, setExpandedCandidates] = useState(new Set());
   const [viewMode, setViewMode] = useState('list');
 
+  // Carga crítica: job + candidatos. Un fallo aquí sí bloquea la página.
   useEffect(() => {
     let ignore = false;
-    const loadData = async () => {
+    const loadCore = async () => {
       try {
         setLoading(true);
         setError('');
@@ -110,28 +149,77 @@ const CandidatesList = () => {
           listCandidates(),
         ]);
         if (ignore) return;
-
         setJob(jobData);
         setCandidates(Array.isArray(candidatesData) ? candidatesData : []);
-
-        const results = await findMatches({
-          title: jobData.title,
-          description: jobData.description ?? '',
-          skills: jobData.skills ?? [],
-          experienceLevel: jobData.experienceLevel,
-          region: jobData.region,
-        });
-
-        if (!ignore) {
-          setMatchResults(Array.isArray(results) ? results : []);
-        }
       } catch (err) {
         if (!ignore) setError(err instanceof Error ? err.message : 'Unexpected error');
       } finally {
         if (!ignore) setLoading(false);
       }
     };
-    loadData();
+    loadCore();
+    return () => { ignore = true; };
+  }, [jobId]);
+
+  // Matching con IA: independiente del job/candidatos. Si falla (timeout del LLM,
+  // vacante sin skills, etc.) no debe tumbar la página completa — se degrada a
+  // mostrar la lista de candidatos sin ranking, con un aviso.
+  useEffect(() => {
+    if (!job) return;
+    let ignore = false;
+    const loadMatches = async () => {
+      try {
+        setMatchLoading(true);
+        setMatchError('');
+        const results = await findMatches({
+          title: job.title,
+          description: job.description ?? '',
+          skills: job.skills ?? [],
+          softSkills: job.softSkills ?? [],
+          experienceLevel: job.experienceLevel,
+          region: job.region,
+          modality: job.modality ?? null,
+          salaryRange: job.salaryRange ?? null,
+          contractType: job.contractType ?? null,
+          experienceYears: job.experienceYears ?? null,
+          education: job.education ?? null,
+          companyIndustry: job.company?.industrySector ?? null,
+          companyEsgGoals: job.company?.esgGoals ?? null,
+        });
+        if (!ignore) setMatchResults(Array.isArray(results) ? results : []);
+      } catch (err) {
+        if (!ignore) {
+          setMatchResults([]);
+          setMatchError(
+            err instanceof Error
+              ? err.message
+              : 'No se pudieron calcular los puntajes de compatibilidad.'
+          );
+        }
+      } finally {
+        if (!ignore) setMatchLoading(false);
+      }
+    };
+    loadMatches();
+    return () => { ignore = true; };
+  }, [job]);
+
+  // Estado de reclutamiento existente (candidatos ya contactados para esta vacante).
+  useEffect(() => {
+    if (!jobId) return;
+    let ignore = false;
+    const loadRecruitment = async () => {
+      try {
+        const records = await findByJob(jobId);
+        if (ignore) return;
+        const map = new Map();
+        (Array.isArray(records) ? records : []).forEach(r => map.set(r.candidateId, r));
+        setRecruitmentByCandidate(map);
+      } catch {
+        // No crítico: si falla, simplemente no se muestran estados previos.
+      }
+    };
+    loadRecruitment();
     return () => { ignore = true; };
   }, [jobId]);
 
@@ -156,11 +244,15 @@ const CandidatesList = () => {
 
   const filteredCandidates = useMemo(() => {
     if (!job) return [];
-    return viewCandidates.filter(c => {
-      if (regionFilter && c.region !== regionFilter) return false;
-      if (levelFilter && c.experienceLevel !== levelFilter) return false;
-      return true;
-    }).sort((a, b) => b.compatibilityScore - a.compatibilityScore);
+
+    return viewCandidates
+      .filter(c => {
+        if (regionFilter && c.region !== regionFilter) return false;
+        if (levelFilter && c.experienceLevel !== levelFilter) return false;
+        return c.compatibilityScore >= 30;
+      })
+      .sort((a, b) => b.compatibilityScore - a.compatibilityScore)
+      .slice(0, 15);
   }, [job, regionFilter, levelFilter, viewCandidates]);
 
   const geoLocatedCandidates = useMemo(
@@ -177,6 +269,7 @@ const CandidatesList = () => {
   }, [filteredCandidates, geoLocatedCandidates]);
 
   const toggleCandidate = (id) => {
+    if (recruitmentByCandidate.has(id)) return; // ya contactado, no se puede reseleccionar
     setSelectedCandidates(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id); else next.add(id);
@@ -184,18 +277,77 @@ const CandidatesList = () => {
     });
   };
 
-  const handleContact = () => {
-    sileo.success({
-      title: 'Contact initiated',
-      description: `Contacto iniciado con ${selectedCandidates.size} candidato(s) seleccionado(s).`,
+  const toggleExpanded = (id) => {
+    setExpandedCandidates(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
     });
+
+    if (!fullProfiles.has(id)) {
+      setFullProfiles(prev => new Map(prev).set(id, { loading: true }));
+      getFullProfile(id)
+        .then(data => {
+          setFullProfiles(prev => new Map(prev).set(id, { loading: false, data }));
+        })
+        .catch(err => {
+          setFullProfiles(prev => new Map(prev).set(id, {
+            loading: false,
+            error: err instanceof Error ? err.message : 'No se pudo cargar el perfil completo.',
+          }));
+        });
+    }
+  };
+
+  const handleContact = async () => {
+    const ids = Array.from(selectedCandidates);
+    if (ids.length === 0) return;
+
+    setContacting(true);
+    const outcomes = await Promise.allSettled(
+      ids.map(candidateId => initiateContact({ jobId: Number(jobId), candidateId }))
+    );
+
+    const succeeded = [];
+    const failed = [];
+    outcomes.forEach((outcome, idx) => {
+      if (outcome.status === 'fulfilled') {
+        succeeded.push(outcome.value);
+      } else {
+        failed.push({ candidateId: ids[idx], error: outcome.reason });
+      }
+    });
+
+    if (succeeded.length > 0) {
+      setRecruitmentByCandidate(prev => {
+        const next = new Map(prev);
+        succeeded.forEach(record => next.set(record.candidateId, record));
+        return next;
+      });
+      sileo.success({
+        title: 'Contact initiated',
+        description: `Contacto iniciado con ${succeeded.length} candidato(s).`,
+      });
+    }
+
+    if (failed.length > 0) {
+      sileo.error({
+        title: `No se pudo contactar a ${failed.length} candidato(s)`,
+        description: failed
+          .map(f => (f.error instanceof Error ? f.error.message : 'Error desconocido'))
+          .join(' · '),
+      });
+    }
+
     setSelectedCandidates(new Set());
+    setContacting(false);
   };
 
   const clearFilters = () => {
     setRegionFilter('');
     setLevelFilter('');
     setSelectedCandidates(new Set());
+    setExpandedCandidates(new Set());
   };
 
   const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#2B6952]/20 focus:border-[#2B6952] bg-white transition-all';
@@ -265,6 +417,20 @@ const CandidatesList = () => {
           )}
         </div>
       </div>
+
+      {/* Matching status banner */}
+      {matchLoading && (
+        <div className="flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-sm rounded-xl px-4 py-3">
+          <svg className="w-4 h-4 animate-spin flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+          Calculando compatibilidad con IA...
+        </div>
+      )}
+      {!matchLoading && matchError && (
+        <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-xl px-4 py-3">
+          <svg className="w-4 h-4 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          <span>No se pudieron calcular los puntajes de compatibilidad ({matchError}). Se muestran los candidatos sin ranking de IA.</span>
+        </div>
+      )}
 
       {/* Stats Cards */}
       {stats && (
@@ -373,10 +539,14 @@ const CandidatesList = () => {
           )}
         </div>
         {selectedCandidates.size > 0 && (
-          <button onClick={handleContact}
-            className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all shadow-sm cursor-pointer flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
-            Contact Selected ({selectedCandidates.size})
+          <button onClick={handleContact} disabled={contacting}
+            className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all shadow-sm cursor-pointer flex items-center gap-2">
+            {contacting ? (
+              <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+            )}
+            {contacting ? 'Contacting...' : `Contact Selected (${selectedCandidates.size})`}
           </button>
         )}
       </div>
@@ -459,34 +629,175 @@ const CandidatesList = () => {
                     ))}
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="text-xs text-gray-500 leading-relaxed flex-1 min-w-0 mr-4">
-                      {candidate.inclusionReason}
+                  {job.skills && job.skills.length > 0 && candidate.matchingSkills.length > 0 && (
+                    <p className="text-[10px] text-gray-400 mt-1.5">
+                      <span className="font-semibold text-[#006B5F]">{candidate.matchingSkills.length}</span>
+                      <span className="text-gray-300">/{job.skills.length}</span> skills requeridas cubiertas
                     </p>
-                  </div>
-
-                  {candidate.consentStatus && (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {candidate.genderOptional && <DiversityChip label="Género" value={candidate.genderOptional} />}
-                      {candidate.ethnicityOptional && <DiversityChip label="Etnia" value={candidate.ethnicityOptional} />}
-                      {candidate.disabilityOptional && <DiversityChip label="Discapacidad" value={candidate.disabilityOptional} />}
-                      {candidate.ruralOptional === true && (
-                        <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
-                          Zona rural
-                        </span>
-                      )}
-                    </div>
                   )}
 
+                  {/* Expandable: Why this candidate */}
+                  <div className="mt-3">
+                    <button
+                      onClick={() => toggleExpanded(candidate.candidateId)}
+                      className="flex items-center gap-1.5 text-xs font-semibold text-[#006B5F] hover:text-[#005a50] transition-colors cursor-pointer"
+                    >
+                      <svg
+                        className={`w-3.5 h-3.5 transition-transform ${expandedCandidates.has(candidate.candidateId) ? 'rotate-180' : ''}`}
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                      ¿Por qué este candidato?
+                    </button>
+
+                    {expandedCandidates.has(candidate.candidateId) && (
+                      <div className="mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-4">
+
+                        {/* Match Overview Bar */}
+                        <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-200">
+                          <div className="flex-1">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Compatibilidad general</span>
+                              <span className="text-xs font-bold" style={{ color: candidate.compatibilityScore >= 85 ? '#006B5F' : candidate.compatibilityScore >= 70 ? '#F59E0B' : '#EF4444' }}>
+                                {candidate.compatibilityScore}%
+                              </span>
+                            </div>
+                            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-full rounded-full transition-all" style={{
+                                width: `${candidate.compatibilityScore}%`,
+                                backgroundColor: candidate.compatibilityScore >= 85 ? '#006B5F' : candidate.compatibilityScore >= 70 ? '#F59E0B' : '#EF4444'
+                              }} />
+                            </div>
+                          </div>
+                          {candidate.diversityScore > 0 && (
+                            <div className="text-center border-l border-gray-200 pl-4">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-500">Diversidad</span>
+                              <p className="text-sm font-bold text-purple-700">{candidate.diversityScore}%</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Skills buscadas del Job */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                            Skills buscadas en esta vacante
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {job.skills && job.skills.length > 0
+                              ? job.skills.map(skill => (
+                                  <SkillTag key={skill} skill={skill} matched={candidate.matchingSkills.includes(skill)} />
+                                ))
+                              : <span className="text-xs text-gray-400">No se especificaron skills</span>
+                            }
+                          </div>
+                          {candidate.matchingSkills.length > 0 && candidate.matchingSkills.length < (job.skills?.length ?? 0) && (
+                            <p className="text-[10px] text-gray-400 mt-1.5">
+                              {candidate.matchingSkills.length} de {job.skills.length} skills requeridas
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Skills coincidentes */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
+                            Skills coincidentes con el candidato
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {candidate.matchingSkills.length > 0
+                              ? candidate.matchingSkills.map(skill => (
+                                  <SkillTag key={skill} skill={skill} matched />
+                                ))
+                              : <span className="text-xs text-gray-400">No hay skills coincidentes</span>
+                            }
+                          </div>
+                        </div>
+
+                        <hr className="border-gray-200" />
+
+                        {/* Nivel de experiencia */}
+                        <div className="flex items-center gap-2">
+                          <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Nivel de experiencia</p>
+                            <p className="text-xs font-semibold text-gray-700">{candidate.experienceLevel.charAt(0) + candidate.experienceLevel.slice(1).toLowerCase()}</p>
+                          </div>
+                        </div>
+
+                        {/* Región */}
+                        <div className="flex items-center gap-2">
+                          <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Región</p>
+                            <p className="text-xs font-semibold text-gray-700">{candidate.region}</p>
+                          </div>
+                        </div>
+
+                        {/* Badge de diversidad */}
+                        {candidate.diversityBadge && (
+                          <div className="flex items-center gap-2">
+                            <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                            <div>
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Badge de diversidad</p>
+                              <BadgeTag badge={candidate.diversityBadge} />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Explicación del score */}
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 flex items-center gap-1">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+                            Explicación del score
+                          </p>
+                          <p className="text-xs text-gray-600 leading-relaxed">{candidate.inclusionReason}</p>
+                        </div>
+
+                        {/* Perfil completo con datos de diversidad (consent-gated, cargado bajo demanda) */}
+                        {(() => {
+                          const profile = fullProfiles.get(candidate.candidateId);
+                          if (!profile || profile.loading) {
+                            return <p className="text-[10px] text-gray-400 pt-1">Cargando perfil completo...</p>;
+                          }
+                          if (profile.error) {
+                            return <p className="text-[10px] text-red-400 pt-1">{profile.error}</p>;
+                          }
+                          if (!profile.data?.consentStatus) return null;
+                          return (
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {profile.data.genderOptional && <DiversityChip label="Género" value={profile.data.genderOptional} />}
+                              {profile.data.ethnicityOptional && <DiversityChip label="Etnia" value={profile.data.ethnicityOptional} />}
+                              {profile.data.disabilityOptional && <DiversityChip label="Discapacidad" value={profile.data.disabilityOptional} />}
+                              {profile.data.ruralOptional === true && (
+                                <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
+                                  Zona rural
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    )}
+                  </div>
+
                   <div className="mt-3 flex items-center gap-3">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="checkbox" checked={selectedCandidates.has(candidate.candidateId)}
-                        onChange={() => toggleCandidate(candidate.candidateId)}
-                        className="w-4 h-4 rounded border-gray-300 text-[#006B5F] focus:ring-[#006B5F] cursor-pointer accent-[#006B5F]" />
-                      <span className="text-xs font-medium text-gray-500 group-hover:text-gray-700 select-none transition-colors">
-                        {selectedCandidates.has(candidate.candidateId) ? 'Selected' : 'Select to contact'}
+                    {recruitmentByCandidate.has(candidate.candidateId) ? (
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${statusLabels[recruitmentByCandidate.get(candidate.candidateId).status]?.color ?? 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                        {statusLabels[recruitmentByCandidate.get(candidate.candidateId).status]?.text
+                          ?? recruitmentByCandidate.get(candidate.candidateId).status}
                       </span>
-                    </label>
+                    ) : (
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" checked={selectedCandidates.has(candidate.candidateId)}
+                          onChange={() => toggleCandidate(candidate.candidateId)}
+                          className="w-4 h-4 rounded border-gray-300 text-[#006B5F] focus:ring-[#006B5F] cursor-pointer accent-[#006B5F]" />
+                        <span className="text-xs font-medium text-gray-500 group-hover:text-gray-700 select-none transition-colors">
+                          {selectedCandidates.has(candidate.candidateId) ? 'Selected' : 'Select to contact'}
+                        </span>
+                      </label>
+                    )}
                   </div>
                 </div>
               </div>

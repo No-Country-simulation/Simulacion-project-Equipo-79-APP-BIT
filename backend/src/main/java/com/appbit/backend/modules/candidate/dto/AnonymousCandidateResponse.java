@@ -31,13 +31,25 @@ public record AnonymousCandidateResponse(
         double latitude,
 
         @Schema(description = "Longitud geográfica del candidato", example = "-48.475")
-        double longitude
+        double longitude,
+
+        @Schema(description = "Municipio o región del candidato", example = "Florianópolis")
+        String municipio,
+
+        @Schema(description = "Distintivo de diversidad existente del candidato", example = "TALENTO_REGIONAL")
+        String diversityBadge
 
 ) {
 
     public AnonymousCandidateResponse {
         if (skills == null) {
             skills = List.of();
+        }
+        if (municipio == null) {
+            municipio = "";
+        }
+        if (diversityBadge == null) {
+            diversityBadge = "";
         }
     }
 
@@ -47,7 +59,9 @@ public record AnonymousCandidateResponse(
                 candidate.getSkills(),
                 candidate.getExperienceLevel(),
                 candidate.getLatitude(),
-                candidate.getLongitude()
+                candidate.getLongitude(),
+                candidate.getMunicipio(),
+                candidate.getDiversityBadge()
         );
     }
 }
