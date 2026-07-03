@@ -33,6 +33,8 @@ const normalizeSkills = (skills = []) => {
 };
 
 const mapCandidateForView = (candidate, matchResult) => {
+  const matchingSkills = normalizeSkills(matchResult?.matchingSkills ?? []);
+
   return {
     candidateId: candidate.candidateId ?? candidate.id,
     skills: normalizeSkills(candidate.skills),
@@ -43,7 +45,7 @@ const mapCandidateForView = (candidate, matchResult) => {
     diversityScore: matchResult?.diversityScore ?? 0,
     latitude: candidate.latitude ?? candidate.lat,
     longitude: candidate.longitude ?? candidate.lng,
-    matchingSkills: normalizeSkills(matchResult?.matchingSkills ?? []),
+    matchingSkills,
     compatibilityScore: matchResult?.compatibilityScore ?? 0,
     inclusionReason: matchResult?.inclusionReason ?? '',
   };
@@ -173,8 +175,16 @@ const CandidatesList = () => {
           title: job.title,
           description: job.description ?? '',
           skills: job.skills ?? [],
+          softSkills: job.softSkills ?? [],
           experienceLevel: job.experienceLevel,
           region: job.region,
+          modality: job.modality ?? null,
+          salaryRange: job.salaryRange ?? null,
+          contractType: job.contractType ?? null,
+          experienceYears: job.experienceYears ?? null,
+          education: job.education ?? null,
+          companyIndustry: job.company?.industrySector ?? null,
+          companyEsgGoals: job.company?.esgGoals ?? null,
         });
         if (!ignore) setMatchResults(Array.isArray(results) ? results : []);
       } catch (err) {
@@ -239,10 +249,10 @@ const CandidatesList = () => {
       .filter(c => {
         if (regionFilter && c.region !== regionFilter) return false;
         if (levelFilter && c.experienceLevel !== levelFilter) return false;
-        return c.compatibilityScore >= 50;
+        return c.compatibilityScore >= 30;
       })
       .sort((a, b) => b.compatibilityScore - a.compatibilityScore)
-      .slice(0, 10);
+      .slice(0, 15);
   }, [job, regionFilter, levelFilter, viewCandidates]);
 
   const geoLocatedCandidates = useMemo(

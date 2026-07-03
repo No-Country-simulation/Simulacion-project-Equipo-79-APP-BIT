@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Routes, Route } from 'react-router';
 import { Toaster } from 'sileo';
@@ -18,6 +19,14 @@ import RequireAuth from './components/RequireAuth.jsx';
 
 function RootLayout() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('redirect');
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <ClerkProvider
