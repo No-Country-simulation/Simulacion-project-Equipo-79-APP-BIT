@@ -92,7 +92,7 @@ public class MatchingAgentService {
                             .content()
             );
 
-            String llmResponse = llmCallFuture.get(20, TimeUnit.SECONDS);
+            String llmResponse = llmCallFuture.get(35, TimeUnit.SECONDS);
 
             long duration = System.currentTimeMillis() - startTime;
             log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());
@@ -113,7 +113,7 @@ public class MatchingAgentService {
             return rankedResults;
 
         } catch (TimeoutException e) {
-            log.error("⏳ TIMEOUT: El LLM tardó más de 20 segundos. Usando matching de respaldo.");
+            log.error("⏳ TIMEOUT: El LLM tardó más de 35 segundos. Usando matching de respaldo.");
             return buildFallbackResults(job, candidates);
         } catch (ExecutionException | InterruptedException e) {
             log.error("💥 [ERROR IA] Error en la llamada al LLM: {}. Usando matching de respaldo.", e.getMessage(), e);
