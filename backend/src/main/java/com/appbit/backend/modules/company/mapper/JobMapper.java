@@ -55,6 +55,23 @@ public class JobMapper {
         );
     }
 
+    public void updateEntity(Job job, JobRequest dto, Company company) {
+        job.setTitle(dto.title());
+        job.setDescription(dto.description());
+        job.setRegion(dto.region());
+        job.setSkills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>());
+        job.setExperienceLevel(dto.experienceLevel());
+        job.setCompany(company);
+        job.setDiversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled());
+        job.setTargetDiversityPercentage(dto.targetDiversityPercentage());
+        job.setModality(dto.modality());
+        job.setSalaryRange(dto.salaryRange());
+        job.setContractType(dto.contractType());
+        job.setSoftSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>());
+        job.setExperienceYears(dto.experienceYears());
+        job.setEducation(dto.education());
+    }
+
     public List<JobResponse> toResponseList(List<Job> jobs) {
         return jobs.stream().map(this::toResponse).toList();
     }

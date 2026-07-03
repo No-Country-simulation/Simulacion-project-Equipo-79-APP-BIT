@@ -9,6 +9,7 @@ import App from './App.jsx'
 import BaseLayout from './layouts/BaseLayout.jsx'
 import RegisterCompany from './pages/RegisterCompany.jsx';
 import CreateJobOffer from './pages/CreateJobOffer.jsx';
+import EditJobOffer from './pages/EditJobOffer.jsx';
 import Jobs from './pages/Jobs.jsx';
 import CandidatesList from './pages/CandidatesList.jsx';
 import Insights from './pages/Insights.jsx';
@@ -41,6 +42,7 @@ function RootLayout() {
             <Route path='/' element={<App />} />
             <Route path='/register-company' element={<RegisterCompany />} />
             <Route path='/create-job' element={<CreateJobOffer />} />
+            <Route path='/edit-job/:id' element={<EditJobOffer />} />
             <Route path='/job' element={<Jobs />} />
             <Route path='/job/:jobId/candidates' element={<CandidatesList />} />
             <Route path='/insights' element={<Insights />} />

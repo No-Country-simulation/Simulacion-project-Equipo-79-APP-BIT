@@ -48,6 +48,19 @@ export function createJob(job) {
   });
 }
 
+export function updateJob(jobId, job) {
+  return request(`/jobs/${jobId}`, {
+    method: 'PUT',
+    body: JSON.stringify(job),
+  });
+}
+
+export function deleteJob(jobId) {
+  return request(`/jobs/${jobId}`, {
+    method: 'DELETE',
+  });
+}
+
 export function findMatches(requestBody) {
   return request('/jobs/matches', {
     method: 'POST',
