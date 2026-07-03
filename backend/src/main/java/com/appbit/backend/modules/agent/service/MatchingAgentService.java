@@ -3,6 +3,7 @@ package com.appbit.backend.modules.agent.service;
 import com.appbit.backend.modules.candidate.Service.CandidateService;
 import com.appbit.backend.modules.candidate.dto.AnonymousCandidateResponse;
 import com.appbit.backend.modules.company.dto.JobMatchRequest;
+import com.appbit.backend.modules.company.entity.ExperienceLevel;
 import com.appbit.backend.modules.agent.dto.MatchResultResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -57,15 +58,24 @@ public class MatchingAgentService {
         try {
             // 1. Preparar datos
             String jobSkills = String.join(", ", job.skills());
+            String jobSoftSkills = String.join(", ", job.softSkills() != null ? job.softSkills() : List.of());
             String candidatesJson = objectMapper.writeValueAsString(candidates);
             String jobDescription = job.description() != null ? job.description() : "N/A";
 
-            // 2. Formatear el prompt
+            // 2. Formatear el prompt con todos los datos disponibles
             String finalPrompt = promptTemplate
                     .replace("{jobTitle}", job.title())
                     .replace("{jobDescription}", jobDescription)
                     .replace("{jobSkills}", jobSkills)
-                    .replace("{jobExperienceLevel}", job.experienceLevel().toString())
+                    .replace("{jobSoftSkills}", jobSoftSkills)
+                    .replace("{jobExperienceLevel}", String.valueOf(job.experienceLevel()))
+                    .replace("{jobExperienceYears}", job.experienceYears() != null ? String.valueOf(job.experienceYears()) : "No especificado")
+                    .replace("{jobEducation}", job.education() != null ? job.education() : "No especificado")
+                    .replace("{jobModality}", job.modality() != null ? job.modality() : "No especificado")
+                    .replace("{jobSalaryRange}", job.salaryRange() != null ? job.salaryRange() : "No especificado")
+                    .replace("{jobContractType}", job.contractType() != null ? job.contractType() : "No especificado")
+                    .replace("{companyIndustry}", job.companyIndustry() != null ? job.companyIndustry() : "No especificado")
+                    .replace("{companyEsgGoals}", job.companyEsgGoals() != null ? job.companyEsgGoals() : "No especificado")
                     .replace("{candidatesJson}", candidatesJson);
 
             long startTime = System.currentTimeMillis();
@@ -98,7 +108,7 @@ public class MatchingAgentService {
 
             verifyAntiBias(results);
 
-            List<MatchResultResponse> rankedResults = rankAndLimitMatches(results, 10, 50);
+            List<MatchResultResponse> rankedResults = rankAndLimitMatches(results, 15, 30);
             log.info("✅ Matching completado con éxito. {} candidatos mapeados, {} mostrados.", results.size(), rankedResults.size());
             return rankedResults;
 
@@ -119,12 +129,19 @@ public class MatchingAgentService {
 
     /**
      * Matching de respaldo cuando el agente de IA no responde a tiempo o falla.
-     * Se basa únicamente en solapamiento de skills y nivel de experiencia (mismas
-     * reglas anti-sesgo que el prompt: nunca infiere diversityBadge sin el LLM,
-     * para no inventar una acción afirmativa sin criterio verificado).
+     * Fórmula precisa (máx 100):
+     *   - Skills: (matchingSkills / jobSkills) * 60 (60% peso)
+     *   - Experiencia: exact = 15, 1 nivel = 8, 2 niveles = 0 (15% peso)
+     *   - Región: mismo municipio = 10 (10% peso)
+     *   - Base: +10 solo si matchea al menos 1 skill (10% peso)
+     *   - Extra diversidad: si candidate tiene badge +5 (5% peso)
+     *   - Si job no tiene skills: skillScore base 35
      */
     private List<MatchResultResponse> buildFallbackResults(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
         List<String> jobSkillsLower = job.skills().stream().map(s -> s.toLowerCase(Locale.ROOT)).toList();
+
+        List<ExperienceLevel> levels = List.of(ExperienceLevel.JUNIOR, ExperienceLevel.MID, ExperienceLevel.SENIOR);
+        int jobExpIdx = levels.indexOf(job.experienceLevel());
 
         List<MatchResultResponse> results = new ArrayList<>();
         for (AnonymousCandidateResponse candidate : candidates) {
@@ -132,29 +149,60 @@ public class MatchingAgentService {
                     .filter(skill -> jobSkillsLower.contains(skill.toLowerCase(Locale.ROOT)))
                     .toList();
 
-            int compatibilityScore;
+            int skillScore;
             if (!jobSkillsLower.isEmpty()) {
-                compatibilityScore = (int) Math.round((matchingSkills.size() * 100.0) / jobSkillsLower.size());
+                skillScore = (int) Math.round((matchingSkills.size() * 60.0) / jobSkillsLower.size());
             } else {
-                compatibilityScore = 50;
+                skillScore = 35;
             }
-            if (candidate.experienceLevel() == job.experienceLevel()) {
-                compatibilityScore = Math.min(100, compatibilityScore + 10);
+
+            int candExpIdx = levels.indexOf(candidate.experienceLevel());
+            int expScore = 0;
+            if (jobExpIdx != -1 && candExpIdx != -1) {
+                int diff = Math.abs(jobExpIdx - candExpIdx);
+                expScore = diff == 0 ? 15 : diff == 1 ? 8 : 0;
+            }
+
+            int regionScore = 0;
+            if (job.region() != null && candidate.municipio() != null
+                    && job.region().equalsIgnoreCase(candidate.municipio())) {
+                regionScore = 10;
+            }
+
+            int baseScore = matchingSkills.isEmpty() ? 0 : 10;
+
+            boolean hasBadge = candidate.diversityBadge() != null && !candidate.diversityBadge().isBlank();
+            String badge = hasBadge ? candidate.diversityBadge() : null;
+
+            int diversityExtra = hasBadge ? 5 : 0;
+
+            int total = Math.min(100, skillScore + expScore + regionScore + baseScore + diversityExtra);
+
+            int diversityScore;
+            if (!hasBadge) {
+                diversityScore = 0;
+            } else {
+                switch (badge) {
+                    case "MUJER_STEM", "GENDER_DIVERSITY", "REGIONAL_DIVERSITY" -> diversityScore = 60;
+                    case "TALENTO_REGIONAL", "TALENTO_RURAL" -> diversityScore = 50;
+                    default -> diversityScore = 40;
+                }
             }
 
             results.add(new MatchResultResponse(
                     candidate.candidateId(),
-                    compatibilityScore,
-                    0,
+                    total,
+                    diversityScore,
                     matchingSkills,
-                    "Score calculado por reglas de respaldo (skills en común y nivel de experiencia): " +
-                            "el agente de IA no estuvo disponible para esta búsqueda.",
-                    null
+                    "Score calculado por reglas de respaldo: " + matchingSkills.size() + "/" + jobSkillsLower.size()
+                            + " skills, nivel " + candidate.experienceLevel()
+                            + (hasBadge ? ", badge: " + badge : "")
+                            + ". IA no disponible.",
+                    badge
             ));
         }
 
-        results.sort((a, b) -> Integer.compare(b.compatibilityScore(), a.compatibilityScore()));
-        return results;
+        return rankAndLimitMatches(results, 15, 30);
     }
     private void verifyAntiBias(List<MatchResultResponse> results) {
         for (MatchResultResponse r : results) {
@@ -175,8 +223,10 @@ public class MatchingAgentService {
         return results.stream()
                 .filter(Objects::nonNull)
                 .filter(result -> result.compatibilityScore() >= minimumScore)
-                .sorted(Comparator.comparingInt(MatchResultResponse::compatibilityScore).reversed()
-                        .thenComparing(MatchResultResponse::candidateId))
+                .sorted(Comparator
+                        .comparingInt(MatchResultResponse::compatibilityScore).reversed()
+                        .thenComparingInt(MatchResultResponse::diversityScore).reversed()
+                        .thenComparingLong(MatchResultResponse::candidateId))
                 .limit(limit)
                 .toList();
     }
