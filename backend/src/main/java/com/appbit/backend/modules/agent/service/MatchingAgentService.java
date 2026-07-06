@@ -92,7 +92,7 @@ public class MatchingAgentService {
                             .content()
             );
 
-            String llmResponse = llmCallFuture.get(35, TimeUnit.SECONDS);
+            String llmResponse = llmCallFuture.get(60, TimeUnit.SECONDS);
 
             long duration = System.currentTimeMillis() - startTime;
             log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());

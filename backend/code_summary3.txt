@@ -1,0 +1,3153 @@
+--- FILE: src/main/java/com/appbit/backend/BackendApplication.java ---
+package com.appbit.backend;
+
+
+@SpringBootApplication
+public class BackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BackendApplication.class, args);
+	}
+
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/core/exception/ErrorResponse.java ---
+package com.appbit.backend.core.exception;
+
+
+
+@Schema(
+        name = "ErrorResponse",
+        description = "Estructura estándar de error que retorna la API cuando algo falla. " +
+                "Nunca expone stacktraces de Java al cliente."
+)
+public record ErrorResponse(
+
+        @Schema(description = "Código HTTP del error", example = "400")
+        int status,
+
+        @Schema(description = "Descripción corta del tipo de error", example = "Bad Request")
+        String error,
+
+        @Schema(description = "Mensaje legible del error", example = "El título de la vacante es obligatorio")
+        String message,
+
+        @Schema(description = "Errores por campo (solo en errores de validación)", nullable = true)
+        Map<String, String> fieldErrors,
+
+        @Schema(description = "Fecha y hora en que ocurrió el error")
+        LocalDateTime timestamp
+) {
+    public static ErrorResponse of(int status, String error, String message) {
+        return new ErrorResponse(status, error, message, null, LocalDateTime.now());
+    }
+
+    public static ErrorResponse ofValidation(Map<String, String> fieldErrors) {
+        return new ErrorResponse(400, "Validation Failed", "Uno o más campos son inválidos", fieldErrors, LocalDateTime.now());
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/core/exception/GlobalExceptionHandler.java ---
+package com.appbit.backend.core.exception;
+
+
+
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> fieldErrors = new LinkedHashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(err ->
+                fieldErrors.put(err.getField(), err.getDefaultMessage())
+        );
+        return ResponseEntity.badRequest().body(ErrorResponse.ofValidation(fieldErrors));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest()
+                .body(ErrorResponse.of(400, "Bad Request", ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.of(404, "Not Found", ex.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String message = String.format(
+                "El parámetro '%s' tiene un valor inválido: '%s'", ex.getName(), ex.getValue());
+        return ResponseEntity.badRequest().body(ErrorResponse.of(400, "Bad Request", message));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+        log.error("Error interno no controlado", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ErrorResponse.of(500, "Internal Server Error", "Error interno del servidor"));
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/dto/MatchResultResponse.java ---
+package com.appbit.backend.modules.agent.dto;
+
+
+
+/**
+ * DTO (Data Transfer Object) para la respuesta del resultado de matching de candidatos.
+ * <p>
+ * Representa el resultado de la evaluación de un candidato contra una oferta de trabajo
+ * por parte del motor de matching con inteligencia artificial. Incluye la puntuación
+ * de compatibilidad, las habilidades coincidentes, la justificación técnica y el
+ * distintivo de diversidad si aplica.
+ * </p>
+ *
+ * @see com.appbit.backend.modules.agent.service.MatchingAgentService
+ */
+@Schema(
+        name = "MatchResultResponse",
+        description = "Objeto que representa el resultado de la evaluación de matching entre un candidato y una oferta de trabajo. " +
+                "Incluye la puntuación de compatibilidad (0-100), las habilidades coincidentes, " +
+                "la justificación técnica generada por el agente de IA y el distintivo de diversidad si aplica."
+)
+public record MatchResultResponse(
+        @Schema(
+                description = "Identificador único del candidato evaluado",
+                example = "1",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "1"
+        )
+        Long candidateId,
+
+        @Schema(
+                description = "Puntuación de compatibilidad técnica (escala de 0 a 100). Mide mérito técnico puro.",
+                example = "85",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "0",
+                maximum = "100"
+        )
+        int compatibilityScore,
+
+        @Schema(
+                description = "Puntuación de aporte a diversidad (escala de 0 a 100). Independiente del score técnico.",
+                example = "70",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "0",
+                maximum = "100"
+        )
+        int diversityScore,
+
+        @Schema(
+                description = "Lista de habilidades técnicas en común entre el candidato y la oferta de trabajo",
+                example = "[\"Java\", \"Spring Boot\", \"PostgreSQL\", \"Docker\"]",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
+        @ArraySchema(schema = @Schema(type = "string", example = "Java"))
+        List<String> matchingSkills, // Tecnologías en común encontradas
+
+        @Schema(
+                description = "Justificación técnica generada por el agente de IA explicando por qué el candidato es compatible",
+                example = "El candidato cuenta con 5 años de experiencia en Java y Spring Boot, coincidiendo con los requisitos técnicos del puesto. Su experiencia en microservicios y Docker alinea perfectamente con la arquitectura de la plataforma.",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 2000
+        )
+        String inclusionReason,     // Justificación técnica del agente
+
+        @Schema(
+                description = "Distintivo de diversidad si el candidato cumple con criterios de inclusión. " +
+                        "Valores definidos en el prompt de matching (prompts/matching_prompt.txt).",
+                example = "TALENTO_REGIONAL",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                allowableValues = {"TALENTO_REGIONAL", "TALENTO_RURAL", "MUJER_STEM", "TALENTO_JOVEN",
+                        "TALENTO_SENIOR", "TALENTO_RECONVERSION", "REGIONAL_DIVERSITY", "GENDER_DIVERSITY", "REGIONAL_AND_GENDER_DIVERSITY"}
+        )
+        String diversityBadge       // Distintivo si cumple con cuota regional/inclusión
+) {
+    /**
+     * Constructor compacto para aplicar validaciones defensivas y sanitización
+     * de datos antes de que el objeto sea instanciado.
+     */
+    public MatchResultResponse {
+        if (matchingSkills == null) {
+            matchingSkills = List.of();
+        }
+        if (compatibilityScore < 0) compatibilityScore = 0;
+        if (compatibilityScore > 100) compatibilityScore = 100;
+        if (diversityScore < 0) diversityScore = 0;
+        if (diversityScore > 100) diversityScore = 100;
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/agent/service/MatchingAgentService.java ---
+package com.appbit.backend.modules.agent.service;
+
+
+
+@Service
+@Slf4j
+public class MatchingAgentService {
+
+    private final ChatClient chatClient;
+    private final ObjectMapper objectMapper;
+    private final String promptTemplate;
+
+    public MatchingAgentService(ChatClient.Builder chatClientBuilder, ObjectMapper objectMapper) {
+        this.chatClient = chatClientBuilder.build();
+        this.objectMapper = objectMapper;
+        this.promptTemplate = loadPromptTemplate();
+    }
+
+    private String loadPromptTemplate() {
+        try (InputStream is = new ClassPathResource("prompts/matching_prompt.txt").getInputStream()) {
+            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            log.error("Error crítico: No se pudo cargar el prompt.", e);
+            throw new IllegalStateException("No se encontró el archivo de prompt", e);
+        }
+    }
+
+    public List<MatchResultResponse> executeMatching(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
+        if (candidates.isEmpty()) {
+            log.warn("⚠️ [MATCHING] La lista de candidatos llegó VACÍA.");
+            return List.of();
+        }
+
+        log.info("🤖 [MATCHING] Enviando {} candidatos al LLM...", candidates.size());
+
+        try {
+            // 1. Preparar datos
+            String jobSkills = String.join(", ", job.skills());
+            String jobSoftSkills = String.join(", ", job.softSkills() != null ? job.softSkills() : List.of());
+            String candidatesJson = objectMapper.writeValueAsString(candidates);
+            String jobDescription = job.description() != null ? job.description() : "N/A";
+
+            // 2. Formatear el prompt con todos los datos disponibles
+            String finalPrompt = promptTemplate
+                    .replace("{jobTitle}", job.title())
+                    .replace("{jobDescription}", jobDescription)
+                    .replace("{jobSkills}", jobSkills)
+                    .replace("{jobSoftSkills}", jobSoftSkills)
+                    .replace("{jobExperienceLevel}", String.valueOf(job.experienceLevel()))
+                    .replace("{jobExperienceYears}", job.experienceYears() != null ? String.valueOf(job.experienceYears()) : "No especificado")
+                    .replace("{jobEducation}", job.education() != null ? job.education() : "No especificado")
+                    .replace("{jobModality}", job.modality() != null ? job.modality() : "No especificado")
+                    .replace("{jobSalaryRange}", job.salaryRange() != null ? job.salaryRange() : "No especificado")
+                    .replace("{jobContractType}", job.contractType() != null ? job.contractType() : "No especificado")
+                    .replace("{companyIndustry}", job.companyIndustry() != null ? job.companyIndustry() : "No especificado")
+                    .replace("{companyEsgGoals}", job.companyEsgGoals() != null ? job.companyEsgGoals() : "No especificado")
+                    .replace("{candidatesJson}", candidatesJson);
+
+            long startTime = System.currentTimeMillis();
+
+            // 3. Llamada al LLM con timeout acotado: sin esto, una respuesta colgada del
+            // proveedor bloquea el hilo indefinidamente (no hay read-timeout configurado
+            // para spring.ai.openai en application.properties).
+            log.info("⚙️ Esperando respuesta del proveedor de IA...");
+
+            CompletableFuture<String> llmCallFuture = CompletableFuture.supplyAsync(() ->
+                    chatClient.prompt()
+                            .user(finalPrompt)
+                            .call()
+                            .content()
+            );
+
+            String llmResponse = llmCallFuture.get(35, TimeUnit.SECONDS);
+
+            long duration = System.currentTimeMillis() - startTime;
+            log.info("📥 ¡Respuesta recibida en {} ms! Longitud: {} chars", duration, llmResponse.length());
+
+            // 4. Limpiar y extraer el JSON puro
+            String cleanJson = extractJsonArray(llmResponse);
+
+            // 5. Parseo seguro
+            List<MatchResultResponse> results = objectMapper.readValue(
+                    cleanJson,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, MatchResultResponse.class)
+            );
+
+            verifyAntiBias(results);
+
+            List<MatchResultResponse> rankedResults = rankAndLimitMatches(results, 15, 30);
+            log.info("✅ Matching completado con éxito. {} candidatos mapeados, {} mostrados.", results.size(), rankedResults.size());
+            return rankedResults;
+
+        } catch (TimeoutException e) {
+            log.error("⏳ TIMEOUT: El LLM tardó más de 35 segundos. Usando matching de respaldo.");
+            return buildFallbackResults(job, candidates);
+        } catch (ExecutionException | InterruptedException e) {
+            log.error("💥 [ERROR IA] Error en la llamada al LLM: {}. Usando matching de respaldo.", e.getMessage(), e);
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            return buildFallbackResults(job, candidates);
+        } catch (Exception e) {
+            log.error("💥 [ERROR IA] Error durante la comunicación o parseo del LLM: {}. Usando matching de respaldo.", e.getMessage(), e);
+            return buildFallbackResults(job, candidates);
+        }
+    }
+
+    /**
+     * Matching de respaldo cuando el agente de IA no responde a tiempo o falla.
+     * Fórmula precisa (máx 100):
+     *   - Skills: (matchingSkills / jobSkills) * 60 (60% peso)
+     *   - Experiencia: exact = 15, 1 nivel = 8, 2 niveles = 0 (15% peso)
+     *   - Región: mismo municipio = 10 (10% peso)
+     *   - Base: +10 solo si matchea al menos 1 skill (10% peso)
+     *   - Extra diversidad: si candidate tiene badge +5 (5% peso)
+     *   - Si job no tiene skills: skillScore base 35
+     */
+    private List<MatchResultResponse> buildFallbackResults(JobMatchRequest job, List<AnonymousCandidateResponse> candidates) {
+        List<String> jobSkillsLower = job.skills().stream().map(s -> s.toLowerCase(Locale.ROOT)).toList();
+
+        List<ExperienceLevel> levels = List.of(ExperienceLevel.JUNIOR, ExperienceLevel.MID, ExperienceLevel.SENIOR);
+        int jobExpIdx = levels.indexOf(job.experienceLevel());
+
+        List<MatchResultResponse> results = new ArrayList<>();
+        for (AnonymousCandidateResponse candidate : candidates) {
+            List<String> matchingSkills = candidate.skills().stream()
+                    .filter(skill -> jobSkillsLower.contains(skill.toLowerCase(Locale.ROOT)))
+                    .toList();
+
+            int skillScore;
+            if (!jobSkillsLower.isEmpty()) {
+                skillScore = (int) Math.round((matchingSkills.size() * 60.0) / jobSkillsLower.size());
+            } else {
+                skillScore = 35;
+            }
+
+            int candExpIdx = levels.indexOf(candidate.experienceLevel());
+            int expScore = 0;
+            if (jobExpIdx != -1 && candExpIdx != -1) {
+                int diff = Math.abs(jobExpIdx - candExpIdx);
+                expScore = diff == 0 ? 15 : diff == 1 ? 8 : 0;
+            }
+
+            int regionScore = 0;
+            if (job.region() != null && candidate.municipio() != null
+                    && job.region().equalsIgnoreCase(candidate.municipio())) {
+                regionScore = 10;
+            }
+
+            int baseScore = matchingSkills.isEmpty() ? 0 : 10;
+
+            boolean hasBadge = candidate.diversityBadge() != null && !candidate.diversityBadge().isBlank();
+            String badge = hasBadge ? candidate.diversityBadge() : null;
+
+            int diversityExtra = hasBadge ? 5 : 0;
+
+            int total = Math.min(100, skillScore + expScore + regionScore + baseScore + diversityExtra);
+
+            int diversityScore;
+            if (!hasBadge) {
+                diversityScore = 0;
+            } else {
+                switch (badge) {
+                    case "MUJER_STEM", "GENDER_DIVERSITY", "REGIONAL_DIVERSITY" -> diversityScore = 60;
+                    case "TALENTO_REGIONAL", "TALENTO_RURAL" -> diversityScore = 50;
+                    default -> diversityScore = 40;
+                }
+            }
+
+            results.add(new MatchResultResponse(
+                    candidate.candidateId(),
+                    total,
+                    diversityScore,
+                    matchingSkills,
+                    "Score calculado por reglas de respaldo: " + matchingSkills.size() + "/" + jobSkillsLower.size()
+                            + " skills, nivel " + candidate.experienceLevel()
+                            + (hasBadge ? ", badge: " + badge : "")
+                            + ". IA no disponible.",
+                    badge
+            ));
+        }
+
+        return rankAndLimitMatches(results, 15, 30);
+    }
+    private void verifyAntiBias(List<MatchResultResponse> results) {
+        for (MatchResultResponse r : results) {
+            if (r.inclusionReason() != null) {
+                String reasonLower = r.inclusionReason().toLowerCase();
+                if (reasonLower.contains("género") || reasonLower.contains("edad") || reasonLower.contains("etnia")) {
+                    log.warn("⚠️ ALERTA ANTI-SESGO: La IA mencionó datos sensibles para el candidato {}", r.candidateId());
+                }
+            }
+        }
+    }
+
+    static List<MatchResultResponse> rankAndLimitMatches(List<MatchResultResponse> results, int limit, int minimumScore) {
+        if (results == null || results.isEmpty()) {
+            return List.of();
+        }
+
+        return results.stream()
+                .filter(Objects::nonNull)
+                .filter(result -> result.compatibilityScore() >= minimumScore)
+                .sorted(Comparator
+                        .comparingInt(MatchResultResponse::compatibilityScore).reversed()
+                        .thenComparingInt(MatchResultResponse::diversityScore).reversed()
+                        .thenComparingLong(MatchResultResponse::candidateId))
+                .limit(limit)
+                .toList();
+    }
+
+    private String extractJsonArray(String rawResponse) {
+        if (rawResponse == null || rawResponse.isBlank()) return "[]";
+
+        String cleaned = rawResponse.trim();
+        if (cleaned.startsWith("```json")) cleaned = cleaned.substring(7);
+        else if (cleaned.startsWith("```")) cleaned = cleaned.substring(3);
+        if (cleaned.endsWith("```")) cleaned = cleaned.substring(0, cleaned.length() - 3);
+
+        cleaned = cleaned.trim();
+        int startIndex = cleaned.indexOf('[');
+        int endIndex = cleaned.lastIndexOf(']');
+
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+            return cleaned.substring(startIndex, endIndex + 1);
+        }
+        return cleaned;
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/controller/CandidateController.java ---
+package com.appbit.backend.modules.candidate.controller;
+
+
+
+/**
+ * Controlador REST para la gestión de candidatos.
+ * <p>
+ * Proporciona endpoints para consultar candidatos registrados en el sistema.
+ * Soporta la obtención de todos los candidatos o el filtrado por municipio.
+ * </p>
+ *
+ * @see CandidateService
+ * @see Candidate
+ */
+@RestController
+@RequestMapping("/candidates")
+@RequiredArgsConstructor
+@Tag(name = "Candidates", description = "API para la consulta de candidatos registrados en la plataforma")
+public class CandidateController {
+
+    private final CandidateService candidateService;
+
+    /**
+     * Obtiene la lista de candidatos, con la opción de filtrar por municipio.
+     * <p>
+     * Si se proporciona el parámetro {@code municipio}, se devuelven únicamente
+     * los candidatos pertenecientes a ese municipio. Si no se proporciona,
+     * se devuelve la lista completa de candidatos.
+     * </p>
+     *
+     * @param municipio (opcional) nombre del municipio para filtrar los candidatos.
+     *                  Ejemplo: "Florianopolis", "Sao Jose", "Blumenau".
+     * @return lista de candidatos que coinciden con el filtro, o la lista completa
+     * si no se especifica municipio. Código HTTP 200 (OK).
+     */
+    @GetMapping
+    @Operation(
+            summary = "Listar candidatos",
+            description = "Recupera un listado de candidatos registrados en el sistema. " +
+                    "Si se proporciona el parámetro 'municipio', filtra los resultados por ese municipio. " +
+                    "Si no se proporciona, devuelve todos los candidatos.",
+            parameters = {
+                    @Parameter(
+                            name = "municipio",
+                            description = "Filtro opcional por municipio. Ejemplo: 'Florianopolis', 'Sao Jose'",
+                            required = false,
+                            example = "Florianopolis"
+                    )
+            }
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de candidatos obtenida exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Candidate.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Solicitud inválida: parámetros de consulta incorrectos",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<List<Candidate>> findAll(
+            @Parameter(description = "Filtro opcional por municipio", required = false, example = "Florianopolis")
+            @RequestParam(required = false) String municipio) {
+        if (municipio != null && !municipio.isEmpty()) {
+            return ResponseEntity.ok(candidateService.findByMunicipio(municipio));
+        }
+        return ResponseEntity.ok(candidateService.findAll());
+    }
+
+    /**
+     * Obtiene un candidato por su identificador único.
+     * <p>
+     * Busca en la base de datos el candidato correspondiente al ID proporcionado.
+     * Si no se encuentra, se devuelve un código HTTP 404 (Not Found).
+     * </p>
+     *
+     * @param id identificador único del candidato a buscar.
+     * @return el candidato encontrado con código HTTP 200 (OK), o 404 si no existe.
+     */
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Obtener candidato por ID",
+            description = "Recupera los datos de un candidato específico utilizando su identificador único. " +
+                    "Devuelve un código 404 si el candidato no existe en el sistema.",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Identificador único del candidato",
+                            required = true,
+                            example = "1"
+                    )
+            }
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Candidato encontrado exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Candidate.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Candidato no encontrado con el ID proporcionado",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<Candidate> findById(
+            @Parameter(description = "ID único del candidato", required = true, example = "1")
+            @PathVariable Long id) {
+        return ResponseEntity.ok(candidateService.findById(id));
+    }
+
+    @GetMapping("/{id}/full-profile")
+    @Operation(
+            summary = "Obtener perfil completo del candidato",
+            description = "Retorna todos los datos del candidato incluyendo información de diversidad autodeclarada."
+    )
+    public ResponseEntity<CandidateFullProfileResponse> getFullProfile(@PathVariable Long id) {
+        Candidate candidate = candidateService.findById(id);
+        return ResponseEntity.ok(CandidateFullProfileResponse.from(candidate));
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/dto/AnonymousCandidateResponse.java ---
+package com.appbit.backend.modules.candidate.dto;
+
+
+
+@Schema(
+        name = "AnonymousCandidateResponse",
+        description = "Candidato con datos anonimizados. Cumple con la LGPD y principios anti-sesgo. " +
+                "No expone nombre, email, género ni ningún dato personal identificable."
+)
+public record AnonymousCandidateResponse(
+
+        @Schema(description = "Identificador del candidato en el sistema", example = "42")
+        Long candidateId,
+
+        @ArraySchema(schema = @Schema(type = "string", example = "Java"))
+        List<String> skills,
+
+        @Schema(
+                description = "Nivel de experiencia laboral del candidato",
+                example = "SENIOR",
+                allowableValues = {"JUNIOR", "MID", "SENIOR"}
+        )
+        ExperienceLevel experienceLevel,
+
+        @Schema(description = "Latitud geográfica del candidato", example = "-27.413")
+        double latitude,
+
+        @Schema(description = "Longitud geográfica del candidato", example = "-48.475")
+        double longitude,
+
+        @Schema(description = "Municipio o región del candidato", example = "Florianópolis")
+        String municipio,
+
+        @Schema(description = "Distintivo de diversidad existente del candidato", example = "TALENTO_REGIONAL")
+        String diversityBadge
+
+) {
+
+    public AnonymousCandidateResponse {
+        if (skills == null) {
+            skills = List.of();
+        }
+        if (municipio == null) {
+            municipio = "";
+        }
+        if (diversityBadge == null) {
+            diversityBadge = "";
+        }
+    }
+
+    public static AnonymousCandidateResponse from(Candidate candidate) {
+        return new AnonymousCandidateResponse(
+                candidate.getId(),
+                candidate.getSkills(),
+                candidate.getExperienceLevel(),
+                candidate.getLatitude(),
+                candidate.getLongitude(),
+                candidate.getMunicipio(),
+                candidate.getDiversityBadge()
+        );
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/dto/CandidateFullProfileResponse.java ---
+package com.appbit.backend.modules.candidate.dto;
+
+
+
+@Schema(description = "Perfil completo de un candidato con datos de diversidad autodeclarados")
+public record CandidateFullProfileResponse(
+
+        @Schema(description = "ID del candidato", example = "42")
+        Long id,
+
+        @Schema(description = "Habilidades técnicas", example = "[\"Java\", \"Spring Boot\", \"React\"]")
+        List<String> skills,
+
+        @Schema(description = "Nivel de experiencia")
+        ExperienceLevel experienceLevel,
+
+        @Schema(description = "Municipio de residencia", example = "Florianopolis")
+        String municipio,
+
+        @Schema(description = "Región/cluster geográfico", example = "Centro")
+        String cluster,
+
+        @Schema(description = "Latitud", example = "4.6097")
+        double latitude,
+
+        @Schema(description = "Longitud", example = "-74.0817")
+        double longitude,
+
+        @Schema(description = "Badge de diversidad asignado")
+        String diversityBadge,
+
+        @Schema(description = "Género autodeclarado (opcional)", example = "Femenino")
+        String genderOptional,
+
+        @Schema(description = "Discapacidad autodeclarada (opcional)")
+        String disabilityOptional,
+
+        @Schema(description = "Pertenencia étnica autodeclarada (opcional)")
+        String ethnicityOptional,
+
+        @Schema(description = "Proviene de zona rural (opcional)", example = "true")
+        Boolean ruralOptional,
+
+        @Schema(description = "Estado de consentimiento para uso de datos de diversidad")
+        Boolean consentStatus
+
+) {
+    public static CandidateFullProfileResponse from(Candidate c) {
+        boolean hasConsent = Boolean.TRUE.equals(c.getConsentStatus());
+        return new CandidateFullProfileResponse(
+                c.getId(),
+                c.getSkills(),
+                c.getExperienceLevel(),
+                c.getMunicipio(),
+                c.getCluster(),
+                c.getLatitude(),
+                c.getLongitude(),
+                c.getDiversityBadge(),
+                hasConsent ? c.getGenderOptional() : null,
+                hasConsent ? c.getDisabilityOptional() : null,
+                hasConsent ? c.getEthnicityOptional() : null,
+                hasConsent ? c.getRuralOptional() : null,
+                c.getConsentStatus()
+        );
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/entity/Candidate.java ---
+package com.appbit.backend.modules.candidate.entity;
+
+
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Candidate {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "candidate_skills", joinColumns = @JoinColumn(name = "candidate_id"))
+    @Column(name = "skill")
+    private List<String> skills;
+
+    @Enumerated(EnumType.STRING)
+    private ExperienceLevel experienceLevel;
+
+    private String municipio;
+
+    private String cluster;
+
+    private double latitude;
+
+    private double longitude;
+
+    private String diversityBadge;
+
+    @Column(name = "gender_optional")
+    private String genderOptional;
+
+    @Column(name = "disability_optional")
+    private String disabilityOptional;
+
+    @Column(name = "ethnicity_optional")
+    private String ethnicityOptional;
+
+    @Column(name = "rural_optional")
+    private Boolean ruralOptional;
+
+    @Column(name = "consent_status")
+    private Boolean consentStatus;
+
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/repository/CandidateRepository.java ---
+package com.appbit.backend.modules.candidate.repository;
+
+
+
+
+@Repository
+public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+    List<Candidate> findByMunicipio(String municipio);
+
+    @Query(value = "SELECT municipio, COUNT(*) FROM candidate GROUP BY municipio", nativeQuery = true)
+    List<Object[]> countByMunicipio();
+
+    @Query(value = "SELECT municipio, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL AND diversity_badge != '' GROUP BY municipio", nativeQuery = true)
+    List<Object[]> countDiversityByMunicipio();
+
+    @Query(value = "SELECT COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL AND diversity_badge != ''", nativeQuery = true)
+    long countWithDiversityBadge();
+
+    @Query(value = "SELECT diversity_badge, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL GROUP BY diversity_badge ORDER BY COUNT(*) DESC", nativeQuery = true)
+    List<Object[]> badgeBreakdown();
+
+
+    @Query("SELECT c FROM Candidate c WHERE " +
+            "(:municipio IS NULL OR c.municipio = :municipio) AND " +
+            "(:experienceLevel IS NULL OR c.experienceLevel = :experienceLevel)")
+    List<Candidate> findCandidatesForMatchingWithLimit(
+            @Param("municipio") String municipio,
+            @Param("experienceLevel") ExperienceLevel experienceLevel,
+            Pageable pageable
+    );
+
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/candidate/Service/CandidateService.java ---
+package com.appbit.backend.modules.candidate.Service;
+
+
+
+@Service
+public class CandidateService {
+
+    private final CandidateRepository candidateRepository;
+
+    public CandidateService(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
+
+    /**
+     * Obtiene una lista de candidatos anonimizados que coinciden con los filtros
+     * de municipio y nivel de experiencia.
+     *
+     * @param municipio       región o ciudad del candidato (puede ser null para ignorar filtro)
+     * @param experienceLevel nivel de experiencia (JUNIOR, MID, SENIOR) (puede ser null)
+     * @return lista de DTOs anonimizados, nunca null (vacía si no hay resultados)
+     */
+    /**
+     * Obtiene una lista de candidatos anonimizados que coinciden con los filtros
+     * de municipio y nivel de experiencia, limitado a un máximo de 35 para el LLM.
+     */
+    @Transactional(readOnly = true)
+    public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio, ExperienceLevel experienceLevel) {
+
+        Pageable topThirtyFive = PageRequest.of(0, 35);
+        List<Candidate> candidates = candidateRepository.findCandidatesForMatchingWithLimit(
+                municipio,
+                experienceLevel,
+                topThirtyFive
+        );
+
+
+        candidates.forEach(c -> c.getSkills().size());
+
+        return candidates.stream()
+                .map(AnonymousCandidateResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    public Map<String, Long> countByMunicipio() {
+        return toMunicipioMap(candidateRepository.countByMunicipio());
+    }
+
+    public Map<String, Long> countDiversityByMunicipio() {
+        return toMunicipioMap(candidateRepository.countDiversityByMunicipio());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Candidate> findAll() {
+        return candidateRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Candidate> findByMunicipio(String municipio) {
+        return candidateRepository.findByMunicipio(municipio);
+    }
+
+    @Transactional(readOnly = true)
+    public Candidate findById(Long id) {
+        return candidateRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Candidato no encontrado con ID: " + id));
+    }
+
+    private Map<String, Long> toMunicipioMap(List<Object[]> rows) {
+        Map<String, Long> map = new HashMap<>();
+        for (Object[] row : rows) {
+            map.put((String) row[0], ((Number) row[1]).longValue());
+        }
+        return map;
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/controller/CompanyController.java ---
+package com.appbit.backend.modules.company.controller;
+
+
+
+/**
+ * Controlador REST para la gestión de empresas (companies).
+ * <p>
+ * Proporciona endpoints para registrar nuevas empresas y consultar
+ * empresas existentes por su identificador único.
+ * </p>
+ *
+ * @see CompanyService
+ * @see CompanyRequest
+ * @see Company
+ */
+@RestController
+@RequestMapping("/companies")
+@Tag(name = "Companies", description = "API para la gestión de empresas registradas en la plataforma")
+public class CompanyController {
+
+    private final CompanyService companyService;
+
+    @Autowired
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
+    /**
+     * Registra una nueva empresa en el sistema.
+     * <p>
+     * Este endpoint recibe los datos básicos de la empresa (nombre, sector industrial
+     * y objetivos ESG) y los persiste en la base de datos. Devuelve la entidad
+     * {@link Company} creada con su identificador generado y la fecha de creación.
+     * </p>
+     *
+     * @param companyRequest objeto {@link CompanyRequest} con los datos de la empresa a registrar.
+     *                       Debe contener:
+     *                       <ul>
+     *                       <li><b>name</b>: Nombre de la empresa (obligatorio)</li>
+     *                       <li><b>industrySector</b>: Sector industrial al que pertenece (opcional)</li>
+     *                       <li><b>esgGoals</b>: Objetivos de sostenibilidad ESG (opcional)</li>
+     *                       </ul>
+     * @return la empresa recién creada con código HTTP 201 (Created).
+     */
+    @PostMapping
+    @Operation(
+            summary = "Registrar una nueva empresa",
+            description = "Crea una nueva empresa en el sistema con la información proporcionada. " +
+                    "Devuelve la entidad Company con el ID generado automáticamente y la fecha de creación.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la empresa a registrar",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = CompanyRequest.class)
+                    )
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Empresa creada exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Company.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Solicitud inválida: datos de entrada incorrectos o faltantes",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<Company> createCompany(
+            @Parameter(description = "Datos de la empresa a registrar", required = true)
+            @RequestBody CompanyRequest company) {
+        Company createdCompany = companyService.register(company);
+        return new ResponseEntity<>(createdCompany, HttpStatus.CREATED);
+    }
+
+    /**
+     * Obtiene una empresa por su identificador único.
+     * <p>
+     * Busca en la base de datos la empresa correspondiente al ID proporcionado.
+     * Si no se encuentra, se devuelve un código HTTP 404 (Not Found).
+     * </p>
+     *
+     * @param id identificador único de la empresa a buscar.
+     * @return la empresa encontrada con código HTTP 200 (OK), o 404 si no existe.
+     */
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Obtener empresa por ID",
+            description = "Recupera los datos de una empresa específica utilizando su identificador único. " +
+                    "Devuelve un código 404 si la empresa no existe en el sistema.",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Identificador único de la empresa",
+                            required = true,
+                            example = "1"
+                    )
+            }
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Empresa encontrada exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Company.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Empresa no encontrada con el ID proporcionado",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<Company> getCompanyById(
+            @Parameter(description = "ID único de la empresa", required = true, example = "1")
+            @PathVariable Long id) {
+        Company company = companyService.findById(id);
+        return ResponseEntity.ok(company);
+    }
+
+    @GetMapping
+    @Operation(summary = "Listar todas las empresas")
+    public ResponseEntity<List<Company>> getAllCompanies() {
+        return ResponseEntity.ok(companyService.findAll());
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/controller/JobController.java ---
+package com.appbit.backend.modules.company.controller;
+
+
+
+/**
+ * Controlador REST para la gestión de ofertas de trabajo (jobs).
+ * <p>
+ * Proporciona endpoints para crear nuevas ofertas de trabajo, listar todas las ofertas
+ * existentes y consultar una oferta específica por su identificador único.
+ * </p>
+ *
+ * @see JobService
+ * @see JobRequest
+ * @see Job
+ */
+@RestController
+@RequestMapping("/jobs")
+@Tag(name = "Jobs", description = "API para la gestión de ofertas de trabajo publicadas por las empresas")
+@RequiredArgsConstructor
+public class JobController {
+
+    private final JobService jobService;
+    private final MatchingAgentService matchingAgentService;
+    private final CandidateService candidateService;
+
+
+    /**
+     * Crea una nueva oferta de trabajo en el sistema.
+     * <p>
+     * Este endpoint recibe los datos de la oferta (título, descripción, región,
+     * habilidades requeridas, nivel de experiencia y la empresa que la publica)
+     * y la persiste en la base de datos. Devuelve la entidad {@link Job} creada
+     * con su identificador generado y la fecha de publicación.
+     * </p>
+     *
+     * @param JobRequest objeto {@link JobRequest} con los datos de la oferta a crear.
+     *                   Debe contener:
+     *                   <ul>
+     *                   <li><b>title</b>: Título del puesto (obligatorio)</li>
+     *                   <li><b>description</b>: Descripción detallada del puesto (opcional)</li>
+     *                   <li><b>region</b>: Región geográfica donde se ubica el puesto (opcional)</li>
+     *                   <li><b>requiredSkills</b>: Lista de habilidades técnicas requeridas (opcional)</li>
+     *                   <li><b>experienceLevel</b>: Nivel de experiencia requerido (obligatorio)</li>
+     *                   <li><b>companyId</b>: ID de la empresa que publica la oferta (obligatorio)</li>
+     *                   </ul>
+     * @return la oferta de trabajo recién creada con código HTTP 201 (Created).
+     */
+    @PostMapping
+    @Operation(
+            summary = "Crear una nueva oferta de trabajo",
+            description = "Crea una nueva oferta de trabajo (job) en el sistema. " +
+                    "La oferta queda asociada a una empresa existente mediante el companyId. " +
+                    "Devuelve la oferta con el ID generado automáticamente y la fecha de publicación.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la oferta de trabajo a crear",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobRequest.class)
+                    )
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Oferta de trabajo creada exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Solicitud inválida: datos de entrada incorrectos o faltantes",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Empresa no encontrada: el companyId proporcionado no existe",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<JobResponse> createJob(
+            @Parameter(description = "Datos de la oferta de trabajo a crear", required = true)
+            @RequestBody JobRequest job) {
+        JobResponse createdJob = jobService.create(job);
+        return new ResponseEntity<>(createdJob, HttpStatus.CREATED);
+    }
+
+    /**
+     * Obtiene la lista de todas las ofertas de trabajo registradas.
+     * <p>
+     * Devuelve un listado completo de todas las ofertas de trabajo existentes
+     * en el sistema, sin filtros de paginación.
+     * </p>
+     *
+     * @return lista de todas las ofertas de trabajo con código HTTP 200 (OK).
+     */
+    @GetMapping
+    @Operation(
+            summary = "Listar todas las ofertas de trabajo",
+            description = "Recupera un listado completo de todas las ofertas de trabajo (jobs) " +
+                    "registradas en el sistema. No aplica paginación ni filtros."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de ofertas de trabajo obtenida exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<List<JobResponse>> getAllJobs() {
+        List<JobResponse> jobs = jobService.findAll();
+        return ResponseEntity.ok(jobs);
+    }
+
+    /**
+     * Obtiene una oferta de trabajo por su identificador único.
+     * <p>
+     * Busca en la base de datos la oferta correspondiente al ID proporcionado.
+     * Si no se encuentra, se devuelve un código HTTP 404 (Not Found).
+     * </p>
+     *
+     * @param id identificador único de la oferta de trabajo a buscar.
+     * @return la oferta de trabajo encontrada con código HTTP 200 (OK), o 404 si no existe.
+     */
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Obtener oferta de trabajo por ID",
+            description = "Recupera los datos de una oferta de trabajo específica utilizando su identificador único. " +
+                    "Devuelve un código 404 si la oferta no existe en el sistema.",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Identificador único de la oferta de trabajo",
+                            required = true,
+                            example = "1"
+                    )
+            }
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Oferta de trabajo encontrada exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Oferta de trabajo no encontrada con el ID proporcionado",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<JobResponse> getJobById(
+            @Parameter(description = "ID único de la oferta de trabajo", required = true, example = "1")
+            @PathVariable Long id) {
+        JobResponse job = jobService.findById(id);
+        return ResponseEntity.ok(job);
+    }
+
+    /**
+     * Actualiza una oferta de trabajo existente.
+     *
+     * @param id  identificador único de la oferta a actualizar.
+     * @param job datos actualizados de la oferta.
+     * @return la oferta actualizada con código HTTP 200 (OK).
+     */
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar una oferta de trabajo", description = "Actualiza los datos de una oferta de trabajo existente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Oferta actualizada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
+            @ApiResponse(responseCode = "404", description = "Oferta no encontrada")
+    })
+    public ResponseEntity<JobResponse> updateJob(
+            @Parameter(description = "ID de la oferta a actualizar", required = true) @PathVariable Long id,
+            @RequestBody JobRequest job) {
+        JobResponse updated = jobService.updateJob(id, job);
+        return ResponseEntity.ok(updated);
+    }
+
+    /**
+     * Elimina una oferta de trabajo por su ID.
+     *
+     * @param id identificador único de la oferta a eliminar.
+     * @return código HTTP 204 (No Content).
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una oferta de trabajo", description = "Elimina una oferta de trabajo y sus procesos de reclutamiento asociados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Oferta eliminada exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Oferta no encontrada")
+    })
+    public ResponseEntity<Void> deleteJob(
+            @Parameter(description = "ID de la oferta a eliminar", required = true) @PathVariable Long id) {
+        jobService.deleteJob(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Busca candidatos compatibles con una oferta de trabajo usando el motor de matching con IA.
+     *
+     * @param request datos de la vacante (título, habilidades, nivel de experiencia y región).
+     *                Todos los campos son obligatorios y son validados con {@code @Valid}.
+     * @return lista de resultados de compatibilidad con código HTTP 200 (OK).
+     */
+    @PostMapping("/matches")
+    @Operation(
+            summary = "Buscar candidatos compatibles con una oferta",
+            description = "Ejecuta el motor de matching con inteligencia artificial para encontrar " +
+                    "candidatos compatibles con la vacante especificada. " +
+                    "Los datos de la vacante se validan antes de ser procesados.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos de la vacante para el matching",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = JobMatchRequest.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Ejemplo de Vacante Backend",
+                                            description = "Ejemplo de JSON válido para buscar un Desarrollador Backend MID en Florianopolis",
+                                            value = "{\n" +
+                                                    "  \"title\": \"Desarrollador Backend\",\n" +
+                                                    "  \"skills\": [\"Java\", \"Spring Boot\"],\n" +
+                                                    "  \"experienceLevel\": \"MID\",\n" +
+                                                    "  \"region\": \"Florianopolis\"\n" +
+                                                    "}"
+                                    )
+                            }
+                    )
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de candidatos compatibles obtenida exitosamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MatchResultResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Solicitud inválida: campos obligatorios faltantes o vacíos",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    public ResponseEntity<List<MatchResultResponse>> findMatches(
+            @Valid @RequestBody JobMatchRequest request) {
+
+        List<AnonymousCandidateResponse> candidates = candidateService.getCandidatesForMatching(
+                request.region(),
+                request.experienceLevel()
+        );
+
+        List<MatchResultResponse> results = matchingAgentService.executeMatching(request, candidates);
+
+        return ResponseEntity.ok(results);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/controller/MatchController.java ---
+package com.appbit.backend.modules.company.controller;
+
+
+
+/**
+ * Alias de {@code POST /jobs/matches} en la ruta raíz {@code /match}, tal como lo
+ * pide el enunciado del MVP. Reutiliza los mismos servicios que {@link JobController}
+ * para no duplicar la lógica de matching.
+ */
+@RestController
+@RequestMapping("/match")
+@Tag(name = "Match", description = "Alias de /jobs/matches en la ruta que exige el enunciado del MVP")
+@RequiredArgsConstructor
+public class MatchController {
+
+    private final CandidateService candidateService;
+    private final MatchingAgentService matchingAgentService;
+
+    @PostMapping
+    @Operation(
+            summary = "Buscar candidatos compatibles con una oferta (alias de /jobs/matches)",
+            description = "Mismo comportamiento que POST /jobs/matches: ejecuta el motor de matching " +
+                    "con inteligencia artificial para encontrar candidatos compatibles con la vacante especificada."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Lista de candidatos compatibles obtenida exitosamente",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchResultResponse.class))
+    )
+    public ResponseEntity<List<MatchResultResponse>> match(@Valid @RequestBody JobMatchRequest request) {
+        List<AnonymousCandidateResponse> candidates = candidateService.getCandidatesForMatching(
+                request.region(),
+                request.experienceLevel()
+        );
+
+        List<MatchResultResponse> results = matchingAgentService.executeMatching(request, candidates);
+
+        return ResponseEntity.ok(results);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/dto/CompanyRequest.java ---
+package com.appbit.backend.modules.company.dto;
+
+
+/**
+ * DTO (Data Transfer Object) para la solicitud de registro de una empresa.
+ * <p>
+ * Contiene los datos necesarios para crear una nueva empresa en el sistema.
+ * Se utiliza como cuerpo de la petición en el endpoint POST /companies.
+ * </p>
+ *
+ * @see com.appbit.backend.modules.company.entity.Company
+ */
+@Schema(
+        name = "CompanyRequest",
+        description = "Objeto que representa la solicitud de registro de una nueva empresa. " +
+                "Contiene el nombre, sector industrial, objetivos ESG, meta de diversidad, regiones prioritarias y grupos de interés."
+)
+public record CompanyRequest(
+        @Schema(
+                description = "Nombre de la empresa",
+                example = "TechSolutions S.A.",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 255
+        )
+        String name,
+
+        @Schema(
+                description = "Sector industrial al que pertenece la empresa",
+                example = "Tecnología",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 100
+        )
+        String industrySector,
+
+        @Schema(
+                description = "Objetivos de sostenibilidad ESG (Environmental, Social, Governance) de la empresa",
+                example = "Reducir emisiones de CO2 en un 30% para 2030 y promover la diversidad de género en cargos directivos",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 1000
+        )
+        String esgGoals,
+
+        @Schema(
+                description = "Meta de diversidad de la empresa (porcentaje de shortlist con talento diverso)",
+                example = "30% de shortlist con talento diverso",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 500
+        )
+        String diversityGoal,
+
+        @Schema(
+                description = "Regiones prioritarias para la búsqueda de talento diverso",
+                example = "Caribe, Pacífico, Amazonía",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 500
+        )
+        String priorityRegions,
+
+        @Schema(
+                description = "Grupos de interés para la estrategia de diversidad e inclusión",
+                example = "Mujeres, jóvenes, personas con discapacidad, población rural",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 500
+        )
+        String interestGroups,
+
+        @Schema(
+                description = "Enfoque de reporte ESG (género, territorio, discapacidad, edad, etc.)",
+                example = "Género, territorio, discapacidad, edad, pertenencia étnica",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 500
+        )
+        String reportFocus,
+
+        @Schema(
+                description = "NIT (Número de Identificación Tributaria) de la empresa",
+                example = "900123456-7",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 20
+        )
+        String nit,
+
+        @Schema(
+                description = "Tamaño de la empresa por número de empleados",
+                example = "50-200 empleados",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 50
+        )
+        String size,
+
+        @Schema(
+                description = "Ciudad principal de operación de la empresa",
+                example = "Florianopolis",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 100
+        )
+        String city
+) {
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/dto/JobMatchRequest.java ---
+package com.appbit.backend.modules.company.dto;
+
+@Schema(
+        name = "JobMatchRequest",
+        description = "Datos completos de la vacante que se envían al agente de IA para encontrar candidatos compatibles."
+)
+public record JobMatchRequest(
+
+        @NotBlank(message = "El título de la vacante es obligatorio")
+        @Schema(description = "Título del puesto", example = "Desarrollador Backend Senior", requiredMode = Schema.RequiredMode.REQUIRED)
+        String title,
+
+        @Schema(description = "Descripción del puesto", example = "Buscamos un backend developer con experiencia en Java y Spring Boot")
+        String description,
+
+        @ArraySchema(schema = @Schema(type = "string", example = "Java"))
+        List<String> skills,
+
+        @NotNull(message = "El nivel de experiencia es obligatorio")
+        @Schema(description = "Nivel de experiencia requerido", example = "SENIOR", allowableValues = {"JUNIOR", "MID", "SENIOR"}, requiredMode = Schema.RequiredMode.REQUIRED)
+        ExperienceLevel experienceLevel,
+
+        @Schema(description = "Región donde se necesita el candidato", example = "Florianópolis")
+        String region,
+
+        @ArraySchema(schema = @Schema(type = "string", example = "Comunicación"))
+        @Schema(description = "Habilidades blandas requeridas")
+        List<String> softSkills,
+
+        @Schema(description = "Modalidad de trabajo", example = "Remoto")
+        String modality,
+
+        @Schema(description = "Rango salarial", example = "3.000.000 - 5.000.000 COP")
+        String salaryRange,
+
+        @Schema(description = "Tipo de contrato", example = "Término indefinido")
+        String contractType,
+
+        @Schema(description = "Años mínimos de experiencia", example = "3")
+        Integer experienceYears,
+
+        @Schema(description = "Nivel educativo requerido", example = "Ingeniería en Sistemas")
+        String education,
+
+        @Schema(description = "Industria de la empresa", example = "Tecnología")
+        String companyIndustry,
+
+        @Schema(description = "Metas ESG de la empresa", example = "Aumentar diversidad de género en posiciones técnicas")
+        String companyEsgGoals
+
+) {
+    public JobMatchRequest {
+        if (skills == null) skills = List.of();
+        if (softSkills == null) softSkills = List.of();
+        if (region != null && region.isBlank()) region = null;
+        if (modality != null && modality.isBlank()) modality = null;
+        if (salaryRange != null && salaryRange.isBlank()) salaryRange = null;
+        if (contractType != null && contractType.isBlank()) contractType = null;
+        if (education != null && education.isBlank()) education = null;
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/dto/JobRequest.java ---
+package com.appbit.backend.modules.company.dto;
+
+
+
+
+/**
+ * DTO (Data Transfer Object) para la solicitud de creación de una oferta de trabajo.
+ * <p>
+ * Contiene los datos necesarios para crear una nueva oferta de trabajo (job)
+ * en el sistema. Se utiliza como cuerpo de la petición en el endpoint POST /jobs.
+ * </p>
+ *
+ * @see com.appbit.backend.modules.company.entity.Job
+ * @see com.appbit.backend.modules.company.entity.ExperienceLevel
+ */
+@Schema(
+        name = "JobRequest",
+        description = "Objeto que representa la solicitud de creación de una nueva oferta de trabajo. " +
+                "Contiene el título, descripción, región, habilidades requeridas, nivel de experiencia y la empresa que publica la oferta."
+)
+public record JobRequest (
+        @Schema(
+                description = "Título del puesto de trabajo",
+                example = "Desarrollador Backend Senior",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 255
+        )
+        String title,
+
+        @Schema(
+                description = "Descripción detallada del puesto, responsabilidades y requisitos",
+                example = "Buscamos un desarrollador backend con experiencia en Java Spring Boot y microservicios para liderar la arquitectura de nuestra plataforma.",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 2000
+        )
+        String description,
+
+        @Schema(
+                description = "Región geográfica donde se ubica el puesto de trabajo",
+                example = "Florianopolis",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 100
+        )
+        String region,
+
+        @Schema(
+                description = "Lista de habilidades técnicas requeridas para el puesto",
+                example = "[\"Java\", \"Spring Boot\", \"Microservicios\", \"PostgreSQL\", \"Docker\"]",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        @ArraySchema(schema = @Schema(type = "string", example = "Java"))
+        List<String> requiredSkills,
+
+        @Schema(
+                description = "Nivel de experiencia requerido para el puesto",
+                example = "SENIOR",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                implementation = ExperienceLevel.class,
+                allowableValues = {"JUNIOR", "MID", "SENIOR"}
+        )
+        ExperienceLevel experienceLevel,
+
+        @Schema(
+                description = "Identificador único de la empresa que publica la oferta de trabajo",
+                example = "1",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "1"
+        )
+        Long companyId,
+
+        @Schema(
+                description = "Activa el enfoque de diversidad inclusiva en la vacante",
+                example = "true",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        Boolean diversityFocusEnabled,
+
+        @Schema(
+                description = "Porcentaje objetivo de shortlist con talento diverso para esta vacante",
+                example = "40",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                minimum = "0",
+                maximum = "100"
+        )
+        Integer targetDiversityPercentage,
+
+        @Schema(
+                description = "Modalidad de trabajo",
+                example = "Remoto",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                allowableValues = {"Remoto", "Híbrido", "Presencial"}
+        )
+        String modality,
+
+        @Schema(
+                description = "Rango salarial ofrecido",
+                example = "3.000.000 - 5.000.000 COP",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        String salaryRange,
+
+        @Schema(
+                description = "Tipo de contrato",
+                example = "Término indefinido",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                allowableValues = {"Término indefinido", "Término fijo", "Prestación de servicios", "Freelance"}
+        )
+        String contractType,
+
+        @Schema(
+                description = "Lista de habilidades blandas requeridas para el puesto",
+                example = "[\"Comunicación\", \"Liderazgo\", \"Trabajo en equipo\"]",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        )
+        @ArraySchema(schema = @Schema(type = "string", example = "Comunicación"))
+        List<String> softSkills,
+
+        @Schema(
+                description = "Años mínimos de experiencia requeridos",
+                example = "3",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                minimum = "0"
+        )
+        Integer experienceYears,
+
+        @Schema(
+                description = "Nivel educativo requerido",
+                example = "Ingeniería de Sistemas o afín",
+                requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+                maxLength = 200
+        )
+        String education
+){
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/dto/JobResponse.java ---
+package com.appbit.backend.modules.company.dto;
+
+
+@Schema(name = "JobResponse", description = "Respuesta con los datos de una oferta de trabajo")
+public record JobResponse(
+    Long id,
+    String title,
+    String description,
+    ExperienceLevel experienceLevel,
+    String region,
+    List<String> skills,
+    CompanySummary company,
+    LocalDateTime publishedAt,
+    @Schema(description = "Activa el enfoque de diversidad inclusiva", example = "true")
+    boolean diversityFocusEnabled,
+    @Schema(description = "Porcentaje objetivo de shortlist diversa", example = "40")
+    Integer targetDiversityPercentage,
+    @Schema(description = "Modalidad de trabajo", example = "Remoto")
+    String modality,
+    @Schema(description = "Rango salarial", example = "80000-120000 MXN")
+    String salaryRange,
+    @Schema(description = "Tipo de contrato", example = "Término indefinido")
+    String contractType,
+    @Schema(description = "Habilidades blandas requeridas")
+    List<String> softSkills,
+    @Schema(description = "Años mínimos de experiencia", example = "3")
+    Integer experienceYears,
+    @Schema(description = "Nivel educativo requerido", example = "Ingeniería en Sistemas")
+    String education
+) {
+    @Schema(name = "CompanySummary", description = "Resumen de la empresa asociada a la oferta")
+    public record CompanySummary(
+        Long id,
+        String name,
+        String industrySector,
+        String esgGoals
+    ) {}
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/entity/Company.java ---
+package com.appbit.backend.modules.company.entity;
+
+
+
+@Entity
+@Table(name = "companies")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Company {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @Column(name = "industry_sector")
+    private String industrySector;
+
+    @Column(name = "esg_goals", length = 1000)
+    private String esgGoals;
+
+    @Column(name = "diversity_goal", length = 500)
+    private String diversityGoal;
+
+    @Column(name = "priority_regions", length = 500)
+    private String priorityRegions;
+
+    @Column(name = "interest_groups", length = 500)
+    private String interestGroups;
+
+    @Column(name = "report_focus", length = 500)
+    private String reportFocus;
+
+    @Column(length = 20)
+    private String nit;
+
+    @Column(length = 50)
+    private String size;
+
+    @Column(length = 100)
+    private String city;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/entity/ExperienceLevel.java ---
+package com.appbit.backend.modules.company.entity;
+
+public enum ExperienceLevel {
+    JUNIOR,
+    MID,
+    SENIOR
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/entity/Job.java ---
+package com.appbit.backend.modules.company.entity;
+
+
+
+@Entity
+@Table(name = "jobs")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Job {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(length = 2000)
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "experience_level")
+    private ExperienceLevel experienceLevel;
+
+    private String region;
+
+    @ElementCollection()
+    @CollectionTable(name = "job_skills", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "skill")
+    @Builder.Default
+    private List<String> skills = new ArrayList<>();
+
+    @Column(name = "diversity_focus_enabled")
+    private boolean diversityFocusEnabled;
+
+    @Column(name = "target_diversity_percentage")
+    private Integer targetDiversityPercentage;
+
+    private String modality;
+
+    @Column(name = "salary_range")
+    private String salaryRange;
+
+    @Column(name = "contract_type")
+    private String contractType;
+
+    @ElementCollection()
+    @CollectionTable(name = "job_soft_skills", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "skill")
+    @Builder.Default
+    private List<String> softSkills = new ArrayList<>();
+
+    @Column(name = "experience_years")
+    private Integer experienceYears;
+
+    @Column(length = 200)
+    private String education;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @CreationTimestamp
+    @Column(name = "published_at", nullable = false, updatable = false)
+    private LocalDateTime publishedAt;
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/mapper/CompanyMapper.java ---
+package com.appbit.backend.modules.company.mapper;
+
+
+@Component
+public class CompanyMapper {
+
+    public Company toEntity(CompanyRequest dto){
+        return Company.builder()
+                .name(dto.name())
+                .industrySector(dto.industrySector())
+                .esgGoals(dto.esgGoals())
+                .diversityGoal(dto.diversityGoal())
+                .priorityRegions(dto.priorityRegions())
+                .interestGroups(dto.interestGroups())
+                .reportFocus(dto.reportFocus())
+                .nit(dto.nit())
+                .size(dto.size())
+                .city(dto.city())
+                .build();
+    }
+
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/mapper/JobMapper.java ---
+package com.appbit.backend.modules.company.mapper;
+
+
+
+@Component
+@RequiredArgsConstructor
+public class JobMapper {
+
+    public Job toEntity(JobRequest dto, Company company) {
+        return Job.builder()
+                .title(dto.title())
+                .description(dto.description())
+                .region(dto.region())
+                .skills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>())
+                .experienceLevel(dto.experienceLevel())
+                .company(company)
+                .diversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled())
+                .targetDiversityPercentage(dto.targetDiversityPercentage())
+                .modality(dto.modality())
+                .salaryRange(dto.salaryRange())
+                .contractType(dto.contractType())
+                .softSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>())
+                .experienceYears(dto.experienceYears())
+                .education(dto.education())
+                .build();
+    }
+
+    public JobResponse toResponse(Job job) {
+        Company c = job.getCompany();
+        return new JobResponse(
+                job.getId(),
+                job.getTitle(),
+                job.getDescription(),
+                job.getExperienceLevel(),
+                job.getRegion(),
+                job.getSkills(),
+                new JobResponse.CompanySummary(c.getId(), c.getName(), c.getIndustrySector(), c.getEsgGoals()),
+                job.getPublishedAt(),
+                job.isDiversityFocusEnabled(),
+                job.getTargetDiversityPercentage(),
+                job.getModality(),
+                job.getSalaryRange(),
+                job.getContractType(),
+                job.getSoftSkills(),
+                job.getExperienceYears(),
+                job.getEducation()
+        );
+    }
+
+    public void updateEntity(Job job, JobRequest dto, Company company) {
+        job.setTitle(dto.title());
+        job.setDescription(dto.description());
+        job.setRegion(dto.region());
+        job.setSkills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>());
+        job.setExperienceLevel(dto.experienceLevel());
+        job.setCompany(company);
+        job.setDiversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled());
+        job.setTargetDiversityPercentage(dto.targetDiversityPercentage());
+        job.setModality(dto.modality());
+        job.setSalaryRange(dto.salaryRange());
+        job.setContractType(dto.contractType());
+        job.setSoftSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>());
+        job.setExperienceYears(dto.experienceYears());
+        job.setEducation(dto.education());
+    }
+
+    public List<JobResponse> toResponseList(List<Job> jobs) {
+        return jobs.stream().map(this::toResponse).toList();
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/repository/CompanyRepository.java ---
+package com.appbit.backend.modules.company.repository;
+
+
+@Repository
+public interface CompanyRepository extends JpaRepository<Company, Long> {
+    boolean existsByNameIgnoreCase(String name);
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/repository/JobRepository.java ---
+package com.appbit.backend.modules.company.repository;
+
+
+
+@Repository
+public interface JobRepository extends JpaRepository<Job, Long> {
+    
+    /**
+     * Recupera todos los puestos de trabajo asociados a una empresa específica.
+     */
+    List<Job> findByCompanyId(Long companyId);
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/service/CompanyService.java ---
+package com.appbit.backend.modules.company.service;
+
+
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class CompanyService {
+
+    private final CompanyRepository companyRepository;
+    private final CompanyMapper companyMapper;
+
+    /**
+     * Registra una nueva empresa aplicando validaciones básicas.
+     */
+    public Company register(CompanyRequest company) {
+        if (company == null) {
+            throw new IllegalArgumentException("La empresa no puede ser nula.");
+        }
+        if (company.name() == null || company.name().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la empresa es obligatorio.");
+        }
+        if (companyRepository.existsByNameIgnoreCase(company.name())) {
+            throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
+        }
+
+        try {
+            return companyRepository.save(companyMapper.toEntity(company));
+        } catch (DataIntegrityViolationException ex) {
+            throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
+        }
+    }
+
+    /**
+     * Busca una empresa por su ID con validación.
+     */
+    @Transactional(readOnly = true)
+    public Company findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID de la empresa no puede ser nulo.");
+        }
+        return companyRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Empresa no encontrada con el ID: " + id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Company> findAll() {
+        return companyRepository.findAll();
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/company/service/JobService.java ---
+package com.appbit.backend.modules.company.service;
+
+
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class JobService {
+
+    private final JobRepository jobRepository;
+    private final CompanyRepository companyRepository;
+    private final RecruitmentProcessRepository recruitmentProcessRepository;
+    private final JobMapper jobMapper;
+
+    /**
+     * Crea una nueva vacante de trabajo (Job) aplicando validaciones de negocio.
+     */
+    public JobResponse create(JobRequest job) {
+        if (job == null) {
+            throw new IllegalArgumentException("La vacante de trabajo no puede ser nula.");
+        }
+        if (job.title() == null || job.title().trim().isEmpty()) {
+            throw new IllegalArgumentException("El título del puesto de trabajo es obligatorio.");
+        }
+        if (job.companyId() == null) {
+            throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
+        }
+        if (job.experienceLevel() == null) {
+            throw new IllegalArgumentException("El nivel de experiencia es obligatorio.");
+        }
+
+        Company company = companyRepository.findById(job.companyId())
+                .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
+
+        Job jobEntity = jobMapper.toEntity(job, company);
+        Job saved = jobRepository.save(jobEntity);
+
+        return jobMapper.toResponse(saved);
+    }
+
+    /**
+     * Retorna todas las vacantes de trabajo registradas.
+     */
+    @Transactional(readOnly = true)
+    public List<JobResponse> findAll() {
+        List<Job> jobs = jobRepository.findAll();
+        return jobMapper.toResponseList(jobs);
+    }
+
+    /**
+     * Busca una vacante de trabajo por su ID con validación.
+     */
+    @Transactional(readOnly = true)
+    public JobResponse findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
+        }
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
+        return jobMapper.toResponse(job);
+    }
+
+    public JobResponse updateJob(Long id, JobRequest request) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
+        }
+        if (request == null) {
+            throw new IllegalArgumentException("Los datos de la vacante no pueden ser nulos.");
+        }
+        if (request.title() == null || request.title().trim().isEmpty()) {
+            throw new IllegalArgumentException("El título del puesto de trabajo es obligatorio.");
+        }
+        if (request.companyId() == null) {
+            throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
+        }
+        if (request.experienceLevel() == null) {
+            throw new IllegalArgumentException("El nivel de experiencia es obligatorio.");
+        }
+
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
+
+        Company company = companyRepository.findById(request.companyId())
+                .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
+
+        jobMapper.updateEntity(job, request, company);
+        Job saved = jobRepository.save(job);
+
+        return jobMapper.toResponse(saved);
+    }
+
+    public void deleteJob(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
+        }
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
+
+        List<com.appbit.backend.modules.recruitment.entity.RecruitmentProcess> processes =
+                recruitmentProcessRepository.findByJobId(id);
+        if (!processes.isEmpty()) {
+            recruitmentProcessRepository.deleteAll(processes);
+        }
+
+        jobRepository.delete(job);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/dashboard/controller/DashboardEsgController.java ---
+package com.appbit.backend.modules.dashboard.controller;
+
+
+@RestController
+@RequestMapping("/dashboard")
+@RequiredArgsConstructor
+@Tag(name = "Dashboard ESG", description = "API de métricas de diversidad e inclusión para el dashboard ESG")
+public class DashboardEsgController {
+
+    private final DashboardEsgService dashboardEsgService;
+
+    @Operation(
+            summary = "Obtener métricas ESG del dashboard",
+            description = "Retorna métricas agregadas de diversidad e inclusión. " +
+                    "Opcionalmente filtradas por jobId para mostrar métricas del scope de una vacante."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Métricas ESG obtenidas exitosamente",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = DashboardEsgResponse.class))
+    )
+    @GetMapping("/esg")
+    public DashboardEsgResponse getEsgMetrics(
+            @RequestParam(required = false) Long jobId) {
+        return dashboardEsgService.getEsgMetrics(jobId);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/dashboard/dto/DashboardEsgResponse.java ---
+package com.appbit.backend.modules.dashboard.dto;
+
+
+
+@Schema(description = "Respuesta agregada del dashboard ESG con métricas de diversidad e inclusión")
+public record DashboardEsgResponse(
+
+        @Schema(description = "Total de candidatos en la plataforma", example = "500")
+        long totalCandidates,
+
+        @Schema(description = "Total de vacantes publicadas", example = "12")
+        long totalJobs,
+
+        @Schema(description = "Total de regiones/municipios con candidatos", example = "20")
+        long totalRegions,
+
+        @Schema(description = "Porcentaje de candidatos con badge de diversidad", example = "65.5")
+        double diversityPercentage,
+
+        @Schema(description = "Total de candidatos con badge de diversidad", example = "327")
+        long totalDiversity,
+
+        @Schema(description = "Desglose de badges de diversidad")
+        List<BadgeBreakdown> badgeBreakdown,
+
+        @Schema(description = "Diversidad por región/municipio")
+        List<RegionDiversity> diversityByRegion,
+
+        @Schema(description = "Estado de cumplimiento de meta ESG")
+        EsgCompliance esgCompliance,
+
+        @Schema(description = "Distribución por nivel de experiencia")
+        List<ExperienceLevelBreakdown> experienceBreakdown,
+
+        @Schema(description = "Distribución por género autodeclarado")
+        List<GenderBreakdown> genderBreakdown,
+
+        @Schema(description = "Pipeline del proceso de reclutamiento por estado")
+        PipelineBreakdown pipeline
+
+) {
+
+    @Schema(description = "Desglose de un badge de diversidad")
+    public record BadgeBreakdown(
+            @Schema(description = "Nombre del badge", example = "TALENTO_REGIONAL")
+            String badge,
+            @Schema(description = "Cantidad de candidatos con este badge", example = "120")
+            long count,
+            @Schema(description = "Porcentaje respecto al total de candidatos", example = "24.0")
+            double percentage
+    ) {}
+
+    @Schema(description = "Diversidad agregada por región")
+    public record RegionDiversity(
+            @Schema(description = "Nombre del municipio", example = "Florianopolis")
+            String municipio,
+            @Schema(description = "Total de candidatos en el municipio", example = "45")
+            long total,
+            @Schema(description = "Candidatos con badge de diversidad", example = "28")
+            long diversity,
+            @Schema(description = "Porcentaje de diversidad en el municipio", example = "62.2")
+            double percentage
+    ) {}
+
+    @Schema(description = "Estado de cumplimiento de la meta ESG")
+    public record EsgCompliance(
+            @Schema(description = "Meta de diversidad definida por la empresa", example = "30% de shortlist con talento diverso")
+            String goal,
+            @Schema(description = "Porcentaje actual alcanzado", example = "65.5")
+            double current,
+            @Schema(description = "Estado: CUMPLIDA, EN_PROGRESO, NO_ALCANZADA", example = "CUMPLIDA")
+            String status
+    ) {}
+
+    @Schema(description = "Distribución por nivel de experiencia")
+    public record ExperienceLevelBreakdown(
+            @Schema(description = "Nivel de experiencia", example = "JUNIOR")
+            String level,
+            @Schema(description = "Cantidad de candidatos", example = "200")
+            long count,
+            @Schema(description = "Porcentaje del total", example = "40.0")
+            double percentage
+    ) {}
+
+    @Schema(description = "Distribución por género autodeclarado")
+    public record GenderBreakdown(
+            @Schema(description = "Género autodeclarado o 'No declarado'", example = "Femenino")
+            String gender,
+            @Schema(description = "Cantidad de candidatos", example = "150")
+            long count,
+            @Schema(description = "Porcentaje del total", example = "30.0")
+            double percentage
+    ) {}
+
+    @Schema(description = "Pipeline del proceso de reclutamiento")
+    public record PipelineBreakdown(
+            @Schema(description = "Candidatos contactados", example = "15")
+            long contactados,
+            @Schema(description = "Candidatos interesados", example = "8")
+            long interesados,
+            @Schema(description = "Candidatos en entrevista", example = "5")
+            long entrevista,
+            @Schema(description = "Candidatos con oferta", example = "2")
+            long oferta,
+            @Schema(description = "Candidatos descartados", example = "3")
+            long descartados,
+            @Schema(description = "Total de procesos activos", example = "33")
+            long total
+    ) {}
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/dashboard/service/DashboardEsgService.java ---
+package com.appbit.backend.modules.dashboard.service;
+
+
+
+@Service
+@Slf4j
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class DashboardEsgService {
+
+    private static final int DIVERSITY_THRESHOLD_MET = 40;
+    private static final int DIVERSITY_THRESHOLD_PROGRESS = 20;
+
+    private static final String STATUS_CUMPLIDA = "CUMPLIDA";
+    private static final String STATUS_EN_PROGRESO = "EN_PROGRESO";
+    private static final String STATUS_NO_ALCANZADA = "NO_ALCANZADA";
+
+    private static final String GENDER_UNDEFINED = "No declarado";
+    private static final String EXPERIENCE_UNDEFINED = "Sin clasificar";
+    private static final String MUNICIPIO_UNDEFINED = "Sin municipio";
+
+    private static final String GOAL_CONFIGURED_DEFAULT = "Meta de diversidad configurada por la empresa";
+    private static final String GOAL_UNCONFIGURED = "Sin meta configurada";
+
+    private final CandidateRepository candidateRepository;
+    private final CandidateService candidateService;
+    private final JobRepository jobRepository;
+    private final CompanyRepository companyRepository;
+    private final RecruitmentProcessRepository recruitmentRepository;
+
+    public DashboardEsgResponse getEsgMetrics() {
+        return getEsgMetrics(null);
+    }
+
+    public DashboardEsgResponse getEsgMetrics(Long jobId) {
+        List<Candidate> scope = candidateRepository.findAll();
+        String goalLabel = companyRepository.count() > 0
+                ? GOAL_CONFIGURED_DEFAULT
+                : GOAL_UNCONFIGURED;
+
+        if (jobId != null) {
+            Job job = jobRepository.findById(jobId)
+                    .orElseThrow(() -> new NoSuchElementException("Vacante no encontrada con ID: " + jobId));
+            scope = scope.stream()
+                    .filter(c -> job.getRegion() == null || job.getRegion().equals(c.getMunicipio()))
+                    .filter(c -> job.getExperienceLevel() == null || job.getExperienceLevel() == c.getExperienceLevel())
+                    .collect(Collectors.toList());
+            goalLabel = job.getTargetDiversityPercentage() != null
+                    ? job.getTargetDiversityPercentage() + "% de shortlist diversa"
+                    : goalLabel;
+            log.info("Dashboard ESG filtrado por jobId={}: {} candidatos en scope", jobId, scope.size());
+        } else {
+            log.info("Generando métricas ESG globales...");
+        }
+
+        long totalCandidates = scope.size();
+        long totalJobs = jobRepository.count();
+        long totalDiversity = scope.stream().filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty()).count();
+        double diversityPct = totalCandidates > 0
+                ? Math.round((totalDiversity * 1000.0 / totalCandidates)) / 10.0
+                : 0.0;
+
+        Map<String, Long> byMunicipio = scope.stream()
+                .collect(Collectors.groupingBy(this::municipioOrUndefined, Collectors.counting()));
+        Map<String, Long> divByMunicipio = scope.stream()
+                .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
+                .collect(Collectors.groupingBy(this::municipioOrUndefined, Collectors.counting()));
+        long totalRegions = byMunicipio.size();
+
+        List<DashboardEsgResponse.BadgeBreakdown> badges = buildBadgeBreakdown(scope, totalCandidates);
+        List<DashboardEsgResponse.RegionDiversity> regions = buildRegionDiversity(byMunicipio, divByMunicipio);
+        DashboardEsgResponse.EsgCompliance compliance = buildEsgCompliance(diversityPct, goalLabel);
+        List<DashboardEsgResponse.ExperienceLevelBreakdown> experienceBreakdown = buildExperienceBreakdown(scope, totalCandidates);
+        List<DashboardEsgResponse.GenderBreakdown> genderBreakdown = buildGenderBreakdown(scope, totalCandidates);
+        DashboardEsgResponse.PipelineBreakdown pipeline = buildPipeline(jobId);
+
+        return new DashboardEsgResponse(
+                totalCandidates, totalJobs, totalRegions,
+                diversityPct, totalDiversity, badges, regions, compliance,
+                experienceBreakdown, genderBreakdown, pipeline
+        );
+    }
+
+    private String municipioOrUndefined(Candidate c) {
+        return c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED;
+    }
+
+    private List<DashboardEsgResponse.BadgeBreakdown> buildBadgeBreakdown(List<Candidate> scope, long total) {
+        Map<String, Long> grouped = scope.stream()
+                .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
+                .collect(Collectors.groupingBy(Candidate::getDiversityBadge, Collectors.counting()));
+
+        return grouped.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .map(e -> {
+                    double pct = total > 0 ? Math.round((e.getValue() * 1000.0 / total)) / 10.0 : 0.0;
+                    return new DashboardEsgResponse.BadgeBreakdown(e.getKey(), e.getValue(), pct);
+                })
+                .toList();
+    }
+
+    private List<DashboardEsgResponse.RegionDiversity> buildRegionDiversity(
+            Map<String, Long> totalByMunicipio,
+            Map<String, Long> divByMunicipio) {
+        return totalByMunicipio.entrySet().stream()
+                .map(e -> {
+                    String m = e.getKey();
+                    long t = e.getValue();
+                    long d = divByMunicipio.getOrDefault(m, 0L);
+                    double p = t > 0 ? Math.round((d * 1000.0 / t)) / 10.0 : 0.0;
+                    return new DashboardEsgResponse.RegionDiversity(m, t, d, p);
+                })
+                .sorted((a, b) -> Long.compare(b.diversity(), a.diversity()))
+                .toList();
+    }
+
+    private DashboardEsgResponse.EsgCompliance buildEsgCompliance(double current, String goal) {
+        String status = current >= DIVERSITY_THRESHOLD_MET ? STATUS_CUMPLIDA
+                : current >= DIVERSITY_THRESHOLD_PROGRESS ? STATUS_EN_PROGRESO
+                : STATUS_NO_ALCANZADA;
+        return new DashboardEsgResponse.EsgCompliance(goal, current, status);
+    }
+
+    private List<DashboardEsgResponse.ExperienceLevelBreakdown> buildExperienceBreakdown(List<Candidate> scope, long total) {
+        return scope.stream()
+                .collect(Collectors.groupingBy(c ->
+                        c.getExperienceLevel() != null ? c.getExperienceLevel().name() : EXPERIENCE_UNDEFINED,
+                        Collectors.counting()))
+                .entrySet().stream()
+                .map(e -> {
+                    double pct = total > 0 ? Math.round((e.getValue() * 1000.0 / total)) / 10.0 : 0.0;
+                    return new DashboardEsgResponse.ExperienceLevelBreakdown(e.getKey(), e.getValue(), pct);
+                })
+                .toList();
+    }
+
+    private List<DashboardEsgResponse.GenderBreakdown> buildGenderBreakdown(List<Candidate> scope, long total) {
+        return scope.stream()
+                .collect(Collectors.groupingBy(c ->
+                        c.getGenderOptional() != null && !c.getGenderOptional().isBlank()
+                                ? c.getGenderOptional() : GENDER_UNDEFINED,
+                        Collectors.counting()))
+                .entrySet().stream()
+                .map(e -> {
+                    double pct = total > 0 ? Math.round((e.getValue() * 1000.0 / total)) / 10.0 : 0.0;
+                    return new DashboardEsgResponse.GenderBreakdown(e.getKey(), e.getValue(), pct);
+                })
+                .toList();
+    }
+
+    private DashboardEsgResponse.PipelineBreakdown buildPipeline(Long jobId) {
+        long contactados = 0, interesados = 0, entrevista = 0, oferta = 0, descartados = 0;
+        if (jobId != null) {
+            contactados = recruitmentRepository.countByJobIdAndStatus(jobId, RecruitmentStatus.CONTACTADO);
+            interesados = recruitmentRepository.countByJobIdAndStatus(jobId, RecruitmentStatus.INTERESADO);
+            entrevista = recruitmentRepository.countByJobIdAndStatus(jobId, RecruitmentStatus.ENTREVISTA);
+            oferta = recruitmentRepository.countByJobIdAndStatus(jobId, RecruitmentStatus.OFERTA);
+            descartados = recruitmentRepository.countByJobIdAndStatus(jobId, RecruitmentStatus.DESCARTADO);
+        } else {
+            Map<RecruitmentStatus, Long> global = recruitmentRepository.findAll().stream()
+                    .collect(Collectors.groupingBy(
+                            RecruitmentProcess::getStatus,
+                            Collectors.counting()));
+            contactados = global.getOrDefault(RecruitmentStatus.CONTACTADO, 0L);
+            interesados = global.getOrDefault(RecruitmentStatus.INTERESADO, 0L);
+            entrevista = global.getOrDefault(RecruitmentStatus.ENTREVISTA, 0L);
+            oferta = global.getOrDefault(RecruitmentStatus.OFERTA, 0L);
+            descartados = global.getOrDefault(RecruitmentStatus.DESCARTADO, 0L);
+        }
+        long total = contactados + interesados + entrevista + oferta + descartados;
+        return new DashboardEsgResponse.PipelineBreakdown(contactados, interesados, entrevista, oferta, descartados, total);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/insights/controller/InsightsController.java ---
+package com.appbit.backend.modules.insights.controller;
+
+
+
+/**
+ * Controlador REST para la consulta de insights (análisis) de regiones.
+ * <p>
+ * Proporciona información agregada sobre la densidad de candidatos,
+ * cobertura de red y perfiles disponibles por región geográfica.
+ * Estos datos son utilizados para evaluar la viabilidad de contratación
+ * en diferentes zonas de LATAM.
+ * </p>
+ *
+ * @see RegionInsightResponse
+ */
+@RestController
+@RequestMapping("/insights")
+@RequiredArgsConstructor
+@Tag(name = "Insights", description = "API para la consulta de análisis de regiones (densidad de candidatos, cobertura de red, perfiles disponibles)")
+public class InsightsController {
+
+    private final InsightsService insightsService;
+    /**
+     * Obtiene la lista de insights de regiones.
+     * <p>
+     * Devuelve datos agregados de consistencia geográfica para la región LATAM,
+     * incluyendo densidad de candidatos, calidad de cobertura de red y cantidad
+     * de perfiles disponibles por región. Los datos incluyen coordenadas
+     * geográficas (latitud y longitud) para su visualización en mapas.
+     * </p>
+     *
+     * @return lista de {@link RegionInsightResponse} con los datos de cada región.
+     *         Código HTTP 200 (OK).
+     */
+    @Operation(
+            summary = "Obtener insights de regiones",
+            description = "Recupera datos agregados de análisis geográfico para las diferentes regiones. " +
+                    "Cada elemento incluye: nombre de la región, densidad de candidatos, " +
+                    "calidad de cobertura de red (GOOD, MEDIUM, POOR), cantidad de perfiles disponibles, " +
+                    "y coordenadas geográficas (latitud y longitud) para visualización en mapas. " +
+                    "Datos de consistencia geográfica según requerimientos de BE2.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Lista de insights de regiones obtenida exitosamente",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = RegionInsightResponse.class))
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del servidor",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @GetMapping
+    public List<RegionInsightResponse> getRegionInsights(
+            @RequestParam(required = false) Long jobId) {
+        return jobId != null
+                ? insightsService.getRegionInsights(jobId)
+                : insightsService.getRegionInsights();
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/insights/dto/RegionInsightResponse.java ---
+package com.appbit.backend.modules.insights.dto;
+
+
+
+/**
+ * DTO (Data Transfer Object) para la respuesta de insights de una región.
+ * <p>
+ * Contiene datos agregados de análisis geográfico para una región específica,
+ * incluyendo densidad de candidatos, calidad de cobertura de red y cantidad
+ * de perfiles disponibles. Se utiliza como respuesta en el endpoint GET /insights.
+ * </p>
+ *
+ * @see com.appbit.backend.modules.insights.controller.InsightsController
+ */
+/**
+ * Contrato final que consumirá el Frontend para pintar el mapa.
+ * Refleja la aggregación de antenas por municipio y el cruce con candidatos.
+ */
+public record RegionInsightResponse(
+        String municipio,
+        int candidateDensity,
+        NetworkCoverage networkCoverage,
+        int availableProfiles,
+        @Schema(description = "Cantidad de candidatos con badge de diversidad en el municipio", example = "18")
+        int diversityCount,
+        @Schema(description = "Porcentaje de candidatos con badge de diversidad respecto al total del municipio", example = "52.5")
+        double diversityPercentage,
+        @Schema(description = "Top 3 habilidades más frecuentes entre los candidatos del municipio", example = "[\"React\", \"SQL\", \"Docker\"]")
+        List<String> topSkills,
+        double latitude,
+        double longitude
+) {}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/insights/model/CoverageZone.java ---
+package com.appbit.backend.modules.insights.model;
+
+public record CoverageZone(
+        String ecgi,       // Identificador único de la antena (Obligatorio String para evitar corrupción)
+        String cluster,    // Zona geográfica de la antena
+        String municipio,  // Municipio de la antena
+        double latitude,   // lat
+        double longitude   // lon
+) {}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/insights/model/NetworkCoverage.java ---
+package com.appbit.backend.modules.insights.model;
+
+public enum NetworkCoverage {
+    GOOD,   // Óptima para trabajo remoto
+    MEDIUM, // Aceptable, puede tener leves congestionamientos
+    POOR    // Inestable, alta caída de llamadas/datos
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/insights/service/InsightsService.java ---
+package com.appbit.backend.modules.insights.service;
+
+
+
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class InsightsService {
+
+
+    private static final String ANTENAS_CSV = "data/antenas_flp.csv";
+    private static final String TENSOR_CSV = "data/tensor_concentracao.csv";
+    private static final String CSV_SEPARATOR = ",";
+
+    private static final double COVERAGE_GOOD_CONGESTION_MAX = 1.0;
+    private static final double COVERAGE_GOOD_DROP_MAX = 0.5;
+    private static final double COVERAGE_MEDIUM_CONGESTION_MAX = 3.0;
+    private static final double COVERAGE_MEDIUM_DROP_MAX = 1.5;
+    private static final int TOP_SKILLS_LIMIT = 3;
+
+    private final CandidateService candidateService;
+    private final CandidateRepository candidateRepository;
+    private final JobRepository jobRepository;
+
+    // Estructuras en memoria
+    private final Map<String, CoverageZone> antenasByEcgi = new ConcurrentHashMap<>();
+    private final Map<String, NetworkCoverage> coverageByEcgi = new ConcurrentHashMap<>();
+
+    @PostConstruct
+    public void init() {
+        loadAntenas();
+        loadTensorAndCalculateCoverage();
+    }
+
+    /**
+     * PASO 1: Carga estática de antenas
+     */
+    private void loadAntenas() {
+        log.info("📡 Iniciando carga de antenas desde {}", ANTENAS_CSV);
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(ANTENAS_CSV);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+            if (is == null) throw new IllegalStateException("No se encontró " + ANTENAS_CSV);
+
+            reader.readLine(); // Saltar cabecera
+            String line;
+            int totalLeidas = 0;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.isBlank()) continue;
+                try {
+                    String[] parts = line.split(CSV_SEPARATOR);
+                    if (parts.length < 5) continue;
+
+                    String ecgi = parts[0].trim();
+                    String cluster = parts[1].trim();
+                    String municipio = parts[2].trim();
+                    double latitude = Double.parseDouble(parts[3].trim());
+                    double longitude = Double.parseDouble(parts[4].trim());
+
+                    if (!ecgi.isEmpty()) {
+                        antenasByEcgi.put(ecgi, new CoverageZone(ecgi, cluster, municipio, latitude, longitude));
+                        totalLeidas++;
+                    }
+                } catch (Exception ex) {
+                    log.warn("Línea inválida en antenas: '{}' - {}", line, ex.getMessage());
+                }
+            }
+            log.info("✅ Carga de antenas completada: {} registradas", totalLeidas);
+        } catch (Exception ex) {
+            log.error("💥 Error fatal cargando antenas: {}", ex.getMessage(), ex);
+            throw new IllegalStateException(ex);
+        }
+    }
+
+    /**
+     * PASO 2: Procesamiento de telemetría y cálculo de NetworkCoverage
+     * Basado en la estructura real: ecgi(0), cluster(1), municipio(2), day_date(3),
+     * periodo(4), n_usuarios(5), n_sessoes(6), download_bytes(7), upload_bytes(8),
+     * dur_media_s(9), drop_pct_medio(10), congestionamento_medio(11)...
+     */
+    private void loadTensorAndCalculateCoverage() {
+        log.info("📊 Iniciando procesamiento de telemetría desde {}", TENSOR_CSV);
+
+        // Mapas temporales para acumular sumas y conteos por ecgi
+        Map<String, Double> congestionSum = new HashMap<>();
+        Map<String, Double> dropSum = new HashMap<>();
+        Map<String, Integer> count = new HashMap<>();
+
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(TENSOR_CSV);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+            if (is == null) {
+                log.warn("⚠️ No se encontró {}. Todas las antenas se marcarán como POOR.", TENSOR_CSV);
+                antenasByEcgi.keySet().forEach(ecgi -> coverageByEcgi.put(ecgi, NetworkCoverage.POOR));
+                return;
+            }
+
+            reader.readLine(); // Saltar cabecera
+            String line;
+            int rowsProcessed = 0;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.isBlank()) continue;
+                try {
+                    String[] parts = line.split(CSV_SEPARATOR);
+                    // Necesitamos al menos 12 columnas para leer congestionamento_medio (índice 11)
+                    if (parts.length < 12) continue;
+
+                    String ecgi = parts[0].trim();
+                    double drop = Double.parseDouble(parts[10].trim());
+                    double congestion = Double.parseDouble(parts[11].trim());
+
+                    congestionSum.merge(ecgi, congestion, Double::sum);
+                    dropSum.merge(ecgi, drop, Double::sum);
+                    count.merge(ecgi, 1, Integer::sum);
+                    rowsProcessed++;
+                } catch (Exception ex) {
+                    log.warn("Línea inválida en tensor: '{}' - {}", line, ex.getMessage());
+                }
+            }
+
+            log.info("✅ {} filas de telemetría leídas. Calculando promedios...", rowsProcessed);
+
+            // Calcular promedios y asignar Enum
+            for (String ecgi : antenasByEcgi.keySet()) {
+                if (count.containsKey(ecgi)) {
+                    double avgCongestion = congestionSum.get(ecgi) / count.get(ecgi);
+                    double avgDrop = dropSum.get(ecgi) / count.get(ecgi);
+
+                    NetworkCoverage coverage = calculateCoverage(avgCongestion, avgDrop);
+                    coverageByEcgi.put(ecgi, coverage);
+                } else {
+                    coverageByEcgi.put(ecgi, NetworkCoverage.POOR);
+                }
+            }
+            log.info("✅ Cálculo de cobertura completado para {} antenas.", coverageByEcgi.size());
+
+        } catch (Exception ex) {
+            log.error("💥 Error fatal procesando tensor: {}", ex.getMessage(), ex);
+            throw new IllegalStateException(ex);
+        }
+    }
+
+    /**
+     * Algoritmo de clasificación de red ajustado a la escala del CSV.
+     */
+    private NetworkCoverage calculateCoverage(double avgCongestion, double avgDrop) {
+        if (avgCongestion <= COVERAGE_GOOD_CONGESTION_MAX && avgDrop <= COVERAGE_GOOD_DROP_MAX) {
+            return NetworkCoverage.GOOD;
+        }
+        if (avgCongestion <= COVERAGE_MEDIUM_CONGESTION_MAX && avgDrop <= COVERAGE_MEDIUM_DROP_MAX) {
+            return NetworkCoverage.MEDIUM;
+        }
+        return NetworkCoverage.POOR;
+    }
+
+    /**
+     * Genera la lista final de insights por municipio, combinando infraestructura
+     * y candidatos.
+     */
+    public List<RegionInsightResponse> getRegionInsights() {
+        return getRegionInsights(null);
+    }
+
+    public List<RegionInsightResponse> getRegionInsights(Long jobId) {
+        log.info("🛠️ Generando RegionInsights" + (jobId != null ? " para jobId=" + jobId : "") + "...");
+
+        List<Candidate> allCandidates;
+        Map<String, Long> candidateCounts;
+        Map<String, Long> diversityCounts;
+
+        if (jobId != null) {
+            Job job = jobRepository.findById(jobId)
+                    .orElseThrow(() -> new NoSuchElementException("Vacante no encontrada con ID: " + jobId));
+            allCandidates = candidateRepository.findAll().stream()
+                    .filter(c -> job.getRegion() == null || job.getRegion().equals(c.getMunicipio()))
+                    .filter(c -> job.getExperienceLevel() == null || job.getExperienceLevel() == c.getExperienceLevel())
+                    .toList();
+
+            candidateCounts = allCandidates.stream()
+                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+            diversityCounts = allCandidates.stream()
+                    .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
+                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+        } else {
+            allCandidates = candidateRepository.findAll();
+            candidateCounts = candidateService.countByMunicipio();
+            diversityCounts = candidateService.countDiversityByMunicipio();
+        }
+
+        if (candidateCounts == null) candidateCounts = Collections.emptyMap();
+        if (diversityCounts == null) diversityCounts = Collections.emptyMap();
+
+        Map<String, List<String>> skillsByMunicipio = allCandidates.stream()
+                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                        Collectors.flatMapping(c -> c.getSkills() != null ? c.getSkills().stream() : Stream.empty(),
+                                Collectors.toList())));
+
+        // 2. Agrupar antenas por municipio
+        Map<String, List<CoverageZone>> antenasByMunicipio = antenasByEcgi.values().stream()
+                .collect(Collectors.groupingBy(CoverageZone::municipio));
+
+        // Coordenadas promedio por municipio a partir de los candidatos, para los
+        // municipios que no tienen antena en antenas_flp.csv (ver punto 3).
+        Map<String, double[]> avgCoordsByMunicipio = allCandidates.stream()
+                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                        Collectors.teeing(
+                                Collectors.averagingDouble(Candidate::getLatitude),
+                                Collectors.averagingDouble(Candidate::getLongitude),
+                                (lat, lon) -> new double[]{lat, lon}
+                        )));
+
+        // 3. Unión de municipios con antena Y municipios con candidatos: antes solo
+        // se iteraba antenasByMunicipio, así que los municipios sembrados en data.sql
+        // sin antena en antenas_flp.csv (la mayoría) nunca aparecían en /insights.
+        Set<String> allMunicipios = new HashSet<>(antenasByMunicipio.keySet());
+        allMunicipios.addAll(candidateCounts.keySet());
+
+        List<RegionInsightResponse> response = new ArrayList<>();
+
+        for (String municipio : allMunicipios) {
+            List<CoverageZone> antenas = antenasByMunicipio.get(municipio);
+
+            // Calcular cobertura del municipio (regla: la mejor antena define la cobertura).
+            // Sin antena registrada no hay dato de red real, así que se reporta POOR.
+            NetworkCoverage municipioCoverage = NetworkCoverage.POOR;
+            double lat;
+            double lon;
+
+            if (antenas != null && !antenas.isEmpty()) {
+                for (CoverageZone antena : antenas) {
+                    NetworkCoverage antenaCoverage = coverageByEcgi.getOrDefault(antena.ecgi(), NetworkCoverage.POOR);
+                    if (antenaCoverage == NetworkCoverage.GOOD) {
+                        municipioCoverage = NetworkCoverage.GOOD;
+                        break;
+                    } else if (antenaCoverage == NetworkCoverage.MEDIUM) {
+                        municipioCoverage = NetworkCoverage.MEDIUM;
+                    }
+                }
+                lat = antenas.get(0).latitude();
+                lon = antenas.get(0).longitude();
+            } else {
+                double[] avgCoords = avgCoordsByMunicipio.getOrDefault(municipio, new double[]{0.0, 0.0});
+                lat = avgCoords[0];
+                lon = avgCoords[1];
+            }
+
+            long density = candidateCounts.getOrDefault(municipio, 0L);
+            long divCount = diversityCounts.getOrDefault(municipio, 0L);
+            double divPct = density > 0 ? (divCount * 100.0 / density) : 0.0;
+
+            List<String> topSkills = skillsByMunicipio.getOrDefault(municipio, List.of()).stream()
+                    .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+                    .entrySet().stream()
+                    .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                    .limit(TOP_SKILLS_LIMIT)
+                    .map(Map.Entry::getKey)
+                    .toList();
+
+            response.add(new RegionInsightResponse(
+                    municipio,
+                    (int) density,
+                    municipioCoverage,
+                    (int) density,
+                    (int) divCount,
+                    Math.round(divPct * 10.0) / 10.0,
+                    topSkills,
+                    lat,
+                    lon
+            ));
+        }
+
+        log.info("✅ {} municipios procesados para el mapa.", response.size());
+        return response;
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/controller/RecruitmentController.java ---
+package com.appbit.backend.modules.recruitment.controller;
+
+
+
+@RestController
+@RequestMapping("/recruitment")
+@RequiredArgsConstructor
+@Tag(name = "Recruitment Process", description = "API de seguimiento y contacto de candidatos en procesos de selección")
+public class RecruitmentController {
+
+    private final RecruitmentService recruitmentService;
+
+    @Operation(summary = "Iniciar contacto con un candidato")
+    @ApiResponse(responseCode = "201", description = "Proceso creado")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public RecruitmentResponse initiateContact(@RequestBody RecruitmentRequest request) {
+        return recruitmentService.initiateContact(request);
+    }
+
+    @Operation(summary = "Actualizar estado de un proceso de reclutamiento")
+    @PutMapping("/{id}/status")
+    public RecruitmentResponse updateStatus(
+            @PathVariable Long id,
+            @RequestParam RecruitmentStatus status,
+            @RequestParam(required = false) String decisionReason) {
+        return recruitmentService.updateStatus(id, status, decisionReason);
+    }
+
+    @Operation(summary = "Actualizar notas del reclutador")
+    @PutMapping("/{id}/notes")
+    public RecruitmentResponse updateNotes(
+            @PathVariable Long id,
+            @RequestBody @Schema(description = "Notas del reclutador", example = "{\"notes\": \"Perfil prometedor\"}")
+            java.util.Map<String, String> body) {
+        return recruitmentService.updateNotes(id, body.get("notes"));
+    }
+
+    @Operation(summary = "Listar procesos por vacante")
+    @GetMapping
+    public List<RecruitmentResponse> findByJob(@RequestParam Long jobId) {
+        return recruitmentService.findByJob(jobId);
+    }
+
+    @Operation(summary = "Obtener proceso por ID")
+    @GetMapping("/{id}")
+    public RecruitmentResponse findById(@PathVariable Long id) {
+        return recruitmentService.findById(id);
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/dto/RecruitmentRequest.java ---
+package com.appbit.backend.modules.recruitment.dto;
+
+
+@Schema(description = "Solicitud para crear o actualizar un proceso de reclutamiento")
+public record RecruitmentRequest(
+
+        @Schema(description = "ID de la vacante", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+        Long jobId,
+
+        @Schema(description = "ID del candidato", example = "42", requiredMode = Schema.RequiredMode.REQUIRED)
+        Long candidateId,
+
+        @Schema(description = "Notas del reclutador", example = "Candidato con buen perfil técnico")
+        String recruiterNotes,
+
+        @Schema(description = "Razón de la decisión (requerido al descartar)", example = "No cumple experiencia mínima")
+        String decisionReason
+) {}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/dto/RecruitmentResponse.java ---
+package com.appbit.backend.modules.recruitment.dto;
+
+
+
+@Schema(description = "Respuesta con los datos de un proceso de reclutamiento")
+public record RecruitmentResponse(
+
+        @Schema(description = "ID del proceso", example = "1")
+        Long id,
+
+        @Schema(description = "ID de la vacante", example = "1")
+        Long jobId,
+
+        @Schema(description = "ID del candidato", example = "42")
+        Long candidateId,
+
+        @Schema(description = "Estado actual del proceso")
+        RecruitmentStatus status,
+
+        @Schema(description = "Fecha de contacto")
+        LocalDateTime contactedAt,
+
+        @Schema(description = "Notas del reclutador")
+        String recruiterNotes,
+
+        @Schema(description = "Razón de la decisión")
+        String decisionReason,
+
+        @Schema(description = "Fecha de creación")
+        LocalDateTime createdAt,
+
+        @Schema(description = "Fecha de última actualización")
+        LocalDateTime updatedAt
+) {
+
+    public static RecruitmentResponse from(com.appbit.backend.modules.recruitment.entity.RecruitmentProcess entity) {
+        return new RecruitmentResponse(
+                entity.getId(),
+                entity.getJobId(),
+                entity.getCandidateId(),
+                entity.getStatus(),
+                entity.getContactedAt(),
+                entity.getRecruiterNotes(),
+                entity.getDecisionReason(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt()
+        );
+    }
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/entity/RecruitmentProcess.java ---
+package com.appbit.backend.modules.recruitment.entity;
+
+
+
+@Entity
+@Table(name = "recruitment_process")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class RecruitmentProcess {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "job_id", nullable = false)
+    private Long jobId;
+
+    @Column(name = "candidate_id", nullable = false)
+    private Long candidateId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RecruitmentStatus status;
+
+    @Column(name = "contacted_at")
+    private LocalDateTime contactedAt;
+
+    @Column(name = "recruiter_notes", length = 1000)
+    private String recruiterNotes;
+
+    @Column(name = "decision_reason", length = 500)
+    private String decisionReason;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/entity/RecruitmentStatus.java ---
+package com.appbit.backend.modules.recruitment.entity;
+
+public enum RecruitmentStatus {
+    CONTACTADO,
+    INTERESADO,
+    ENTREVISTA,
+    OFERTA,
+    DESCARTADO
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/repository/RecruitmentProcessRepository.java ---
+package com.appbit.backend.modules.recruitment.repository;
+
+
+
+@Repository
+public interface RecruitmentProcessRepository extends JpaRepository<RecruitmentProcess, Long> {
+
+    List<RecruitmentProcess> findByJobId(Long jobId);
+
+    List<RecruitmentProcess> findByCandidateId(Long candidateId);
+
+    Optional<RecruitmentProcess> findByJobIdAndCandidateId(Long jobId, Long candidateId);
+
+    long countByJobIdAndStatus(Long jobId, RecruitmentStatus status);
+}
+
+
+
+--- FILE: src/main/java/com/appbit/backend/modules/recruitment/service/RecruitmentService.java ---
+package com.appbit.backend.modules.recruitment.service;
+
+
+
+@Service
+@Slf4j
+@RequiredArgsConstructor
+@Transactional
+public class RecruitmentService {
+
+    private final RecruitmentProcessRepository repository;
+
+    public RecruitmentResponse initiateContact(RecruitmentRequest request) {
+        if (request.jobId() == null || request.candidateId() == null) {
+            throw new IllegalArgumentException("jobId y candidateId son obligatorios.");
+        }
+
+        repository.findByJobIdAndCandidateId(request.jobId(), request.candidateId())
+                .ifPresent(existing -> {
+                    throw new IllegalArgumentException("Ya existe un proceso para este candidato en esta vacante.");
+                });
+
+        RecruitmentProcess process = RecruitmentProcess.builder()
+                .jobId(request.jobId())
+                .candidateId(request.candidateId())
+                .status(RecruitmentStatus.CONTACTADO)
+                .contactedAt(LocalDateTime.now())
+                .recruiterNotes(request.recruiterNotes())
+                .build();
+
+        RecruitmentProcess saved = repository.save(process);
+        log.info("Proceso de reclutamiento iniciado: job={}, candidate={}", saved.getJobId(), saved.getCandidateId());
+        return RecruitmentResponse.from(saved);
+    }
+
+    public RecruitmentResponse updateStatus(Long id, RecruitmentStatus newStatus, String decisionReason) {
+        RecruitmentProcess process = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Proceso no encontrado con ID: " + id));
+
+        if (newStatus == RecruitmentStatus.DESCARTADO) {
+            if (decisionReason == null || decisionReason.isBlank()) {
+                throw new IllegalArgumentException("Se requiere una razón objetiva para descartar al candidato.");
+            }
+            process.setDecisionReason(decisionReason);
+        } else {
+            process.setDecisionReason(null);
+        }
+
+        process.setStatus(newStatus);
+
+        RecruitmentProcess updated = repository.save(process);
+        log.info("Estado actualizado: proceso={}, status={}", id, newStatus);
+        return RecruitmentResponse.from(updated);
+    }
+
+    public RecruitmentResponse updateNotes(Long id, String notes) {
+        RecruitmentProcess process = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Proceso no encontrado con ID: " + id));
+        process.setRecruiterNotes(notes);
+        return RecruitmentResponse.from(repository.save(process));
+    }
+
+    @Transactional(readOnly = true)
+    public List<RecruitmentResponse> findByJob(Long jobId) {
+        return repository.findByJobId(jobId).stream()
+                .map(RecruitmentResponse::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public RecruitmentResponse findById(Long id) {
+        return repository.findById(id)
+                .map(RecruitmentResponse::from)
+                .orElseThrow(() -> new NoSuchElementException("Proceso no encontrado con ID: " + id));
+    }
+}
+
+
+
