@@ -62,6 +62,14 @@ const Jobs = () => {
         <div className="rounded-2xl border border-gray-200 bg-white p-8 text-sm text-gray-500 shadow-sm">
           Loading jobs...
         </div>
+      ) : jobs.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-16 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-50 flex items-center justify-center">
+            <svg className="w-8 h-8 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+          </div>
+          <p className="text-gray-500 font-medium">No jobs posted yet.</p>
+          <Link to="/create-job" className="text-[#006B5F] hover:underline font-semibold mt-1 inline-block">Post your first job</Link>
+        </div>
       ) : (
         <div className="flex flex-col gap-4">
           {jobs.map(job => (
