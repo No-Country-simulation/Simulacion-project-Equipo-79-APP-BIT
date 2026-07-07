@@ -2,6 +2,7 @@ package com.appbit.backend.modules.candidate.dto;
 
 import com.appbit.backend.modules.candidate.entity.Candidate;
 import com.appbit.backend.modules.company.entity.ExperienceLevel;
+import com.appbit.backend.core.util.TranslationHelper;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -61,7 +62,7 @@ public record AnonymousCandidateResponse(
                 candidate.getLatitude(),
                 candidate.getLongitude(),
                 candidate.getMunicipio(),
-                candidate.getDiversityBadge()
+                TranslationHelper.translateBadge(candidate.getDiversityBadge())
         );
     }
 }

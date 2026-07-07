@@ -32,6 +32,6 @@ public record ErrorResponse(
     }
 
     public static ErrorResponse ofValidation(Map<String, String> fieldErrors) {
-        return new ErrorResponse(400, "Validation Failed", "Uno o más campos son inválidos", fieldErrors, LocalDateTime.now());
+        return new ErrorResponse(400, "Validation Failed", "One or more fields are invalid", fieldErrors, LocalDateTime.now());
     }
 }

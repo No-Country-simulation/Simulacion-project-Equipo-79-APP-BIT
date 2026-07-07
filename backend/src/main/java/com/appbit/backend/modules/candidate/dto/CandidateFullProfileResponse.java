@@ -2,6 +2,7 @@ package com.appbit.backend.modules.candidate.dto;
 
 import com.appbit.backend.modules.candidate.entity.Candidate;
 import com.appbit.backend.modules.company.entity.ExperienceLevel;
+import com.appbit.backend.core.util.TranslationHelper;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public record CandidateFullProfileResponse(
                 c.getCluster(),
                 c.getLatitude(),
                 c.getLongitude(),
-                c.getDiversityBadge(),
+                TranslationHelper.translateBadge(c.getDiversityBadge()),
                 hasConsent ? c.getGenderOptional() : null,
                 hasConsent ? c.getDisabilityOptional() : null,
                 hasConsent ? c.getEthnicityOptional() : null,

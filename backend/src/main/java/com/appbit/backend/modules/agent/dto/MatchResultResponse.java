@@ -1,5 +1,6 @@
 package com.appbit.backend.modules.agent.dto;
 
+import com.appbit.backend.core.util.TranslationHelper;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -87,5 +88,7 @@ public record MatchResultResponse(
         if (compatibilityScore > 100) compatibilityScore = 100;
         if (diversityScore < 0) diversityScore = 0;
         if (diversityScore > 100) diversityScore = 100;
+        
+        diversityBadge = TranslationHelper.translateBadge(diversityBadge);
     }
 }

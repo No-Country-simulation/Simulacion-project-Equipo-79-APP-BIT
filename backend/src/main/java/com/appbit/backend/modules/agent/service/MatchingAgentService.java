@@ -194,10 +194,10 @@ public class MatchingAgentService {
                     total,
                     diversityScore,
                     matchingSkills,
-                    "Score calculado por reglas de respaldo: " + matchingSkills.size() + "/" + jobSkillsLower.size()
-                            + " skills, nivel " + candidate.experienceLevel()
+                    "Score calculated by fallback rules: " + matchingSkills.size() + "/" + jobSkillsLower.size()
+                            + " skills, level " + candidate.experienceLevel()
                             + (hasBadge ? ", badge: " + badge : "")
-                            + ". IA no disponible.",
+                            + ". AI unavailable.",
                     badge
             ));
         }

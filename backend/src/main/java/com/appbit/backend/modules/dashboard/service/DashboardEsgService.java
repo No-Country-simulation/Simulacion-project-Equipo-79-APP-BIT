@@ -10,6 +10,7 @@ import com.appbit.backend.modules.dashboard.dto.DashboardEsgResponse;
 import com.appbit.backend.modules.recruitment.entity.RecruitmentProcess;
 import com.appbit.backend.modules.recruitment.entity.RecruitmentStatus;
 import com.appbit.backend.modules.recruitment.repository.RecruitmentProcessRepository;
+import com.appbit.backend.core.util.TranslationHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,12 +32,12 @@ public class DashboardEsgService {
     private static final String STATUS_EN_PROGRESO = "EN_PROGRESO";
     private static final String STATUS_NO_ALCANZADA = "NO_ALCANZADA";
 
-    private static final String GENDER_UNDEFINED = "No declarado";
-    private static final String EXPERIENCE_UNDEFINED = "Sin clasificar";
-    private static final String MUNICIPIO_UNDEFINED = "Sin municipio";
+    private static final String GENDER_UNDEFINED = "Not Declared";
+    private static final String EXPERIENCE_UNDEFINED = "Unclassified";
+    private static final String MUNICIPIO_UNDEFINED = "No municipality";
 
-    private static final String GOAL_CONFIGURED_DEFAULT = "Meta de diversidad configurada por la empresa";
-    private static final String GOAL_UNCONFIGURED = "Sin meta configurada";
+    private static final String GOAL_CONFIGURED_DEFAULT = "Diversity goal configured by the company";
+    private static final String GOAL_UNCONFIGURED = "No goal configured";
 
     private final CandidateRepository candidateRepository;
     private final CandidateService candidateService;
@@ -62,7 +63,7 @@ public class DashboardEsgService {
                     .filter(c -> job.getExperienceLevel() == null || job.getExperienceLevel() == c.getExperienceLevel())
                     .collect(Collectors.toList());
             goalLabel = job.getTargetDiversityPercentage() != null
-                    ? job.getTargetDiversityPercentage() + "% de shortlist diversa"
+                    ? job.getTargetDiversityPercentage() + "% diverse shortlist"
                     : goalLabel;
             log.info("Dashboard ESG filtrado por jobId={}: {} candidatos en scope", jobId, scope.size());
         } else {
@@ -110,7 +111,7 @@ public class DashboardEsgService {
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(e -> {
                     double pct = total > 0 ? Math.round((e.getValue() * 1000.0 / total)) / 10.0 : 0.0;
-                    return new DashboardEsgResponse.BadgeBreakdown(e.getKey(), e.getValue(), pct);
+                    return new DashboardEsgResponse.BadgeBreakdown(TranslationHelper.translateBadge(e.getKey()), e.getValue(), pct);
                 })
                 .toList();
     }
@@ -134,7 +135,7 @@ public class DashboardEsgService {
         String status = current >= DIVERSITY_THRESHOLD_MET ? STATUS_CUMPLIDA
                 : current >= DIVERSITY_THRESHOLD_PROGRESS ? STATUS_EN_PROGRESO
                 : STATUS_NO_ALCANZADA;
-        return new DashboardEsgResponse.EsgCompliance(goal, current, status);
+        return new DashboardEsgResponse.EsgCompliance(goal, current, TranslationHelper.translateStatus(status));
     }
 
     private List<DashboardEsgResponse.ExperienceLevelBreakdown> buildExperienceBreakdown(List<Candidate> scope, long total) {
