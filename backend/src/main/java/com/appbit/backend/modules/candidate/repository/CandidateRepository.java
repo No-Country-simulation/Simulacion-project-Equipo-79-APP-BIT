@@ -2,6 +2,7 @@ package com.appbit.backend.modules.candidate.repository;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -15,6 +16,7 @@ import com.appbit.backend.modules.company.entity.ExperienceLevel;
 
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+    @EntityGraph(attributePaths = {"skills"})
     List<Candidate> findByMunicipio(String municipio);
 
     @Query(value = "SELECT municipio, COUNT(*) FROM candidate GROUP BY municipio", nativeQuery = true)
@@ -23,20 +25,16 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     @Query(value = "SELECT municipio, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL AND diversity_badge != '' GROUP BY municipio", nativeQuery = true)
     List<Object[]> countDiversityByMunicipio();
 
-    @Query(value = "SELECT COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL AND diversity_badge != ''", nativeQuery = true)
-    long countWithDiversityBadge();
-
-    @Query(value = "SELECT diversity_badge, COUNT(*) FROM candidate WHERE diversity_badge IS NOT NULL GROUP BY diversity_badge ORDER BY COUNT(*) DESC", nativeQuery = true)
-    List<Object[]> badgeBreakdown();
-
 
     @Query("SELECT c FROM Candidate c WHERE " +
             "(:municipio IS NULL OR c.municipio = :municipio) AND " +
             "(:experienceLevel IS NULL OR c.experienceLevel = :experienceLevel)")
     List<Candidate> findCandidatesForMatchingWithLimit(
             @Param("municipio") String municipio,
-            @Param("experienceLevel") ExperienceLevel experienceLevel,
-            Pageable pageable
+            @Param("experienceLevel") ExperienceLevel experienceLevel
     );
+
+    @Query("SELECT DISTINCT c FROM Candidate c LEFT JOIN FETCH c.skills")
+    List<Candidate> findAllCandidates();
 
 }

@@ -56,7 +56,7 @@ public class JobService {
      */
     @Transactional(readOnly = true)
     public List<JobResponse> findAll() {
-        List<Job> jobs = jobRepository.findAll();
+        List<Job> jobs = jobRepository.findAllJobs();
         return jobMapper.toResponseList(jobs);
     }
 
@@ -68,7 +68,7 @@ public class JobService {
         if (id == null) {
             throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
         }
-        Job job = jobRepository.findById(id)
+        Job job = jobRepository.findJobById(id)
                 .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
         return jobMapper.toResponse(job);
     }

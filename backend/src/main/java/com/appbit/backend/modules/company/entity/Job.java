@@ -2,6 +2,7 @@ package com.appbit.backend.modules.company.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ public class Job {
     @CollectionTable(name = "job_skills", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "skill")
     @Builder.Default
+    @BatchSize(size = 25)
     private List<String> skills = new ArrayList<>();
 
     @Column(name = "diversity_focus_enabled")
@@ -57,6 +59,7 @@ public class Job {
     @CollectionTable(name = "job_soft_skills", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "skill")
     @Builder.Default
+    @BatchSize(size = 25)
     private List<String> softSkills = new ArrayList<>();
 
     @Column(name = "experience_years")

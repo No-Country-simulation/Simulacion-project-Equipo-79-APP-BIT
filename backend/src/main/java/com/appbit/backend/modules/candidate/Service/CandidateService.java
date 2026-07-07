@@ -40,11 +40,9 @@ public class CandidateService {
     @Transactional(readOnly = true)
     public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio, ExperienceLevel experienceLevel) {
 
-        Pageable topThirtyFive = PageRequest.of(0, 35);
         List<Candidate> candidates = candidateRepository.findCandidatesForMatchingWithLimit(
                 municipio,
-                experienceLevel,
-                topThirtyFive
+                experienceLevel
         );
 
 
@@ -65,7 +63,7 @@ public class CandidateService {
 
     @Transactional(readOnly = true)
     public List<Candidate> findAll() {
-        return candidateRepository.findAll();
+        return candidateRepository.findAllCandidates();
     }
 
     @Transactional(readOnly = true)
