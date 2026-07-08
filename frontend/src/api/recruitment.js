@@ -56,6 +56,20 @@ export function updateNotes(id, notes) {
   });
 }
 
+export function updateRecruitmentProcess(id, payload = {}) {
+  const { status, notes, decisionReason } = payload;
+
+  if (status) {
+    return updateStatus(id, status, decisionReason);
+  }
+
+  if (notes !== undefined) {
+    return updateNotes(id, notes);
+  }
+
+  return Promise.resolve(null);
+}
+
 export function findByJob(jobId) {
   return request(`/recruitment?jobId=${jobId}`);
 }

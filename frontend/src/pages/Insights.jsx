@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { listCandidates } from '../api/candidates';
 import { getRegionInsights } from '../api/insights';
+import { listJobs } from '../api/jobs';
+import { findByJob, initiateContact } from '../api/recruitment';
 import CandidateMap from '../components/CandidateMap';
 import 'leaflet/dist/leaflet.css';
 
@@ -12,9 +14,30 @@ const coverageConfig = {
 
 const skillColors = ['bg-sky-100 text-sky-700', 'bg-indigo-100 text-indigo-700', 'bg-violet-100 text-violet-700', 'bg-pink-100 text-pink-700', 'bg-teal-100 text-teal-700'];
 
+const recruitmentStatusLabels = {
+  CONTACTADO: { text: 'Contacted', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+  INTERESADO: { text: 'Interested', color: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  ENTREVISTA: { text: 'Interviewing', color: 'bg-purple-50 text-purple-700 border-purple-200' },
+  OFERTA: { text: 'Offer sent', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  DESCARTADO: { text: 'Discarded', color: 'bg-gray-100 text-gray-500 border-gray-200' },
+};
+
 const Skeleton = ({ className = '' }) => (
   <div className={`animate-pulse bg-gray-200 rounded-xl ${className}`} />
 );
+
+const SelectionButton = ({ isSelected, isPending, onClick, className = '' }) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={isPending}
+      className={`text-xs font-semibold transition-colors ${isSelected ? 'text-emerald-600' : 'text-[#006B5F] hover:text-[#004D45]'} ${isPending ? 'opacity-70 cursor-not-allowed' : ''} ${className}`}
+    >
+      {isSelected ? 'Profile selected' : isPending ? 'Selecting...' : 'Select profile'}
+    </button>
+  );
+};
 
 const Insights = () => {
   const [insights, setInsights] = useState([]);
@@ -24,10 +47,19 @@ const Insights = () => {
   const [regionCandidates, setRegionCandidates] = useState({});
   const [loadingRegionCandidates, setLoadingRegionCandidates] = useState({});
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [selectedProfileCandidateId, setSelectedProfileCandidateId] = useState(null);
+  const [selectionMessage, setSelectionMessage] = useState('');
+  const [isSelectingProfile, setIsSelectingProfile] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [selectedJobId, setSelectedJobId] = useState('');
+  const [recruitmentByCandidate, setRecruitmentByCandidate] = useState(new Map());
 
   const formatCandidateValue = (value) => {
-    if (value == null || value === '') return 'Not provided';
-    if (Array.isArray(value)) return value.filter(Boolean).join(', ');
+    if (value == null || value === '') return null;
+    if (Array.isArray(value)) {
+      const cleaned = value.filter(Boolean);
+      return cleaned.length ? cleaned.join(', ') : null;
+    }
     if (typeof value === 'object') return JSON.stringify(value, null, 2);
     return String(value);
   };
@@ -60,50 +92,86 @@ const Insights = () => {
     const profileValue = candidate?.professionalProfile || candidate?.profile;
     if (profileValue) return String(profileValue);
 
-    return 'Sin información';
+    return null;
   };
 
   const formatDiversityBadge = (value) => {
-    if (!value) return 'Not provided';
+    if (!value) return null;
     return String(value).replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const getCandidateProfileBadges = (candidate) => {
+    const badges = [];
+
+    if (candidate?.genderOptional) badges.push(candidate.genderOptional);
+    if (candidate?.disabilityOptional) badges.push(candidate.disabilityOptional);
+    if (candidate?.ethnicityOptional) badges.push(candidate.ethnicityOptional);
+    if (candidate?.ruralOptional != null) badges.push(candidate.ruralOptional ? 'Rural' : 'Urban');
+
+    return badges;
   };
 
   const getCandidateSummaryFields = (candidate) => {
     const skills = Array.isArray(candidate?.skills) ? candidate.skills : [];
     const uniqueSkills = [...new Set(skills.map((skill) => String(skill).trim()).filter(Boolean))];
+    const profileBadges = getCandidateProfileBadges(candidate);
+    const dedication = getCandidateDedication(candidate);
+    const fields = [];
 
-    return [
-      {
+    if (dedication) {
+      fields.push({
         key: 'dedication',
-        label: 'A qué se dedica',
-        value: getCandidateDedication(candidate),
+        label: 'Dedication',
+        value: dedication,
         type: 'text',
-      },
-      {
+      });
+    }
+
+    if (profileBadges.length > 0) {
+      fields.push({
+        key: 'profile',
+        label: 'Profile',
+        value: profileBadges,
+        type: 'list',
+      });
+    }
+
+    if (uniqueSkills.length > 0) {
+      fields.push({
         key: 'skills',
         label: 'Skills',
-        value: uniqueSkills.length > 0 ? uniqueSkills : 'Not provided',
+        value: uniqueSkills,
         type: 'list',
-      },
-      {
-        key: 'experienceLevel',
-        label: 'Experience',
-        value: candidate?.experienceLevel || 'Not provided',
-        type: 'text',
-      },
-      {
-        key: 'municipio',
-        label: 'Municipality',
-        value: candidate?.municipio || candidate?.region || 'Not provided',
-        type: 'text',
-      },
-      {
-        key: 'diversityBadge',
-        label: 'Diversity',
-        value: candidate?.diversityBadge ? formatDiversityBadge(candidate.diversityBadge) : 'Not provided',
-        type: 'text',
-      },
-    ];
+      });
+    }
+      if (candidate?.experienceLevel) {
+        fields.push({
+          key: 'experienceLevel',
+          label: 'Experience',
+          value: candidate.experienceLevel,
+          type: 'text',
+        });
+      }
+
+      if (candidate?.municipio || candidate?.region) {
+        fields.push({
+          key: 'municipio',
+          label: 'Municipality',
+          value: candidate.municipio || candidate.region,
+          type: 'text',
+        });
+      }
+
+      if (candidate?.diversityBadge) {
+        fields.push({
+          key: 'diversityBadge',
+          label: 'Diversity',
+          value: formatDiversityBadge(candidate.diversityBadge),
+          type: 'text',
+        });
+      }
+
+    return fields;
   };
 
   useEffect(() => {
@@ -123,6 +191,54 @@ const Insights = () => {
     load();
     return () => { ignore = true; };
   }, []);
+
+  useEffect(() => {
+    let ignore = false;
+    const loadJobs = async () => {
+      try {
+        const data = await listJobs();
+        if (!ignore) {
+          const jobList = Array.isArray(data) ? data : [];
+          setJobs(jobList);
+          if (jobList.length && !selectedJobId) {
+            setSelectedJobId(String(jobList[0].id));
+          }
+        }
+      } catch (err) {
+        if (!ignore) {
+          console.error('Unable to load jobs for recruitment selection', err);
+        }
+      }
+    };
+
+    loadJobs();
+    return () => { ignore = true; };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedJobId) return;
+
+    let ignore = false;
+    const loadRecruitment = async () => {
+      try {
+        const records = await findByJob(selectedJobId);
+        if (!ignore) {
+          const map = new Map();
+          (Array.isArray(records) ? records : []).forEach((record) => {
+            map.set(String(record.candidateId), record);
+          });
+          setRecruitmentByCandidate(map);
+        }
+      } catch (err) {
+        if (!ignore) {
+          console.error('Unable to load recruitment records', err);
+        }
+      }
+    };
+
+    loadRecruitment();
+    return () => { ignore = true; };
+  }, [selectedJobId]);
 
   const stats = useMemo(() => {
     if (!insights.length) return null;
@@ -158,6 +274,42 @@ const Insights = () => {
 
     if (nextSelection) {
       loadRegionCandidates(municipio);
+    }
+  };
+
+  const handleSelectProfile = async (candidate) => {
+    const candidateId = candidate?.candidateId ?? candidate?.id;
+    const activeJobId = selectedJobId ? Number(selectedJobId) : jobs[0]?.id;
+
+    if (!candidateId) {
+      setSelectionMessage('Could not identify the candidate.');
+      return;
+    }
+
+    if (!activeJobId) {
+      setSelectionMessage('No process option available to assign this profile.');
+      return;
+    }
+
+    setIsSelectingProfile(true);
+    setSelectionMessage('');
+
+    try {
+      const createdProcess = await initiateContact({
+        jobId: Number(activeJobId),
+        candidateId: Number(candidateId),
+      });
+      setSelectedProfileCandidateId(String(candidateId));
+      setRecruitmentByCandidate((prev) => {
+        const next = new Map(prev);
+        next.set(String(candidateId), createdProcess);
+        return next;
+      });
+      setSelectionMessage('Profile selected successfully.');
+    } catch (err) {
+      setSelectionMessage(err instanceof Error ? err.message : 'Profile could not be selected.');
+    } finally {
+      setIsSelectingProfile(false);
     }
   };
 
@@ -401,6 +553,8 @@ const Insights = () => {
                               const candidateId = candidate.candidateId ?? candidate.id ?? `candidate-${index + 1}`;
                               const skills = Array.isArray(candidate.skills) ? candidate.skills : [];
                               const candidateName = getCandidateDisplayName(candidate) || `Candidate ${candidateId}`;
+                              const recruitmentRecord = recruitmentByCandidate.get(String(candidateId));
+                              const isAlreadySelected = Boolean(recruitmentRecord || selectedProfileCandidateId === String(candidateId));
                               return (
                                 <div key={candidateId} className="rounded-xl border border-gray-100 bg-gray-50 px-3 py-2.5">
                                   <div className="flex items-start gap-2">
@@ -411,8 +565,8 @@ const Insights = () => {
                                       <div className="flex items-start justify-between gap-2">
                                         <div className="min-w-0">
                                           <p className="text-sm font-semibold text-gray-800">{candidateName}</p>
-                                          {getCandidateDedication(candidate) !== 'Sin información' && (
-                                            <p className="text-xs text-[#006B5F] font-medium">Se dedica a: {getCandidateDedication(candidate)}</p>
+                                          {getCandidateDedication(candidate) && (
+                                            <p className="text-xs text-[#006B5F] font-medium">Dedication: {getCandidateDedication(candidate)}</p>
                                           )}
                                           <p className="text-xs text-gray-500">{candidate.experienceLevel ?? 'Experience not listed'}</p>
                                         </div>
@@ -428,9 +582,16 @@ const Insights = () => {
                                             }}
                                             className="text-xs font-semibold text-[#006B5F] hover:text-[#004D45] transition-colors"
                                           >
-                                            Mostrar más
+                                            Show more
                                           </button>
                                         </div>
+                                      </div>
+                                      <div className="mt-2 flex flex-wrap gap-1.5">
+                                        {getCandidateProfileBadges(candidate).slice(0, 3).map((badge) => (
+                                          <span key={`${candidateId}-${badge}`} className="text-[11px] px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-100">
+                                            {badge}
+                                          </span>
+                                        ))}
                                       </div>
                                       {skills.length > 0 && (
                                         <div className="mt-2 flex flex-wrap gap-1.5">
@@ -441,6 +602,24 @@ const Insights = () => {
                                           ))}
                                         </div>
                                       )}
+                                      <div className="mt-2 flex items-center justify-end gap-2">
+                                        {recruitmentRecord && (
+                                          <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${recruitmentStatusLabels[recruitmentRecord.status]?.color ?? 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                                            {recruitmentStatusLabels[recruitmentRecord.status]?.text ?? recruitmentRecord.status}
+                                          </span>
+                                        )}
+                                        <SelectionButton
+                                          isSelected={isAlreadySelected}
+                                          isPending={isSelectingProfile}
+                                          onClick={(event) => {
+                                            event.stopPropagation();
+                                            if (!isAlreadySelected) {
+                                              handleSelectProfile(candidate);
+                                            }
+                                          }}
+                                          className=""
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -476,35 +655,61 @@ const Insights = () => {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">Candidate details</p>
                 <h3 className="text-lg font-bold text-gray-800">{getCandidateDisplayName(selectedCandidate)}</h3>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedCandidate(null)}
-                className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
-                aria-label="Close candidate details"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-2 self-start">
+                <div className="rounded-full bg-[#006B5F]/10 px-3 py-1.5 flex items-center">
+                  <SelectionButton
+                    isSelected={Boolean(recruitmentByCandidate.get(String(selectedCandidate?.candidateId ?? selectedCandidate?.id ?? '')) || selectedProfileCandidateId === String(selectedCandidate?.candidateId ?? selectedCandidate?.id ?? 'selected-candidate'))}
+                    isPending={isSelectingProfile}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      const selectedCandidateId = selectedCandidate?.candidateId ?? selectedCandidate?.id;
+                      if (!recruitmentByCandidate.has(String(selectedCandidateId)) && selectedCandidateId) {
+                        handleSelectProfile(selectedCandidate);
+                      }
+                    }}
+                    className="rounded-full text-sm"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedCandidate(null)}
+                  className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+                  aria-label="Close candidate details"
+                >
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
+            {selectionMessage && (
+              <div className="border-b border-gray-100 px-6 py-3">
+                <p className="text-sm text-[#006B5F]">{selectionMessage}</p>
+              </div>
+            )}
+
             <div className="space-y-4 p-6">
-              {getCandidateSummaryFields(selectedCandidate).map(({ key, label, value, type }) => (
-                <div key={key} className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">{label}</p>
-                  {type === 'list' && Array.isArray(value) ? (
-                    <div className="flex flex-wrap gap-2">
-                      {value.map((skill) => (
-                        <span key={`${key}-${skill}`} className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="whitespace-pre-wrap text-sm text-gray-700">{formatCandidateValue(value)}</p>
-                  )}
-                </div>
-              ))}
+              {getCandidateSummaryFields(selectedCandidate).map(({ key, label, value, type }) => {
+                const formattedValue = formatCandidateValue(value);
+                if (!formattedValue) return null;
+                return (
+                  <div key={key} className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">{label}</p>
+                    {type === 'list' && Array.isArray(value) ? (
+                      <div className="flex flex-wrap gap-2">
+                        {value.map((skill) => (
+                          <span key={`${key}-${skill}`} className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="whitespace-pre-wrap text-sm text-gray-700">{formattedValue}</p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router';
 import { sileo } from 'sileo';
 import { getJobById, findMatches } from '../api/jobs.js';
 import { listCandidates, getFullProfile } from '../api/candidates.js';
-import { initiateContact, findByJob } from '../api/recruitment.js';
+import { initiateContact, findByJob, updateRecruitmentProcess } from '../api/recruitment.js';
 import CandidateMap from '../components/CandidateMap';
 import ChevronIcon from '../components/icons/ChevronIcon';
 import PinIcon from '../components/icons/PinIcon';
@@ -128,7 +128,6 @@ const CandidatesList = () => {
   const [error, setError] = useState('');
   const [matchLoading, setMatchLoading] = useState(false);
   const [matchError, setMatchError] = useState('');
-  const [recruitmentByCandidate, setRecruitmentByCandidate] = useState(new Map());
   const [contacting, setContacting] = useState(false);
   const [fullProfiles, setFullProfiles] = useState(new Map());
   const [regionFilter, setRegionFilter] = useState('');
@@ -136,6 +135,10 @@ const CandidatesList = () => {
   const [selectedCandidates, setSelectedCandidates] = useState(new Set());
   const [expandedCandidates, setExpandedCandidates] = useState(new Set());
   const [viewMode, setViewMode] = useState('list');
+  const [selectionMessage, setSelectionMessage] = useState('');
+  const [recruitmentByCandidate, setRecruitmentByCandidate] = useState(new Map());
+  const [recruitmentDrafts, setRecruitmentDrafts] = useState(new Map());
+  const [updatingRecruitment, setUpdatingRecruitment] = useState(null);
 
   // Carga crítica: job + candidatos. Un fallo aquí sí bloquea la página.
   useEffect(() => {
@@ -213,8 +216,16 @@ const CandidatesList = () => {
         const records = await findByJob(jobId);
         if (ignore) return;
         const map = new Map();
-        (Array.isArray(records) ? records : []).forEach(r => map.set(r.candidateId, r));
+        const drafts = new Map();
+        (Array.isArray(records) ? records : []).forEach(r => {
+          map.set(String(r.candidateId), r);
+          drafts.set(String(r.candidateId), {
+            status: r.status ?? 'CONTACTADO',
+            notes: r.recruiterNotes ?? '',
+          });
+        });
         setRecruitmentByCandidate(map);
+        setRecruitmentDrafts(drafts);
       } catch {
         // No crítico: si falla, simplemente no se muestran estados previos.
       }
@@ -269,10 +280,11 @@ const CandidatesList = () => {
   }, [filteredCandidates, geoLocatedCandidates]);
 
   const toggleCandidate = (id) => {
-    if (recruitmentByCandidate.has(id)) return; // ya contactado, no se puede reseleccionar
+    const normalizedId = String(id);
+    if (recruitmentByCandidate.has(normalizedId)) return;
     setSelectedCandidates(prev => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      if (next.has(normalizedId)) next.delete(normalizedId); else next.add(normalizedId);
       return next;
     });
   };
@@ -293,9 +305,52 @@ const CandidatesList = () => {
         .catch(err => {
           setFullProfiles(prev => new Map(prev).set(id, {
             loading: false,
-            error: err instanceof Error ? err.message : 'No se pudo cargar el perfil completo.',
+            error: err instanceof Error ? err.message : 'Could not load the full profile.',
           }));
         });
+    }
+  };
+
+  const updateRecruitmentDraft = (candidateId, updates) => {
+    setRecruitmentDrafts(prev => {
+      const next = new Map(prev);
+      const existing = next.get(String(candidateId)) ?? { status: 'CONTACTADO', notes: '' };
+      next.set(String(candidateId), { ...existing, ...updates });
+      return next;
+    });
+  };
+
+  const handleRecruitmentUpdate = async (candidateId, processId) => {
+    if (!processId) return;
+
+    const draft = recruitmentDrafts.get(String(candidateId)) ?? { status: 'CONTACTADO', notes: '' };
+    setUpdatingRecruitment(processId);
+    setSelectionMessage('');
+
+    try {
+      const updated = await updateRecruitmentProcess(processId, {
+        status: draft.status,
+        notes: draft.notes,
+      });
+
+      setRecruitmentByCandidate(prev => {
+        const next = new Map(prev);
+        next.set(String(candidateId), updated);
+        return next;
+      });
+      setSelectionMessage('Recruitment process updated successfully.');
+      sileo.success({
+        title: 'Recruitment updated',
+        description: 'The recruitment process status and notes were saved.',
+      });
+    } catch (err) {
+      setSelectionMessage(err instanceof Error ? err.message : 'Could not update the recruitment process.');
+      sileo.error({
+        title: 'Update failed',
+        description: err instanceof Error ? err.message : 'Could not update the recruitment process.',
+      });
+    } finally {
+      setUpdatingRecruitment(null);
     }
   };
 
@@ -304,6 +359,7 @@ const CandidatesList = () => {
     if (ids.length === 0) return;
 
     setContacting(true);
+    setSelectionMessage('');
     const outcomes = await Promise.allSettled(
       ids.map(candidateId => initiateContact({ jobId: Number(jobId), candidateId }))
     );
@@ -321,20 +377,36 @@ const CandidatesList = () => {
     if (succeeded.length > 0) {
       setRecruitmentByCandidate(prev => {
         const next = new Map(prev);
-        succeeded.forEach(record => next.set(record.candidateId, record));
+        succeeded.forEach(record => {
+          next.set(String(record.candidateId), record);
+          setRecruitmentDrafts(current => {
+            const nextDrafts = new Map(current);
+            nextDrafts.set(String(record.candidateId), {
+              status: record.status ?? 'CONTACTADO',
+              notes: record.recruiterNotes ?? '',
+            });
+            return nextDrafts;
+          });
+        });
         return next;
       });
+      setSelectionMessage(`Profile selected successfully for ${succeeded.length} candidate(s).`);
       sileo.success({
         title: 'Contact initiated',
-        description: `Contacto iniciado con ${succeeded.length} candidato(s).`,
+        description: `Recruitment was started for ${succeeded.length} candidate(s).`,
       });
     }
 
     if (failed.length > 0) {
+      setSelectionMessage(
+        failed
+          .map(f => (f.error instanceof Error ? f.error.message : 'Unknown error'))
+          .join(' · ')
+      );
       sileo.error({
-        title: `No se pudo contactar a ${failed.length} candidato(s)`,
+        title: `Could not contact ${failed.length} candidate(s)`,
         description: failed
-          .map(f => (f.error instanceof Error ? f.error.message : 'Error desconocido'))
+          .map(f => (f.error instanceof Error ? f.error.message : 'Unknown error'))
           .join(' · '),
       });
     }
@@ -546,7 +618,7 @@ const CandidatesList = () => {
             ) : (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             )}
-            {contacting ? 'Contacting...' : `Contact Selected (${selectedCandidates.size})`}
+            {contacting ? 'Seleccionando...' : `Seleccionar perfil (${selectedCandidates.size})`}
           </button>
         )}
       </div>
@@ -782,19 +854,25 @@ const CandidatesList = () => {
                     )}
                   </div>
 
-                  <div className="mt-3 flex items-center gap-3">
-                    {recruitmentByCandidate.has(candidate.candidateId) ? (
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${statusLabels[recruitmentByCandidate.get(candidate.candidateId).status]?.color ?? 'bg-gray-100 text-gray-500 border-gray-200'}`}>
-                        {statusLabels[recruitmentByCandidate.get(candidate.candidateId).status]?.text
-                          ?? recruitmentByCandidate.get(candidate.candidateId).status}
-                      </span>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    {recruitmentByCandidate.has(String(candidate.candidateId)) ? (
+                      <div className="flex w-full items-center justify-between gap-2 rounded-xl border border-gray-100 bg-gray-50 px-3 py-2">
+                        <div className="min-w-0">
+                          <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">Recruitment</p>
+                          <p className="truncate text-xs text-gray-600">{recruitmentByCandidate.get(String(candidate.candidateId)).recruiterNotes || 'Process created'}</p>
+                        </div>
+                        <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${statusLabels[recruitmentByCandidate.get(String(candidate.candidateId)).status]?.color ?? 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                          {statusLabels[recruitmentByCandidate.get(String(candidate.candidateId)).status]?.text
+                            ?? recruitmentByCandidate.get(String(candidate.candidateId)).status}
+                        </span>
+                      </div>
                     ) : (
                       <label className="flex items-center gap-2 cursor-pointer group">
-                        <input type="checkbox" checked={selectedCandidates.has(candidate.candidateId)}
+                        <input type="checkbox" checked={selectedCandidates.has(String(candidate.candidateId))}
                           onChange={() => toggleCandidate(candidate.candidateId)}
                           className="w-4 h-4 rounded border-gray-300 text-[#006B5F] focus:ring-[#006B5F] cursor-pointer accent-[#006B5F]" />
                         <span className="text-xs font-medium text-gray-500 group-hover:text-gray-700 select-none transition-colors">
-                          {selectedCandidates.has(candidate.candidateId) ? 'Selected' : 'Select to contact'}
+                          {selectedCandidates.has(String(candidate.candidateId)) ? 'Selected' : 'Select profile'}
                         </span>
                       </label>
                     )}
