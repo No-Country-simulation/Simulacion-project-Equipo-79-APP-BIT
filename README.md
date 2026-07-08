@@ -94,4 +94,4 @@ https://tonyy1-bit.hf.space/swagger-ui/index.html
 | **Stack** |JavaScript, Java, React, Tailwind CSS, Spring Boot, PostgreSQL, Docker, Miro, Swagger UI, Claude Code|
 | **Buenas Prácticas** | Se implementó el marco de trabajo SCRUM desarrollando 3 ceremonias por Sprint: Planning, Daily y Review Meet |
 | **Seguridad** | Nunca subas credenciales o claves de API al repositorio. |
-| **Deploy** | Render para el MV. |
+| **Deploy** | Render para el MVP. |
