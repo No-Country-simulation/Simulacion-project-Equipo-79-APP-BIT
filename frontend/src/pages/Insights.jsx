@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { listCandidates } from '../api/candidates';
 import { getRegionInsights } from '../api/insights';
 import CandidateMap from '../components/CandidateMap';
 import 'leaflet/dist/leaflet.css';
@@ -20,6 +21,90 @@ const Insights = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedRegion, setSelectedRegion] = useState(null);
+  const [regionCandidates, setRegionCandidates] = useState({});
+  const [loadingRegionCandidates, setLoadingRegionCandidates] = useState({});
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+
+  const formatCandidateValue = (value) => {
+    if (value == null || value === '') return 'Not provided';
+    if (Array.isArray(value)) return value.filter(Boolean).join(', ');
+    if (typeof value === 'object') return JSON.stringify(value, null, 2);
+    return String(value);
+  };
+
+  const getCandidateDisplayName = (candidate) => {
+    const directName = candidate?.fullName || candidate?.name || candidate?.candidateName || candidate?.candidateFullName;
+    if (directName) return directName;
+
+    const firstName = candidate?.firstName ?? '';
+    const lastName = candidate?.lastName ?? '';
+    if (firstName || lastName) return [firstName, lastName].filter(Boolean).join(' ');
+
+    return 'Candidate';
+  };
+
+  const getCandidateDedication = (candidate) => {
+    const directValue = candidate?.dedication
+      || candidate?.occupation
+      || candidate?.profession
+      || candidate?.jobTitle
+      || candidate?.position
+      || candidate?.role
+      || candidate?.specialty
+      || candidate?.currentRole
+      || candidate?.professionalRole
+      || candidate?.title;
+
+    if (directValue) return String(directValue);
+
+    const profileValue = candidate?.professionalProfile || candidate?.profile;
+    if (profileValue) return String(profileValue);
+
+    return 'Sin información';
+  };
+
+  const formatDiversityBadge = (value) => {
+    if (!value) return 'Not provided';
+    return String(value).replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const getCandidateSummaryFields = (candidate) => {
+    const skills = Array.isArray(candidate?.skills) ? candidate.skills : [];
+    const uniqueSkills = [...new Set(skills.map((skill) => String(skill).trim()).filter(Boolean))];
+
+    return [
+      {
+        key: 'dedication',
+        label: 'A qué se dedica',
+        value: getCandidateDedication(candidate),
+        type: 'text',
+      },
+      {
+        key: 'skills',
+        label: 'Skills',
+        value: uniqueSkills.length > 0 ? uniqueSkills : 'Not provided',
+        type: 'list',
+      },
+      {
+        key: 'experienceLevel',
+        label: 'Experience',
+        value: candidate?.experienceLevel || 'Not provided',
+        type: 'text',
+      },
+      {
+        key: 'municipio',
+        label: 'Municipality',
+        value: candidate?.municipio || candidate?.region || 'Not provided',
+        type: 'text',
+      },
+      {
+        key: 'diversityBadge',
+        label: 'Diversity',
+        value: candidate?.diversityBadge ? formatDiversityBadge(candidate.diversityBadge) : 'Not provided',
+        type: 'text',
+      },
+    ];
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -47,6 +132,34 @@ const Insights = () => {
     insights.forEach(r => { coverageCounts[r.networkCoverage]++; });
     return { totalRegions: insights.length, totalCandidates, totalDiversity, avgDiversityPct: totalCandidates > 0 ? Math.round((totalDiversity / totalCandidates) * 100) : 0, ...coverageCounts };
   }, [insights]);
+
+  const loadRegionCandidates = async (municipio) => {
+    if (!municipio || regionCandidates[municipio] || loadingRegionCandidates[municipio]) {
+      return;
+    }
+
+    setLoadingRegionCandidates(prev => ({ ...prev, [municipio]: true }));
+
+    try {
+      const data = await listCandidates({ municipio });
+      const candidates = Array.isArray(data) ? data : [];
+      setRegionCandidates(prev => ({ ...prev, [municipio]: candidates }));
+    } catch (err) {
+      console.error(err);
+      setRegionCandidates(prev => ({ ...prev, [municipio]: [] }));
+    } finally {
+      setLoadingRegionCandidates(prev => ({ ...prev, [municipio]: false }));
+    }
+  };
+
+  const toggleRegion = (municipio) => {
+    const nextSelection = selectedRegion === municipio ? null : municipio;
+    setSelectedRegion(nextSelection);
+
+    if (nextSelection) {
+      loadRegionCandidates(municipio);
+    }
+  };
 
   if (loading) {
     return (
@@ -185,45 +298,43 @@ const Insights = () => {
           </div>
           <span className="text-xs text-gray-400">{insights.length} regions</span>
         </div>
-        <div className="grid gap-3">
+        <div className="max-h-[480px] overflow-y-auto pr-2 space-y-3">
           {insights.map((region, idx) => {
             const cov = coverageConfig[region.networkCoverage] ?? coverageConfig.POOR;
             const isSelected = selectedRegion === region.municipio;
             const densityPercent = stats ? Math.round((region.candidateDensity / stats.totalCandidates) * 100) : 0;
             const barWidth = topRegion ? Math.round((region.candidateDensity / topRegion.candidateDensity) * 100) : 0;
+            const candidatesForRegion = regionCandidates[region.municipio] ?? [];
+            const isLoadingCandidates = loadingRegionCandidates[region.municipio];
 
             return (
               <div
                 key={region.municipio}
-                onClick={() => setSelectedRegion(isSelected ? null : region.municipio)}
+                onClick={() => toggleRegion(region.municipio)}
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer overflow-hidden"
               >
-                <div className="p-5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 min-w-0">
+                <div className="p-4 sm:p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
                       <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 ${cov.light} ${cov.text}`}>
                         {String(idx + 1).padStart(2, '0')}
                       </div>
                       <div className="min-w-0">
                         <h3 className="text-sm font-bold text-gray-800 truncate">{region.municipio}</h3>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-xs text-gray-400">{region.candidateDensity} candidates</span>
+                        <div className="flex flex-wrap items-center gap-2 mt-0.5 text-xs text-gray-500">
+                          <span>{region.candidateDensity} candidates</span>
                           <span className="text-gray-300">·</span>
-                          <span className="text-xs text-purple-500 font-medium">{region.diversityCount} diverse</span>
+                          <span>{region.diversityCount} diverse</span>
                           <span className="text-gray-300">·</span>
-                          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cov.badge}`}>
+                          <span className={`font-semibold px-2 py-0.5 rounded-full ${cov.badge}`}>
                             {region.networkCoverage}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="hidden sm:flex items-center gap-6">
-                      <div className="text-right">
-                        <p className="text-xs text-gray-400">Diversity</p>
-                        <p className="text-sm font-semibold text-gray-700">{region.diversityCount}<span className="text-xs font-normal text-gray-400 ml-1">({region.diversityPercentage}%)</span></p>
-                      </div>
-                      <div className="w-28">
+                    <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
+                      <div className="w-24">
                         <div className="flex justify-between text-[10px] text-gray-400 mb-1">
                           <span>Density</span>
                           <span>{densityPercent}%</span>
@@ -239,29 +350,29 @@ const Insights = () => {
                     </div>
                   </div>
 
-                  {/* Expanded detail */}
                   {isSelected && (
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                    <div className="mt-4 pt-4 border-t border-gray-100 space-y-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Density</p>
-                          <p className="font-semibold text-gray-800">{region.candidateDensity} <span className="text-xs font-normal text-gray-400">candidates</span></p>
+                          <p className="font-semibold text-gray-800">{region.candidateDensity}</p>
                         </div>
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Diversity</p>
                           <p className="font-semibold text-gray-800">{region.diversityCount} <span className="text-xs font-normal text-gray-400">({region.diversityPercentage}%)</span></p>
                         </div>
                         <div>
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Available Profiles</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Profiles</p>
                           <p className="font-semibold text-gray-800">{region.availableProfiles}</p>
                         </div>
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Coordinates</p>
-                          <p className="text-xs text-gray-500 font-mono">{region.latitude.toFixed(4)}, {region.longitude.toFixed(4)}</p>
+                          <p className="text-[11px] text-gray-500 font-mono">{region.latitude.toFixed(4)}, {region.longitude.toFixed(4)}</p>
                         </div>
                       </div>
+
                       {region.topSkills?.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-gray-50">
+                        <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Top Skills</p>
                           <div className="flex flex-wrap gap-1.5">
                             {region.topSkills.map((skill, i) => (
@@ -272,6 +383,76 @@ const Insights = () => {
                           </div>
                         </div>
                       )}
+
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Candidates in this region</p>
+                          <span className="text-[11px] text-gray-400">{candidatesForRegion.length} found</span>
+                        </div>
+
+                        {isLoadingCandidates ? (
+                          <div className="space-y-2">
+                            <div className="h-12 rounded-xl bg-gray-100 animate-pulse" />
+                            <div className="h-12 rounded-xl bg-gray-100 animate-pulse" />
+                          </div>
+                        ) : candidatesForRegion.length > 0 ? (
+                          <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
+                            {candidatesForRegion.map((candidate, index) => {
+                              const candidateId = candidate.candidateId ?? candidate.id ?? `candidate-${index + 1}`;
+                              const skills = Array.isArray(candidate.skills) ? candidate.skills : [];
+                              const candidateName = getCandidateDisplayName(candidate) || `Candidate ${candidateId}`;
+                              return (
+                                <div key={candidateId} className="rounded-xl border border-gray-100 bg-gray-50 px-3 py-2.5">
+                                  <div className="flex items-start gap-2">
+                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#006B5F] text-[11px] font-semibold text-white">
+                                      {index + 1}
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-start justify-between gap-2">
+                                        <div className="min-w-0">
+                                          <p className="text-sm font-semibold text-gray-800">{candidateName}</p>
+                                          {getCandidateDedication(candidate) !== 'Sin información' && (
+                                            <p className="text-xs text-[#006B5F] font-medium">Se dedica a: {getCandidateDedication(candidate)}</p>
+                                          )}
+                                          <p className="text-xs text-gray-500">{candidate.experienceLevel ?? 'Experience not listed'}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 flex-shrink-0">
+                                          {candidate.compatibilityScore != null && (
+                                            <span className="text-xs font-semibold text-[#006B5F]">{candidate.compatibilityScore}%</span>
+                                          )}
+                                          <button
+                                            type="button"
+                                            onClick={(event) => {
+                                              event.stopPropagation();
+                                              setSelectedCandidate(candidate);
+                                            }}
+                                            className="text-xs font-semibold text-[#006B5F] hover:text-[#004D45] transition-colors"
+                                          >
+                                            Mostrar más
+                                          </button>
+                                        </div>
+                                      </div>
+                                      {skills.length > 0 && (
+                                        <div className="mt-2 flex flex-wrap gap-1.5">
+                                          {skills.slice(0, 3).map((skill) => (
+                                            <span key={`${candidateId}-${skill}`} className="text-[11px] px-2 py-0.5 rounded-full bg-white text-gray-600 border border-gray-200">
+                                              {skill}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 px-3 py-4 text-sm text-gray-500">
+                            No candidates available for this region yet.
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -281,6 +462,53 @@ const Insights = () => {
         </div>
       </div>
 
+      {selectedCandidate && (
+        <div
+          className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50 px-4 py-6"
+          onClick={() => setSelectedCandidate(null)}
+        >
+          <div
+            className="relative z-[2001] w-full max-w-3xl max-h-[80vh] overflow-y-auto rounded-3xl bg-white shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3 border-b border-gray-100 px-6 py-4">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">Candidate details</p>
+                <h3 className="text-lg font-bold text-gray-800">{getCandidateDisplayName(selectedCandidate)}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedCandidate(null)}
+                className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+                aria-label="Close candidate details"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-4 p-6">
+              {getCandidateSummaryFields(selectedCandidate).map(({ key, label, value, type }) => (
+                <div key={key} className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">{label}</p>
+                  {type === 'list' && Array.isArray(value) ? (
+                    <div className="flex flex-wrap gap-2">
+                      {value.map((skill) => (
+                        <span key={`${key}-${skill}`} className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="whitespace-pre-wrap text-sm text-gray-700">{formatCandidateValue(value)}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
