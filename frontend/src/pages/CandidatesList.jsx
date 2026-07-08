@@ -618,7 +618,7 @@ const CandidatesList = () => {
             ) : (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             )}
-            {contacting ? 'Seleccionando...' : `Seleccionar perfil (${selectedCandidates.size})`}
+            {contacting ? 'Selecting...' : `Select profile (${selectedCandidates.size})`}
           </button>
         )}
       </div>
@@ -631,10 +631,10 @@ const CandidatesList = () => {
               <div className="w-2 h-2 rounded-full bg-[#006B5F]" />
               <h2 className="text-sm font-bold text-gray-700">Candidate Locations</h2>
             </div>
-            <div className="flex items-center gap-3 text-xs">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#006B5F' }} /> High match</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#F59E0B' }} /> Medium match</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#EF4444' }} /> Low match</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: '#006B5F' }} /> High match</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: '#F59E0B' }} /> Medium match</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: '#EF4444' }} /> Low match</span>
             </div>
           </div>
           {geoLocatedCandidates.length === 0 ? (
@@ -664,7 +664,7 @@ const CandidatesList = () => {
           {filteredCandidates.map(candidate => (
             <div key={candidate.candidateId}
               className={`group bg-white rounded-2xl border shadow-sm p-5 transition-all hover:shadow-md ${selectedCandidates.has(candidate.candidateId) ? 'border-[#006B5F] ring-2 ring-[#006B5F]/20' : 'border-gray-100 hover:border-gray-200'}`}>
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0 pt-1 flex flex-col items-center gap-1">
                   <ScoreCircle score={candidate.compatibilityScore} />
                   {candidate.diversityScore > 0 && (
@@ -674,7 +674,7 @@ const CandidatesList = () => {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] font-bold text-gray-300">#{String(candidate.candidateId).padStart(2, '0')}</span>

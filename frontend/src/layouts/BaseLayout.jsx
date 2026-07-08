@@ -51,7 +51,10 @@ const Layout = () => {
     <>
       <div className="flex min-h-dvh bg-[#F8F9FF]">
         {/* // ? sidebar */}
-        <aside className={`grid min-h-dvh bg-[#EFF4FF]/20 backdrop-blur-sm border border-[#EFF4FF]/20 shadow-lg grid-rows-[auto_1fr_auto] py-2 px-6 w-65 text-[#45464D] z-50 ${!sidebarOpen ? '-translate-x-65' : 'x-translate-0'} fixed md:static md:translate-x-0 transition-transform duration-300 ease-in-out `}>
+        {sidebarOpen && (
+          <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
+        )}
+        <aside className={`grid min-h-dvh bg-[#EFF4FF]/20 backdrop-blur-sm border-r border-[#EFF4FF]/20 shadow-lg grid-rows-[auto_1fr_auto] py-2 px-6 w-64 text-[#45464D] z-50 ${!sidebarOpen ? '-translate-x-full' : 'translate-x-0'} fixed md:static md:translate-x-0 transition-transform duration-300 ease-in-out `}>
           {/* //* logo */}
           <div id="aside-logo" className="mx-4">
             <a href="/">
@@ -100,9 +103,9 @@ const Layout = () => {
         {/* // ? header */}
         <div className="flex w-full flex-col bg-[#F8F9FF]">
           <header className="flex min-h-16 flex-shrink-0 items-center justify-between bg-[#F8F9FF] py-6">
-            <div className="bg-[#E5EEFF] rounded-lg flex justify-between items-center gap-5 px-2 md:px-4 ml-3 md:ml-6 py-4">
+            <div className="bg-[#E5EEFF] rounded-lg flex justify-between items-center gap-2 md:gap-5 px-2 md:px-4 ml-3 md:ml-6 py-4 min-w-0 flex-1 max-w-md">
               <SearchIcon />
-              <input type="search" name="searchbar" id="searchbar" placeholder={placeholder} value={query} onChange={handleSearchChange} className="bg-transparent text-[#6B7280] text-[12px] md:text-[14px] outline-none" />
+              <input type="search" name="searchbar" id="searchbar" placeholder={placeholder} value={query} onChange={handleSearchChange} className="bg-transparent text-[#6B7280] text-[12px] md:text-[14px] outline-none w-full min-w-0" />
             </div>
             {/* //* items dekstop */}
             <div className="hidden md:flex justify-between items-center gap-4 md:pr-6">
@@ -134,7 +137,7 @@ const Layout = () => {
               </button>
             </div>
           </header>
-          <main className="w-full flex-1 px-7.25 bg-[#F8F9FF]">
+          <main className="w-full flex-1 px-4 md:px-7 bg-[#F8F9FF]">
             <Outlet />
           </main>
         </div>

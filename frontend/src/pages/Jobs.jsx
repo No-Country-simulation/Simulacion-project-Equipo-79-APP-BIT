@@ -47,13 +47,13 @@ const Jobs = () => {
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Job Offers</h1>
           <p className="text-sm text-gray-500 mt-1">Manage your job postings and view matched candidates.</p>
         </div>
         <Link to="/create-job"
-          className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer">
+          className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer shrink-0">
           + New Job
         </Link>
       </div>
@@ -87,7 +87,7 @@ const Jobs = () => {
                   </p>
                   <p className="text-xs text-gray-400 mt-1">{job.description}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <Link to={`/edit-job/${job.id}`}
                     className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center whitespace-nowrap">
                     Edit
