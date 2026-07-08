@@ -10,7 +10,7 @@ import PinIcon from '../components/icons/PinIcon';
 import 'leaflet/dist/leaflet.css';
 
 const statusLabels = {
-  CONTACTADO: { text: 'Contactado', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+  CONTACTADO: { text: 'Contacted', color: 'bg-blue-50 text-blue-700 border-blue-200' },
   INTERESADO: { text: 'Interesado', color: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   ENTREVISTA: { text: 'En entrevista', color: 'bg-purple-50 text-purple-700 border-purple-200' },
   OFERTA: { text: 'Oferta enviada', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
@@ -52,10 +52,10 @@ const mapCandidateForView = (candidate, matchResult) => {
 };
 
 const scoreLabel = (score) => {
-  if (score >= 90) return { text: 'Alta compatibilidad', color: 'text-emerald-600' };
-  if (score >= 70) return { text: 'Buena compatibilidad', color: 'text-amber-600' };
-  if (score >= 50) return { text: 'Compatibilidad media', color: 'text-orange-600' };
-  return { text: 'Baja compatibilidad', color: 'text-red-600' };
+  if (score >= 90) return { text: 'High compatibility', color: 'text-emerald-600' };
+  if (score >= 70) return { text: 'Good compatibility', color: 'text-amber-600' };
+  if (score >= 50) return { text: 'Medium compatibility', color: 'text-orange-600' };
+  return { text: 'Low compatibility', color: 'text-red-600' };
 };
 
 const ScoreCircle = ({ score }) => {
@@ -704,7 +704,7 @@ const CandidatesList = () => {
                   {job.skills && job.skills.length > 0 && candidate.matchingSkills.length > 0 && (
                     <p className="text-[10px] text-gray-400 mt-1.5">
                       <span className="font-semibold text-[#006B5F]">{candidate.matchingSkills.length}</span>
-                      <span className="text-gray-300">/{job.skills.length}</span> skills requeridas cubiertas
+                      <span className="text-gray-300">/{job.skills.length}</span> required skills met
                     </p>
                   )}
 
@@ -720,7 +720,7 @@ const CandidatesList = () => {
                       >
                         <polyline points="6 9 12 15 18 9" />
                       </svg>
-                      ¿Por qué este candidato?
+                      Why this candidate?
                     </button>
 
                     {expandedCandidates.has(candidate.candidateId) && (
@@ -730,7 +730,7 @@ const CandidatesList = () => {
                         <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-200">
                           <div className="flex-1">
                             <div className="flex justify-between items-center mb-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Compatibilidad general</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">General compatibility</span>
                               <span className="text-xs font-bold" style={{ color: candidate.compatibilityScore >= 85 ? '#006B5F' : candidate.compatibilityScore >= 70 ? '#F59E0B' : '#EF4444' }}>
                                 {candidate.compatibilityScore}%
                               </span>
@@ -744,7 +744,7 @@ const CandidatesList = () => {
                           </div>
                           {candidate.diversityScore > 0 && (
                             <div className="text-center border-l border-gray-200 pl-4">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-500">Diversidad</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-500">Diversity</span>
                               <p className="text-sm font-bold text-purple-700">{candidate.diversityScore}%</p>
                             </div>
                           )}
@@ -754,19 +754,19 @@ const CandidatesList = () => {
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1">
                             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
-                            Skills buscadas en esta vacante
+                            Skills required for this position
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {job.skills && job.skills.length > 0
                               ? job.skills.map(skill => (
-                                  <SkillTag key={skill} skill={skill} matched={candidate.matchingSkills.includes(skill)} />
-                                ))
-                              : <span className="text-xs text-gray-400">No se especificaron skills</span>
+                                <SkillTag key={skill} skill={skill} matched={candidate.matchingSkills.includes(skill)} />
+                              ))
+                              : <span className="text-xs text-gray-400">No skills specified</span>
                             }
                           </div>
                           {candidate.matchingSkills.length > 0 && candidate.matchingSkills.length < (job.skills?.length ?? 0) && (
                             <p className="text-[10px] text-gray-400 mt-1.5">
-                              {candidate.matchingSkills.length} de {job.skills.length} skills requeridas
+                              {candidate.matchingSkills.length} out of {job.skills.length} required skills met
                             </p>
                           )}
                         </div>
@@ -775,14 +775,14 @@ const CandidatesList = () => {
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
                             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
-                            Skills coincidentes con el candidato
+                            Skills that match the candidate's
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {candidate.matchingSkills.length > 0
                               ? candidate.matchingSkills.map(skill => (
-                                  <SkillTag key={skill} skill={skill} matched />
-                                ))
-                              : <span className="text-xs text-gray-400">No hay skills coincidentes</span>
+                                <SkillTag key={skill} skill={skill} matched />
+                              ))
+                              : <span className="text-xs text-gray-400">No matched skills</span>
                             }
                           </div>
                         </div>
@@ -793,7 +793,7 @@ const CandidatesList = () => {
                         <div className="flex items-center gap-2">
                           <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
                           <div>
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Nivel de experiencia</p>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">level of experience</p>
                             <p className="text-xs font-semibold text-gray-700">{candidate.experienceLevel.charAt(0) + candidate.experienceLevel.slice(1).toLowerCase()}</p>
                           </div>
                         </div>
@@ -802,7 +802,7 @@ const CandidatesList = () => {
                         <div className="flex items-center gap-2">
                           <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                           <div>
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Región</p>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Region</p>
                             <p className="text-xs font-semibold text-gray-700">{candidate.region}</p>
                           </div>
                         </div>
@@ -812,7 +812,7 @@ const CandidatesList = () => {
                           <div className="flex items-center gap-2">
                             <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                             <div>
-                              <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Badge de diversidad</p>
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Diversity badge</p>
                               <BadgeTag badge={candidate.diversityBadge} />
                             </div>
                           </div>
@@ -822,7 +822,7 @@ const CandidatesList = () => {
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 flex items-center gap-1">
                             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
-                            Explicación del score
+                            Score explanation
                           </p>
                           <p className="text-xs text-gray-600 leading-relaxed">{candidate.inclusionReason}</p>
                         </div>
@@ -831,7 +831,7 @@ const CandidatesList = () => {
                         {(() => {
                           const profile = fullProfiles.get(candidate.candidateId);
                           if (!profile || profile.loading) {
-                            return <p className="text-[10px] text-gray-400 pt-1">Cargando perfil completo...</p>;
+                            return <p className="text-[10px] text-gray-400 pt-1">loading full profile...</p>;
                           }
                           if (profile.error) {
                             return <p className="text-[10px] text-red-400 pt-1">{profile.error}</p>;
@@ -844,7 +844,7 @@ const CandidatesList = () => {
                               {profile.data.disabilityOptional && <DiversityChip label="Discapacidad" value={profile.data.disabilityOptional} />}
                               {profile.data.ruralOptional === true && (
                                 <span className="text-[10px] font-medium text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-md">
-                                  Zona rural
+                                  Rural zone
                                 </span>
                               )}
                             </div>
