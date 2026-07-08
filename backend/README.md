@@ -1,4 +1,6 @@
 ---
+# *REQUISITOS PARA PODER DESPLEGAR*
+
 title: Crm
 emoji: 👀
 colorFrom: gray
