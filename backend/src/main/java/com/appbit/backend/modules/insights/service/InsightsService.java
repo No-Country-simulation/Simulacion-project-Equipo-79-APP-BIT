@@ -11,6 +11,8 @@ import com.appbit.backend.modules.insights.model.NetworkCoverage;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -27,6 +29,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class InsightsService {
 
+    private static final String MUNICIPIO_UNDEFINED = "No municipality";
 
     private static final String ANTENAS_CSV = "data/antenas_flp.csv";
     private static final String TENSOR_CSV = "data/tensor_concentracao.csv";
@@ -58,19 +61,22 @@ public class InsightsService {
     private void loadAntenas() {
         log.info("📡 Iniciando carga de antenas desde {}", ANTENAS_CSV);
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(ANTENAS_CSV);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
-            if (is == null) throw new IllegalStateException("No se encontró " + ANTENAS_CSV);
+            if (is == null)
+                throw new IllegalStateException("No se encontró " + ANTENAS_CSV);
 
             reader.readLine(); // Saltar cabecera
             String line;
             int totalLeidas = 0;
 
             while ((line = reader.readLine()) != null) {
-                if (line.isBlank()) continue;
+                if (line.isBlank())
+                    continue;
                 try {
                     String[] parts = line.split(CSV_SEPARATOR);
-                    if (parts.length < 5) continue;
+                    if (parts.length < 5)
+                        continue;
 
                     String ecgi = parts[0].trim();
                     String cluster = parts[1].trim();
@@ -108,7 +114,7 @@ public class InsightsService {
         Map<String, Integer> count = new HashMap<>();
 
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(TENSOR_CSV);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
             if (is == null) {
                 log.warn("⚠️ No se encontró {}. Todas las antenas se marcarán como POOR.", TENSOR_CSV);
@@ -121,11 +127,13 @@ public class InsightsService {
             int rowsProcessed = 0;
 
             while ((line = reader.readLine()) != null) {
-                if (line.isBlank()) continue;
+                if (line.isBlank())
+                    continue;
                 try {
                     String[] parts = line.split(CSV_SEPARATOR);
                     // Necesitamos al menos 12 columnas para leer congestionamento_medio (índice 11)
-                    if (parts.length < 12) continue;
+                    if (parts.length < 12)
+                        continue;
 
                     String ecgi = parts[0].trim();
                     double drop = Double.parseDouble(parts[10].trim());
@@ -193,27 +201,34 @@ public class InsightsService {
         if (jobId != null) {
             Job job = jobRepository.findById(jobId)
                     .orElseThrow(() -> new NoSuchElementException("Vacante no encontrada con ID: " + jobId));
-            allCandidates = candidateRepository.findAll().stream()
-                    .filter(c -> job.getRegion() == null || job.getRegion().equals(c.getMunicipio()))
-                    .filter(c -> job.getExperienceLevel() == null || job.getExperienceLevel() == c.getExperienceLevel())
-                    .toList();
+            allCandidates = candidateRepository.findCandidatesForMatchingWithLimit(
+                    job.getRegion(),
+                    job.getExperienceLevel(),
+                    Pageable.unpaged());
 
             candidateCounts = allCandidates.stream()
-                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+                    .collect(Collectors.groupingBy(
+                            c -> c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED,
+                            Collectors.counting()));
             diversityCounts = allCandidates.stream()
                     .filter(c -> c.getDiversityBadge() != null && !c.getDiversityBadge().isEmpty())
-                    .collect(Collectors.groupingBy(Candidate::getMunicipio, Collectors.counting()));
+                    .collect(Collectors.groupingBy(
+                            c -> c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED,
+                            Collectors.counting()));
         } else {
             allCandidates = candidateRepository.findAll();
             candidateCounts = candidateService.countByMunicipio();
             diversityCounts = candidateService.countDiversityByMunicipio();
         }
 
-        if (candidateCounts == null) candidateCounts = Collections.emptyMap();
-        if (diversityCounts == null) diversityCounts = Collections.emptyMap();
+        if (candidateCounts == null)
+            candidateCounts = Collections.emptyMap();
+        if (diversityCounts == null)
+            diversityCounts = Collections.emptyMap();
 
+        // Agrupamos skills usando la misma lógica de protección contra nulos
         Map<String, List<String>> skillsByMunicipio = allCandidates.stream()
-                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                .collect(Collectors.groupingBy(c -> c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED,
                         Collectors.flatMapping(c -> c.getSkills() != null ? c.getSkills().stream() : Stream.empty(),
                                 Collectors.toList())));
 
@@ -221,15 +236,13 @@ public class InsightsService {
         Map<String, List<CoverageZone>> antenasByMunicipio = antenasByEcgi.values().stream()
                 .collect(Collectors.groupingBy(CoverageZone::municipio));
 
-        // Coordenadas promedio por municipio a partir de los candidatos, para los
-        // municipios que no tienen antena en antenas_flp.csv (ver punto 3).
+        // Coordenadas promedio por municipio a partir de los candidatos
         Map<String, double[]> avgCoordsByMunicipio = allCandidates.stream()
-                .collect(Collectors.groupingBy(Candidate::getMunicipio,
+                .collect(Collectors.groupingBy(c -> c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED,
                         Collectors.teeing(
                                 Collectors.averagingDouble(Candidate::getLatitude),
                                 Collectors.averagingDouble(Candidate::getLongitude),
-                                (lat, lon) -> new double[]{lat, lon}
-                        )));
+                                (lat, lon) -> new double[] { lat, lon })));
 
         // 3. Unión de municipios con antena Y municipios con candidatos: antes solo
         // se iteraba antenasByMunicipio, así que los municipios sembrados en data.sql
@@ -242,7 +255,8 @@ public class InsightsService {
         for (String municipio : allMunicipios) {
             List<CoverageZone> antenas = antenasByMunicipio.get(municipio);
 
-            // Calcular cobertura del municipio (regla: la mejor antena define la cobertura).
+            // Calcular cobertura del municipio (regla: la mejor antena define la
+            // cobertura).
             // Sin antena registrada no hay dato de red real, así que se reporta POOR.
             NetworkCoverage municipioCoverage = NetworkCoverage.POOR;
             double lat;
@@ -261,7 +275,7 @@ public class InsightsService {
                 lat = antenas.get(0).latitude();
                 lon = antenas.get(0).longitude();
             } else {
-                double[] avgCoords = avgCoordsByMunicipio.getOrDefault(municipio, new double[]{0.0, 0.0});
+                double[] avgCoords = avgCoordsByMunicipio.getOrDefault(municipio, new double[] { 0.0, 0.0 });
                 lat = avgCoords[0];
                 lon = avgCoords[1];
             }
@@ -287,8 +301,7 @@ public class InsightsService {
                     Math.round(divPct * 10.0) / 10.0,
                     topSkills,
                     lat,
-                    lon
-            ));
+                    lon));
         }
 
         log.info("✅ {} municipios procesados para el mapa.", response.size());

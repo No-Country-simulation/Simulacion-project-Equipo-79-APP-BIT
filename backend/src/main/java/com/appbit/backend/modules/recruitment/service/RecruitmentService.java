@@ -23,9 +23,6 @@ public class RecruitmentService {
     private final RecruitmentProcessRepository repository;
 
     public RecruitmentResponse initiateContact(RecruitmentRequest request) {
-        if (request.jobId() == null || request.candidateId() == null) {
-            throw new IllegalArgumentException("jobId y candidateId son obligatorios.");
-        }
 
         repository.findByJobIdAndCandidateId(request.jobId(), request.candidateId())
                 .ifPresent(existing -> {

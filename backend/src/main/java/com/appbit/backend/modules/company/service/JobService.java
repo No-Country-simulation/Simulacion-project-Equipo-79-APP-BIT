@@ -29,23 +29,11 @@ public class JobService {
      * Crea una nueva vacante de trabajo (Job) aplicando validaciones de negocio.
      */
     public JobResponse create(JobRequest job) {
-        if (job == null) {
-            throw new IllegalArgumentException("La vacante de trabajo no puede ser nula.");
-        }
-        if (job.title() == null || job.title().trim().isEmpty()) {
-            throw new IllegalArgumentException("El título del puesto de trabajo es obligatorio.");
-        }
-        if (job.companyId() == null) {
-            throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
-        }
-        if (job.experienceLevel() == null) {
-            throw new IllegalArgumentException("El nivel de experiencia es obligatorio.");
-        }
-
         Company company = companyRepository.findById(job.companyId())
-                .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
+                .orElseThrow(() -> new NoSuchElementException("La empresa no existe."));
 
         Job jobEntity = jobMapper.toEntity(job, company);
+
         Job saved = jobRepository.save(jobEntity);
 
         return jobMapper.toResponse(saved);
@@ -65,36 +53,17 @@ public class JobService {
      */
     @Transactional(readOnly = true)
     public JobResponse findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
-        }
         Job job = jobRepository.findJobById(id)
                 .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
         return jobMapper.toResponse(job);
     }
 
     public JobResponse updateJob(Long id, JobRequest request) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
-        }
-        if (request == null) {
-            throw new IllegalArgumentException("Los datos de la vacante no pueden ser nulos.");
-        }
-        if (request.title() == null || request.title().trim().isEmpty()) {
-            throw new IllegalArgumentException("El título del puesto de trabajo es obligatorio.");
-        }
-        if (request.companyId() == null) {
-            throw new IllegalArgumentException("La vacante debe estar asociada a una empresa válida.");
-        }
-        if (request.experienceLevel() == null) {
-            throw new IllegalArgumentException("El nivel de experiencia es obligatorio.");
-        }
-
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
 
         Company company = companyRepository.findById(request.companyId())
-                .orElseThrow(() -> new IllegalArgumentException("La empresa no existe."));
+                .orElseThrow(() -> new NoSuchElementException("La empresa no existe."));
 
         jobMapper.updateEntity(job, request, company);
         Job saved = jobRepository.save(job);
@@ -103,14 +72,11 @@ public class JobService {
     }
 
     public void deleteJob(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID del puesto de trabajo no puede ser nulo.");
-        }
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Puesto de trabajo no encontrado con el ID: " + id));
 
-        List<com.appbit.backend.modules.recruitment.entity.RecruitmentProcess> processes =
-                recruitmentProcessRepository.findByJobId(id);
+        List<com.appbit.backend.modules.recruitment.entity.RecruitmentProcess> processes = recruitmentProcessRepository
+                .findByJobId(id);
         if (!processes.isEmpty()) {
             recruitmentProcessRepository.deleteAll(processes);
         }

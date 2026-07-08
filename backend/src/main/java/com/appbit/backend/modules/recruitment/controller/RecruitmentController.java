@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class RecruitmentController {
     @ApiResponse(responseCode = "201", description = "Proceso creado")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RecruitmentResponse initiateContact(@RequestBody RecruitmentRequest request) {
+    public RecruitmentResponse initiateContact(@Valid @RequestBody RecruitmentRequest request) {
         return recruitmentService.initiateContact(request);
     }
 
@@ -44,8 +45,7 @@ public class RecruitmentController {
     @PutMapping("/{id}/notes")
     public RecruitmentResponse updateNotes(
             @PathVariable Long id,
-            @RequestBody @Schema(description = "Notas del reclutador", example = "{\"notes\": \"Perfil prometedor\"}")
-            java.util.Map<String, String> body) {
+            @RequestBody @Schema(description = "Notas del reclutador", example = "{\"notes\": \"Perfil prometedor\"}") java.util.Map<String, String> body) {
         return recruitmentService.updateNotes(id, body.get("notes"));
     }
 

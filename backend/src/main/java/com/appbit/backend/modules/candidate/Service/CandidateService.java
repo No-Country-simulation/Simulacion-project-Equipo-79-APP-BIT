@@ -29,24 +29,25 @@ public class CandidateService {
      * Obtiene una lista de candidatos anonimizados que coinciden con los filtros
      * de municipio y nivel de experiencia.
      *
-     * @param municipio       región o ciudad del candidato (puede ser null para ignorar filtro)
-     * @param experienceLevel nivel de experiencia (JUNIOR, MID, SENIOR) (puede ser null)
+     * @param municipio       región o ciudad del candidato (puede ser null para
+     *                        ignorar filtro)
+     * @param experienceLevel nivel de experiencia (JUNIOR, MID, SENIOR) (puede ser
+     *                        null)
      * @return lista de DTOs anonimizados, nunca null (vacía si no hay resultados)
      */
     /**
      * Obtiene una lista de candidatos anonimizados que coinciden con los filtros
-     * de municipio y nivel de experiencia, limitado a un máximo de 35 para el LLM.
+     * de municipio y nivel de experiencia, limitado a un máximo de 50 para el LLM.
      */
     @Transactional(readOnly = true)
-    public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio, ExperienceLevel experienceLevel) {
+    public List<AnonymousCandidateResponse> getCandidatesForMatching(String municipio,
+            ExperienceLevel experienceLevel) {
 
+        // Limitamos a 50 candidatos máximo para no saturar al LLM ni la memoria
         List<Candidate> candidates = candidateRepository.findCandidatesForMatchingWithLimit(
                 municipio,
-                experienceLevel
-        );
-
-
-        candidates.forEach(c -> c.getSkills().size());
+                experienceLevel,
+                PageRequest.of(0, 50));
 
         return candidates.stream()
                 .map(AnonymousCandidateResponse::from)

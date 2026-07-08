@@ -12,15 +12,14 @@ import java.util.Optional;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-    @Query("SELECT j FROM Job j " +
-            "JOIN FETCH j.company " +
-            "LEFT JOIN FETCH j.skills " +
-            "LEFT JOIN FETCH j.softSkills " +
-            "WHERE j.id = :id")
-    Optional<Job> findJobById(@Param("id") Long id);
+        @Query("SELECT j FROM Job j " +
+                        "JOIN FETCH j.company " +
+                        "LEFT JOIN FETCH j.skills " +
+                        "WHERE j.id = :id")
+        Optional<Job> findJobById(@Param("id") Long id);
 
-    @Query("SELECT DISTINCT j FROM Job j " +
-            "JOIN FETCH j.company " +
-            "LEFT JOIN FETCH j.skills")
-    List<Job> findAllJobs();
+        @Query("SELECT DISTINCT j FROM Job j " +
+                        "JOIN FETCH j.company " +
+                        "LEFT JOIN FETCH j.skills")
+        List<Job> findAllJobs();
 }

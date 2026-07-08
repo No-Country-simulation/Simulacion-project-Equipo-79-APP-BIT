@@ -4,14 +4,11 @@ import com.appbit.backend.modules.company.dto.JobRequest;
 import com.appbit.backend.modules.company.dto.JobResponse;
 import com.appbit.backend.modules.company.entity.Company;
 import com.appbit.backend.modules.company.entity.Job;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class JobMapper {
 
     public Job toEntity(JobRequest dto, Company company) {
@@ -19,7 +16,7 @@ public class JobMapper {
                 .title(dto.title())
                 .description(dto.description())
                 .region(dto.region())
-                .skills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>())
+                .skills(dto.requiredSkills())
                 .experienceLevel(dto.experienceLevel())
                 .company(company)
                 .diversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled())
@@ -27,7 +24,7 @@ public class JobMapper {
                 .modality(dto.modality())
                 .salaryRange(dto.salaryRange())
                 .contractType(dto.contractType())
-                .softSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>())
+                .softSkills(dto.softSkills())
                 .experienceYears(dto.experienceYears())
                 .education(dto.education())
                 .build();
@@ -51,15 +48,14 @@ public class JobMapper {
                 job.getContractType(),
                 job.getSoftSkills(),
                 job.getExperienceYears(),
-                job.getEducation()
-        );
+                job.getEducation());
     }
 
     public void updateEntity(Job job, JobRequest dto, Company company) {
         job.setTitle(dto.title());
         job.setDescription(dto.description());
         job.setRegion(dto.region());
-        job.setSkills(dto.requiredSkills() != null ? dto.requiredSkills() : new ArrayList<>());
+        job.setSkills(dto.requiredSkills());
         job.setExperienceLevel(dto.experienceLevel());
         job.setCompany(company);
         job.setDiversityFocusEnabled(dto.diversityFocusEnabled() != null && dto.diversityFocusEnabled());
@@ -67,7 +63,7 @@ public class JobMapper {
         job.setModality(dto.modality());
         job.setSalaryRange(dto.salaryRange());
         job.setContractType(dto.contractType());
-        job.setSoftSkills(dto.softSkills() != null ? dto.softSkills() : new ArrayList<>());
+        job.setSoftSkills(dto.softSkills());
         job.setExperienceYears(dto.experienceYears());
         job.setEducation(dto.education());
     }

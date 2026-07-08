@@ -21,15 +21,10 @@ public class CompanyService {
     private final CompanyMapper companyMapper;
 
     /**
-     * Registra una nueva empresa aplicando validaciones básicas.
+     * Registra una nueva empresa aplicando validaciones de negocio.
      */
     public Company register(CompanyRequest company) {
-        if (company == null) {
-            throw new IllegalArgumentException("La empresa no puede ser nula.");
-        }
-        if (company.name() == null || company.name().trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la empresa es obligatorio.");
-        }
+
         if (companyRepository.existsByNameIgnoreCase(company.name())) {
             throw new IllegalArgumentException("Ya existe una empresa registrada con ese nombre.");
         }
@@ -46,9 +41,6 @@ public class CompanyService {
      */
     @Transactional(readOnly = true)
     public Company findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID de la empresa no puede ser nulo.");
-        }
         return companyRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Empresa no encontrada con el ID: " + id));
     }
