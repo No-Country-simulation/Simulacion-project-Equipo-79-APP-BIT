@@ -216,7 +216,7 @@ public class InsightsService {
                             c -> c.getMunicipio() != null ? c.getMunicipio() : MUNICIPIO_UNDEFINED,
                             Collectors.counting()));
         } else {
-            allCandidates = candidateRepository.findAll();
+            allCandidates = candidateRepository.findAllCandidates();
             candidateCounts = candidateService.countByMunicipio();
             diversityCounts = candidateService.countDiversityByMunicipio();
         }

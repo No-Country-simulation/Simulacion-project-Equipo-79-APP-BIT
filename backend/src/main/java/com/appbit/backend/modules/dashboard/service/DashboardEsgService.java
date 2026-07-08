@@ -74,7 +74,7 @@ public class DashboardEsgService {
                                         : goalLabel;
                         log.info("Dashboard ESG filtrado por jobId={}: {} candidatos en scope", jobId, scope.size());
                 } else {
-                        scope = candidateRepository.findAll();
+                        scope = candidateRepository.findAllCandidates();
                         log.info("Generando métricas ESG globales...");
                 }
 
