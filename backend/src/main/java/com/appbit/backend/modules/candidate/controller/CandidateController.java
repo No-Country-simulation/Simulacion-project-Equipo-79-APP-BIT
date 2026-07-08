@@ -71,4 +71,11 @@ public class CandidateController {
                 Candidate candidate = candidateService.findById(id);
                 return ResponseEntity.ok(CandidateFullProfileResponse.from(candidate));
         }
+
+        @GetMapping("/{id}/full-profile")
+        @Operation(summary = "Obtener perfil completo del candidato", description = "Retorna todos los datos del candidato incluyendo información de diversidad autodeclarada.")
+        public ResponseEntity<CandidateFullProfileResponse> getFullProfile(@PathVariable Long id) {
+                Candidate candidate = candidateService.findById(id);
+                return ResponseEntity.ok(CandidateFullProfileResponse.from(candidate));
+        }
 }
