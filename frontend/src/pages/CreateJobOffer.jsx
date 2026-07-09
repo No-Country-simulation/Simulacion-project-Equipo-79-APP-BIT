@@ -256,9 +256,9 @@ const CreateJobOffer = () => {
                   onChange={handleChange}
                   className={`${inputClass} appearance-none pr-9 cursor-pointer`}
                 >
-                  <option value="Remoto">Remoto</option>
-                  <option value="Híbrido">Híbrido</option>
-                  <option value="Presencial">Presencial</option>
+                  <option value="Remoto">Remote</option>
+                  <option value="Híbrido">Hybrid</option>
+                  <option value="Presencial">On-site</option>
                 </select>
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <ChevronIcon />
@@ -275,9 +275,9 @@ const CreateJobOffer = () => {
                   onChange={handleChange}
                   className={`${inputClass} appearance-none pr-9 cursor-pointer`}
                 >
-                  <option value="Término indefinido">Término indefinido</option>
-                  <option value="Término fijo">Término fijo</option>
-                  <option value="Prestación de servicios">Prestación de servicios</option>
+                  <option value="Término indefinido">Full-time</option>
+                  <option value="Término fijo">Fixed-term</option>
+                  <option value="Prestación de servicios">Contract</option>
                   <option value="Freelance">Freelance</option>
                 </select>
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -296,7 +296,7 @@ const CreateJobOffer = () => {
                 name="salaryRange"
                 value={formData.salaryRange}
                 onChange={handleChange}
-                placeholder="3.000.000 - 5.000.000 COP"
+                placeholder="3,000 - 5,000 USD"
                 className={inputClass}
               />
             </div>
@@ -324,7 +324,7 @@ const CreateJobOffer = () => {
                 name="education"
                 value={formData.education}
                 onChange={handleChange}
-                placeholder="Ingeniería de Sistemas o afín"
+                placeholder="Computer Science or related fields"
                 className={inputClass}
               />
             </div>
@@ -336,7 +336,7 @@ const CreateJobOffer = () => {
                 name="softSkills"
                 value={formData.softSkills}
                 onChange={handleChange}
-                placeholder="Comunicación, Liderazgo, Trabajo en equipo"
+                placeholder="Communication, Leadership, Team Work"
                 className={inputClass}
               />
             </div>
