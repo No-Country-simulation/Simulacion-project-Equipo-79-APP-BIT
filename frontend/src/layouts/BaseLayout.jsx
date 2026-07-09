@@ -57,9 +57,8 @@ const Layout = () => {
         <aside className={`grid min-h-dvh bg-[#EFF4FF]/20 backdrop-blur-sm border-r border-[#EFF4FF]/20 shadow-lg grid-rows-[auto_1fr_auto] py-2 px-6 w-64 text-[#45464D] z-50 ${!sidebarOpen ? '-translate-x-full' : 'translate-x-0'} fixed md:static md:translate-x-0 transition-transform duration-300 ease-in-out `}>
           {/* //* logo */}
           <div id="aside-logo" className="mx-4">
-            <a href="/">
-              <p className="xl:text-[28px] md:text-[24px] text-[22px] font-extrabold">BiT Admin</p>
-              <span className="font-medium text-[12px]">ESG  Matching Portal</span>
+            <a href="/" className="flex items-center justify-center">
+              <img src="/logo.png" alt="BiT Admin" className="w-16 h-16 object-contain" />
             </a>
           </div>
           {/* //* nav */}

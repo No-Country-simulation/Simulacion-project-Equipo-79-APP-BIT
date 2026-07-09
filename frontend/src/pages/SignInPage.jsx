@@ -9,8 +9,7 @@ const SignInPage = () => {
           background: "linear-gradient(135deg, #006B5F, #005a50, #004940)"
         }}
       >
-        <h1 className="text-6xl font-bold tracking-tighter mb-6 text-white">BiT Admin</h1>
-        <p className="text-xl text-white mb-8 tracking-wider uppercase">ESG Matching Portal</p>
+        <img src="/logo.png" alt="BiT Admin" className="w-48 h-48 object-contain mb-6" />
 
         <div className="text-center max-w-md">
           <p className="text-2xl font-semibold mb-4 text-white">Conectamos talento con empresas sostenibles</p>
