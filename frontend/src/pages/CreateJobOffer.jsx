@@ -275,8 +275,8 @@ const CreateJobOffer = () => {
                   onChange={handleChange}
                   className={`${inputClass} appearance-none pr-9 cursor-pointer`}
                 >
-                  <option value="Término indefinido">Full-time</option>
-                  <option value="Término fijo">Fixed-term</option>
+                  <option value="Término indefinido">Fixed-term</option>
+                  <option value="Término fijo">Full-time</option>
                   <option value="Prestación de servicios">Contract</option>
                   <option value="Freelance">Freelance</option>
                 </select>
