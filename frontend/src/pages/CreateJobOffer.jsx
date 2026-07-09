@@ -378,10 +378,10 @@ const CreateJobOffer = () => {
           </div>
 
           {/* ── Action Buttons ── */}
-          <div className="border-t border-gray-100 pt-6 flex justify-end gap-3">
+          <div className="border-t border-gray-100 pt-6 flex flex-wrap justify-center md:justify-end gap-3">
             <button
               type="button"
-              className="px-6 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
+              className="border px-6 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
             >
               Cancel
             </button>

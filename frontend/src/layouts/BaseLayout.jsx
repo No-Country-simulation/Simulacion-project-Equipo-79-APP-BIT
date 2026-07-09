@@ -52,7 +52,7 @@ const Layout = () => {
       <div className="flex min-h-dvh bg-[#F8F9FF]">
         {/* // ? sidebar */}
         {sidebarOpen && (
-          <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
+          <div className={`fixed inset-0 bg-neutral-200/10 backdrop-blur-sm z-40 md:hidden`} onClick={() => setSidebarOpen(false)} />
         )}
         <aside className={`grid min-h-dvh bg-[#EFF4FF]/20 backdrop-blur-sm border-r border-[#EFF4FF]/20 shadow-lg grid-rows-[auto_1fr_auto] py-2 px-6 w-64 text-[#45464D] z-50 ${!sidebarOpen ? '-translate-x-full' : 'translate-x-0'} fixed md:static md:translate-x-0 transition-transform duration-300 ease-in-out `}>
           {/* //* logo */}
@@ -66,25 +66,25 @@ const Layout = () => {
           <ul className="[&_a]:inline-flex [&_a]:gap-2.5 [&_a]:items-center [&_a]:mx-4 [&_li]:my-2.5 [&_li]:py-2 mt-8 [&>li]:hover:bg-[#6DF5E1] [&>.activebtn]:bg-[#6DF5E1] *:rounded-lg *:cursor-pointer *:hover:text-black *:hover:transition-colors">
             <Show when="signed-in">
               <li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/' ? 'activebtn' : ''}`}>
-  <Link to="/" className="w-full h-full flex items-center gap-2.5">
-    <DashboardIcon />Dashboard
-  </Link>
-</li>
-<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname.startsWith('/job') ? 'activebtn' : ''}`}>
-  <Link to="/job" className="w-full h-full flex items-center gap-2.5">
-    <JobsIcon />Jobs
-  </Link>
-</li>
-<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/insights' ? 'activebtn' : ''}`}>
-  <Link to="/insights" className="w-full h-full flex items-center gap-2.5">
-    <InsightsIcon />Insights
-  </Link>
-</li>
-<li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/settings' ? 'activebtn' : ''}`}>
-  <Link to="/settings" className="w-full h-full flex items-center gap-2.5">
-    <SettingsIcon />Settings
-  </Link>
-</li>
+                <Link to="/" className="w-full h-full flex items-center gap-2.5">
+                  <DashboardIcon />Dashboard
+                </Link>
+              </li>
+              <li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname.startsWith('/job') ? 'activebtn' : ''}`}>
+                <Link to="/job" className="w-full h-full flex items-center gap-2.5">
+                  <JobsIcon />Jobs
+                </Link>
+              </li>
+              <li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/insights' ? 'activebtn' : ''}`}>
+                <Link to="/insights" className="w-full h-full flex items-center gap-2.5">
+                  <InsightsIcon />Insights
+                </Link>
+              </li>
+              <li className={`my-2.5 py-2 rounded-lg cursor-pointer hover:text-black hover:transition-colors ${pathname === '/settings' ? 'activebtn' : ''}`}>
+                <Link to="/settings" className="w-full h-full flex items-center gap-2.5">
+                  <SettingsIcon />Settings
+                </Link>
+              </li>
             </Show>
           </ul>
           {/* //* footer */}

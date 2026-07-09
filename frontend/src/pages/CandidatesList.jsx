@@ -485,7 +485,7 @@ const CandidatesList = () => {
             </span>
           </div>
           {job.description && (
-            <p className="text-white/70 text-sm mt-3 max-w-2xl leading-relaxed">{job.description}</p>
+            <p className="text-white/70 text-sm mt-3 max-w-2xl leading-relaxed text-balance">{job.description}</p>
           )}
         </div>
       </div>
@@ -494,19 +494,19 @@ const CandidatesList = () => {
       {matchLoading && (
         <div className="flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-sm rounded-xl px-4 py-3">
           <svg className="w-4 h-4 animate-spin flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
-          Calculando compatibilidad con IA...
+          Calculating AI Compatibility...
         </div>
       )}
       {!matchLoading && matchError && (
         <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-xl px-4 py-3">
           <svg className="w-4 h-4 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-          <span>No se pudieron calcular los puntajes de compatibilidad ({matchError}). Se muestran los candidatos sin ranking de IA.</span>
+          <span>The compatibility scores could not be calculated ({matchError}). Showing candidates without AI ranking.</span>
         </div>
       )}
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
@@ -556,7 +556,7 @@ const CandidatesList = () => {
 
       {/* Filters */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="flex flex-col">
             <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Region</label>
             <div className="relative">
@@ -626,7 +626,7 @@ const CandidatesList = () => {
       {/* Map View */}
       {viewMode === 'map' && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+          <div className="flex flex-wrap gap-6 items-center justify-between px-6 py-4 border-b border-gray-50">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#006B5F]" />
               <h2 className="text-sm font-bold text-gray-700">Candidate Locations</h2>
@@ -664,7 +664,7 @@ const CandidatesList = () => {
           {filteredCandidates.map(candidate => (
             <div key={candidate.candidateId}
               className={`group bg-white rounded-2xl border shadow-sm p-5 transition-all hover:shadow-md ${selectedCandidates.has(candidate.candidateId) ? 'border-[#006B5F] ring-2 ring-[#006B5F]/20' : 'border-gray-100 hover:border-gray-200'}`}>
-              <div className="flex items-start gap-3 sm:gap-4">
+              <div className="flex flex-col md:flex-row items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0 pt-1 flex flex-col items-center gap-1">
                   <ScoreCircle score={candidate.compatibilityScore} />
                   {candidate.diversityScore > 0 && (

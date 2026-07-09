@@ -144,32 +144,32 @@ const Insights = () => {
         type: 'list',
       });
     }
-      if (candidate?.experienceLevel) {
-        fields.push({
-          key: 'experienceLevel',
-          label: 'Experience',
-          value: candidate.experienceLevel,
-          type: 'text',
-        });
-      }
+    if (candidate?.experienceLevel) {
+      fields.push({
+        key: 'experienceLevel',
+        label: 'Experience',
+        value: candidate.experienceLevel,
+        type: 'text',
+      });
+    }
 
-      if (candidate?.municipio || candidate?.region) {
-        fields.push({
-          key: 'municipio',
-          label: 'Municipality',
-          value: candidate.municipio || candidate.region,
-          type: 'text',
-        });
-      }
+    if (candidate?.municipio || candidate?.region) {
+      fields.push({
+        key: 'municipio',
+        label: 'Municipality',
+        value: candidate.municipio || candidate.region,
+        type: 'text',
+      });
+    }
 
-      if (candidate?.diversityBadge) {
-        fields.push({
-          key: 'diversityBadge',
-          label: 'Diversity',
-          value: formatDiversityBadge(candidate.diversityBadge),
-          type: 'text',
-        });
-      }
+    if (candidate?.diversityBadge) {
+      fields.push({
+        key: 'diversityBadge',
+        label: 'Diversity',
+        value: formatDiversityBadge(candidate.diversityBadge),
+        type: 'text',
+      });
+    }
 
     return fields;
   };
@@ -363,41 +363,41 @@ const Insights = () => {
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grids-cols-3 xl:grid-cols-5 gap-4 items-center">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow lg:h-25">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>
               </div>
               <div>
                 <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Candidates</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.totalCandidates}</p>
+                <p className="text-xl font-bold text-gray-800">{stats.totalCandidates}</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow lg:h-25">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
               </div>
               <div>
                 <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Regions</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.totalRegions}</p>
+                <p className="text-xl font-bold text-gray-800">{stats.totalRegions}</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow lg:h-25">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20V10M18 20V4M6 20v-4" /></svg>
               </div>
               <div>
                 <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Good Coverage</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.GOOD}<span className="text-sm font-medium text-gray-400 ml-1">/ {stats.totalRegions}</span></p>
+                <p className="text-xl font-bold text-gray-800">{stats.GOOD}<span className="text-sm font-medium text-gray-400 ml-1">/ {stats.totalRegions}</span></p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow lg:h-25">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
@@ -408,7 +408,7 @@ const Insights = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow lg:h-25">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
@@ -425,7 +425,7 @@ const Insights = () => {
 
       {/* Map */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+        <div className="flex flex-wrap gap-6 items-center justify-between px-6 py-4 border-b border-gray-50">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#006B5F]" />
             <h2 className="text-sm font-bold text-gray-700">Coverage Map</h2>
