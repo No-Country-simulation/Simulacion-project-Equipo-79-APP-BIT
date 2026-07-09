@@ -50,7 +50,7 @@ const Jobs = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Job Offers</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage your job postings and view matched candidates.</p>
+          <p className="text-sm text-gray-500 mt-1 text-balance">Manage your job postings and view matched candidates.</p>
         </div>
         <Link to="/create-job"
           className="bg-[#006B5F] hover:bg-[#005a50] active:scale-95 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all shadow-sm cursor-pointer shrink-0">
@@ -74,7 +74,7 @@ const Jobs = () => {
         <div className="flex flex-col gap-4">
           {jobs.map(job => (
             <div key={job.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex flex-col lg:flex-row items-baseline lg:items-center justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 flex-wrap">
                     <h2 className="text-lg font-bold text-gray-800">{job.title}</h2>
@@ -85,7 +85,7 @@ const Jobs = () => {
                   <p className="text-sm text-gray-500 mt-1.5 flex items-center gap-1">
                     <PinIcon /> {job.region} · {job.department}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">{job.description}</p>
+                  <p className="text-xs text-gray-400 mt-1 text-balance">{job.description}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <Link to={`/edit-job/${job.id}`}
