@@ -225,7 +225,7 @@ const CreateJobOffer = () => {
               name="requiredSkills"
               value={formData.requiredSkills}
               onChange={handleChange}
-              placeholder="Java, Spring Boot, Microservicios, PostgreSQL, Docker"
+              placeholder="Java, Spring Boot, Micro-services, PostgreSQL, Docker"
               className={inputClass}
               required
             />
