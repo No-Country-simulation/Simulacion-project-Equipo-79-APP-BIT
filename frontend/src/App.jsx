@@ -129,18 +129,18 @@ function App() {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#006B5F] via-[#008575] to-[#00A88F] p-8 text-white">
         <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-1/4 w-56 h-56 bg-white/5 rounded-full translate-y-1/3" />
-        <div className="relative z-10 flex items-start justify-between">
+        <div className="relative z-10 flex xl:items-start items-center justify-between">
           <div>
             <div className="flex items-center gap-2 text-white/70 text-sm font-medium mb-2">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><path d="M8 21h8M12 17v4" /></svg>
               BiT Admin Dashboard
             </div>
             <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-            <p className="text-white/80 text-sm mt-2 max-w-xl">
+            <p className="text-white/80 text-sm mt-2 max-w-lg text-balance">
               Overview of your ESG talent matching platform. Monitor candidates, job offers, and regional insights.
             </p>
           </div>
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex flex-wrap items-center gap-3">
             <Link to="/create-job" className="bg-white text-[#006B5F] hover:bg-white/90 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all">
               Post New Job
             </Link>
@@ -152,10 +152,10 @@ function App() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
             </div>
             <div>
@@ -165,8 +165,8 @@ function App() {
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             </div>
             <div>
@@ -176,8 +176,8 @@ function App() {
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
             </div>
             <div>
@@ -188,7 +188,7 @@ function App() {
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
             </div>
             <div>
@@ -240,9 +240,9 @@ function App() {
                 <span className="text-gray-500">With diversity badge</span>
                 <span className="font-semibold text-gray-700">{esg?.totalDiversity ?? 0}</span>
               </div>
-              <div className="flex justify-between text-xs">
+              <div className="flex flex-col sm:flex-row justify-between text-xs">
                 <span className="text-gray-500">Goal</span>
-                <span className="font-semibold text-gray-700">{esg?.esgCompliance?.goal ?? '—'}</span>
+                <span className="font-semibold text-balance text-gray-700">{esg?.esgCompliance?.goal ?? '—'}</span>
               </div>
             </div>
           </div>
